@@ -1,0 +1,90 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <h3 class="heading_b uk-margin-bottom">Add Contact</h3>
+        <div class="md-card uk-margin-medium-bottom">
+            <div class="md-card-content">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-1-1">
+                        <ul class="uk-tab" data-uk-tab="{connect:'#tabs_1'}">
+                            <li class="uk-active"><a href="#">Add Contact</a></li>
+                            <li><a href="#">Upload Contacts</a></li>
+                        </ul>
+                        <ul id="tabs_1" class="uk-switcher uk-margin">
+                            <li>
+                                <div class="uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-1-2 uk-row-first">
+                                        <div class="uk-form-row">
+                                            <div class="md-input-wrapper">
+                                                <label>Group Name</label>
+                                                <input type="text" config="group_name_config" options="group_name_data" ng-model="contact.g_id" selectize />
+                                            </div>                          
+                                        </div>
+                                        <div class="uk-form-row">
+                                            <div class="md-input-wrapper">
+                                                <label>Name</label>
+                                                <input type="text" class="md-input" ng-model="contact.name" md-input />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-medium-1-2">
+                                        <div class="uk-form-row">
+                                            <div class="md-input-wrapper">
+                                                <label>Mobile</label>
+                                                <input type="text" class="md-input" ng-model="contact.mobile" md-input />
+                                            </div>
+                                        </div>
+                                        <div class="uk-form-row">
+                                            <div class="md-input-wrapper">
+                                                <label>Email</label>
+                                                <input type="text" class="md-input" ng-model="contact.email" md-input />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-large-1 uk-text-center">
+                                        <button type="button" class="md-btn md-btn-success" ng-click="addContact(contact)" >Add Contact</button>
+                                        <button type="button" class="md-btn md-btn-warning" >Reset</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <!-- <h3 class="heading_a">Upload Contacts File</h3> -->
+                                        <div class="uk-grid">
+                                            <div class="uk-width-1-2">
+                                                <div class="uk-form-row">
+                                                    <div class="md-input-wrapper">
+                                                        <label>Group Name</label>
+                                                        <input type="text" config="group_name_config" options="group_name_data" ng-model="contact.g_id" selectize />
+                                                    </div>                          
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="uk-grid">
+                                            <div class="uk-width-1-1">
+                                                <div id="file_upload-drop" class="uk-file-upload">
+                                                    <p class="uk-text">Drop file to upload</p>
+                                                    <p class="uk-text-muted uk-text-small uk-margin-small-bottom">or</p>
+                                                    <span class="uk-form-file md-btn">choose file<input id="file_upload-select" type="file" file-model="contactFile"></span>
+                                                    <p class="uk-text">{{ fileName }}</p>
+                                                </div>
+                                                <div id="file_upload-progressbar" class="uk-progress uk-hidden">
+                                                    <div class="uk-progress-bar" style="width:0">0%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="uk-grid" data-uk-grid-margin="">
+                                            <div class="uk-width-large-1 uk-text-center">
+                                                <button type="button" class="md-btn md-btn-success" ng-click="uploadContactFile()" >Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

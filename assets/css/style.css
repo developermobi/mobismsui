@@ -1,0 +1,22 @@
+.activeSmsType,
+.activeSmsType:hover,
+.activeSmsType:focus,
+.activeSmsType:active {
+  background: #8e0300;
+  color: #fff;
+}
+
+.deActiveSmsType,
+.deActiveSmsType:hover,
+.deActiveSmsType:focus,
+.deActiveSmsType:active {
+  background: #eaeaea;
+  color: #000;
+}
+
+.activeButton{
+  width: 68px !important;
+  text-align: center !important;
+  padding: 2px !important;
+}
+

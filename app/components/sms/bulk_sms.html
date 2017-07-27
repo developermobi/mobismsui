@@ -1,0 +1,17 @@
+<div id="page_content">
+    <div id="page_content_inner">
+   		<div class="uk-grid" data-uk-grid-margin="">
+            <div class="uk-width-medium-1-2" ng-repeat="smsType in smsTypes">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <a ng-click="select(smsType.type)" ng-class="selected == smsType.type ? 'activeSmsType' : 'deActiveSmsType'" class="md-btn md-btn-block md-btn-wave-light waves-effect waves-button waves-light" href="javascript:void(0)">{{ smsType.type }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h4 class="heading_b uk-margin-bottom">You have selected {{ selected }}</h4>
+        <sms-type></sms-type>
+    </div>
+
+</div>

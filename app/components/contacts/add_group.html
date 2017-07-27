@@ -1,0 +1,41 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <h3 class="heading_b uk-margin-bottom">Add Group</h3>
+        <div class="md-card">
+            <div class="md-card-content">
+            	<form >
+	                <div class="uk-grid" data-uk-grid-margin="">	                	
+					    <div class="uk-width-medium-1-2 uk-row-first">
+						    <div class="uk-form-row">
+						        <div class="md-input-wrapper">
+						        	<label>Group Name</label>
+							    	<input type="text" class="md-input" ng-model="group.group_name" name="group_name" md-input />
+						        </div>					        
+						    </div>
+						    <div class="uk-form-row">
+						        <div class="">
+						        	<label>Status</label>
+						            <input type="text" config="group_status_config" options="group_status.options" ng-model="group.status" name="status" selectize />
+						        </div>					        
+						    </div>
+						</div>
+						<div class="uk-width-medium-1-2">
+						    <div class="uk-form-row">
+						        <div class="md-input-wrapper">
+						        	<label>Description</label>
+						       		<textarea class="md-input teaxtarea-scroll ng-pristine ng-isolate-scope ng-invalid ng-invalid-required md-input-processed ng-touched" rows="5" id="description" name="description" required="" ng-model="group.description" md-input="" style=""></textarea>
+						       		<span class="md-input-bar"></span>
+						        </div>					        
+						    </div>
+						</div>
+						 <div class="uk-width-large-1 uk-text-center">
+						 	<input type="hidden" ng-model="group.u_id" value="1">
+					        <button type="button" class="md-btn md-btn-success" ng-click="saveGroup(group)" >Add Group</button>
+					        <button type="button" class="md-btn md-btn-warning" >Reset</button>
+					    </div>						
+					</div>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>
