@@ -82,13 +82,18 @@ angular
                 utils.card_show_hide($login_card,undefined,password_reset_show,undefined);
             };
 
-            $scope.submitSignIn = function(login){                
+            $scope.submitSignIn = function(login){  
+            
                 var loginData = JSON.stringify(login);
                 //console.log(loginData);
-                var loginApi = "login";
+                var loginApi = "user/login";
                 apiLogin.async(loginApi, loginData).then(function(d) {
+                    //console.log(d);
+                    //return false;
                     $scope.responseData = d.data;
-                    if($scope.responseData.code == 302){
+                    if($scope.responseData.status == 302){
+                        /*console.log($scope.responseData.data['userId']);
+                        return false;*/
                         AuthenticationService.SetCredentials($scope.responseData.data);
                         $location.path('dashboard');                        
                     }else{
@@ -98,7 +103,7 @@ angular
                             modal.hide();
                         },3000);
                     }
-                    console.log($scope.responseData);
+                    //console.log($scope.responseData);
                 }); 
             }
 

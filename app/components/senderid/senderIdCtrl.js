@@ -3,34 +3,30 @@ angular
     .controller('senderIdCtrl', [
         '$scope',
         '$rootScope',
-        function ($scope,$rootScope) {
-        	// $scope.group_status = {
-         //        options: [
-         //            {
-         //                id: 1,
-         //                title: "Active",
-         //                value: "Active",
-         //                parent_id: 1
-         //            },
-         //            {
-         //                id: 2,
-         //                title: "In-Active",
-         //                value: "In-Active",
-         //                parent_id: 1
-         //            }
-         //        ]
-         //    };
+        'apiPostData',
+        '$cookieStore',
+        function ($scope,$rootScope,apiPostData,$cookieStore) {
+            $rootScope.globals = $cookieStore.get('globals') || {};
+            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
-         //    $scope.group_status_config = {
-         //        create: false,
-         //        maxItems: 1,
-         //        placeholder: 'Select...',
-         //        optgroupField: 'parent_id',
-         //        optgroupLabelField: 'title',
-         //        optgroupValueField: 'ogid',
-         //        valueField: 'value',
-         //        labelField: 'title',
-         //        searchField: 'title'
-         //    };
+            alert($rootScope.u_id);
+            $scope.sender = {};
+            $scope.saveSenderId = function(sender) {   
+                var addSender = "saveSenderId";  
+                var senderData = sender;
+                senderData.userId = $rootScope.u_id;
+                senderData.status = 1;
+                senderData = JSON.stringify(senderData);
+
+                console.log(senderData);
+                
+                apiPostData.async(addSender, senderData).then(function(d) {
+                    console.log(d);
+                    
+                    //console.log($scope.responseData);
+                });            
+            }; 
+
+
         }
     ]);

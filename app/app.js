@@ -13,7 +13,7 @@ var altairApp = angular.module('altairApp', [
     'ngCookies'
 ]);
 
-altairApp.value('globalUrl', 'http://localhost:8000/api/');
+altairApp.value('globalUrl', 'http://localhost:8080/sms/api/');
 
 altairApp.constant('variables', {
     header__main_height: 48,

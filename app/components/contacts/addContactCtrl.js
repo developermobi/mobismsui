@@ -31,6 +31,7 @@ angular
         function ($scope,$rootScope,apiGetData,apiPostData,apiFileUpload,$cookieStore) {
         	$rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.userId;
+            
             $scope.contact = {};
 
             $scope.fileName = '';

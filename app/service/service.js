@@ -5,7 +5,7 @@ altairApp.config(function ($httpProvider) {
   $httpProvider.defaults.headers.patch = {};
   $httpProvider.defaults.headers.options = {};
   $httpProvider.defaults.useXDomain = true;
-    //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
 altairApp.service('apiLogin', ['$http','$rootScope','$state','globalUrl', function ($http,$rootScope,$state,globalUrl) {
@@ -29,12 +29,14 @@ altairApp.service('apiLogin', ['$http','$rootScope','$state','globalUrl', functi
             var promise = $http.post(url, data, config)        
             .success(function(response){
                 modal.hide();
-                //console.log(response);
+                // console.log(response);
+                // return false;
                 return response.data.data;
             })
             .error(function(response){
                 modal.hide();
-                //console.log(response);
+                // console.log(response);
+                // return false;
                 UIkit.modal.alert(response.message);
                 return response.data.data;
             });
@@ -178,14 +180,14 @@ altairApp.factory('AuthenticationService',
    
         service.SetCredentials = function (data) {
             
-            var auth_key = data['auth_key'];
+            var auth_key = data['authorization'];
              
             $rootScope.globals = {
                 currentUser: {
-                    userId: data['id'],
+                    u_id: data['userId'],
                     auth_key: auth_key
                 }
-            };
+            };            
             
             $cookieStore.put('globals', $rootScope.globals);            
             
