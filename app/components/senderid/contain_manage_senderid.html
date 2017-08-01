@@ -11,47 +11,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                
-                                <td class="uk-text-center">1</td>
-                                <td class="uk-text-center">XYZ</td>
-                                <td class="uk-text-center">Active</td>
-                                <td class="uk-text-center">17-09-2013</td>
+                            <tr ng-repeat="data in userSenderData" >                                
+                                <td class="uk-text-center">{{ $index +1 }}</td>
+                                <td class="uk-text-center" ><span ng-dblclick=editSender(data.id); class="senderIdtd{{data.id}} editSender" data-uk-tooltip="{pos:'right'}" title="Double Click to Edit">{{ data.sender_id}}</span></td>
+                                <td class="uk-text-center">{{ data.status ==1 ? 'Active' : 'Inactive'}}</td>
+                                <td class="uk-text-center">{{ data.created}}</td>
                                 <td class="uk-text-center">
-                                    <a href="#"><i class="md-icon material-icons" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
+                                    <a  ng-click="deleteSenderId(data.id)"><i class="md-icon material-icons" data-uk-tooltip="{pos:'bottom'}" title="Delete" >&#xE872;</i></a>
                                 </td>
-                            </tr>
-                             <tr>
-                                
-                                <td class="uk-text-center">2</td>
-                                <td class="uk-text-center">ASZ</td>
-                                <td class="uk-text-center">In-Active</td>
-                                <td class="uk-text-center">12-09-2016</td>
-                                <td class="uk-text-center">
-                                    <a href="#"><i class="md-icon material-icons" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
-                                </td>
-                            </tr>
-
-                             <tr>
-                                
-                                <td class="uk-text-center">3</td>
-                                <td class="uk-text-center">Shak</td>
-                                <td class="uk-text-center">Active</td>
-                                <td class="uk-text-center">17-02-2017</td>
-                                <td class="uk-text-center">
-                                    <a href="#"><i class="md-icon material-icons" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                
-                                <td class="uk-text-center">4</td>
-                                <td class="uk-text-center">Shabz</td>
-                                <td class="uk-text-center">Active</td>
-                                <td class="uk-text-center">17-05-2017</td>
-                                <td class="uk-text-center">
-                                    <a href="#"><i class="md-icon material-icons" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
-                                </td>
-                            </tr>
+                            </tr>                           
 
                             </tbody>
                         </table>
