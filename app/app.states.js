@@ -146,6 +146,9 @@ altairApp
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
                                 'app/components/profile/profileController.js'
                                 ], {serie:true} );
                         }]

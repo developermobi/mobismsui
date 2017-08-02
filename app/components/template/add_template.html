@@ -9,43 +9,43 @@
 					    <div class="uk-form-row">
 					        <div class="md-input-wrapper">
 					        	<label>Title</label>
-						    	<input type="text" class="md-input" ng-model="temp_title" name="temp_title" md-input />
+						    	<input type="text" class="md-input" ng-model="template.name" name="temp_title" md-input />
 					        </div>
 					        
 					    </div>
 					    <div class="uk-form-row">
 					       <div class="md-input-wrapper">
 					        	<label>Message</label>
-					       		<textarea class="md-input teaxtarea-scroll ng-pristine ng-isolate-scope ng-invalid ng-invalid-required md-input-processed ng-touched" rows="4" id="temp_message" required="" ng-model="temp_message" name="temp_message" md-input="" style=""></textarea>
+					       		<textarea class="md-input teaxtarea-scroll ng-pristine ng-isolate-scope ng-invalid ng-invalid-required md-input-processed ng-touched" rows="4" id="temp_message" required="" ng-model="template.description" ng-keyup="messageCount()" name="temp_message" md-input="" style=""></textarea>
 					       		<span class="md-input-bar"></span>
 					        </div>
 					        
 					    </div>
 					</div>
-					   <div class="uk-width-large-1-3 uk-width-medium-1-2">
-					        <ul class="md-list md-list-addon">
-					    
-					            <li>
-					                <div class="md-list-addon-element">
-					                    <i class="md-list-addon-icon material-icons uk-text-success">&#xE158;</i>
-					                </div>
-					                <div class="md-list-content">
-					                    <span class="md-list-heading">0 / 0 Remaining</span>
-					                </div>
-					            </li>
-					             <li>
-					                <div class="md-list-addon-element">
-					                    <i class="md-list-addon-icon material-icons uk-text-success">&#xE158;</i>
-					                </div>
-					                <div class="md-list-content">
-					                    <span class="md-list-heading">0 Characters count</span>
-					                </div>
-					            </li>
-					        </ul>
-					    </div>
+				     <div class="uk-width-medium-1-2">
+                        <ul class="md-list md-list-addon">
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="sm-list-addon-icon material-icons">&#xE158;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <span class="md-list-heading">{{ messagesCount }} / {{ remainingCount }} remaining</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <i class="sm-list-addon-icon material-icons uk-text-success">&#xE158;</i>
+                                </div>
+                                <div class="md-list-content">
+                                    <span class="md-list-heading">{{ totalCount }} Character Count</span>
+                                </div>
+                            </li>                                                     
+                        </ul>
+      
+                    </div>
 
 					 <div class="uk-width-large-1 uk-text-center">
-				        <button type="button" class="md-btn md-btn-success" >Add Template</button>
+				        <button type="button" class="md-btn md-btn-success" ng-click="saveTemplate(template)" >Add Template</button>
 				        <button type="button" class="md-btn md-btn-warning" >Reset</button>
 				    </div>
 				</div>

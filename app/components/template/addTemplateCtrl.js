@@ -3,34 +3,114 @@ angular
     .controller('addTemplateCtrl', [
         '$scope',
         '$rootScope',
-        function ($scope,$rootScope) {
-        	// $scope.group_status = {
-         //        options: [
-         //            {
-         //                id: 1,
-         //                title: "Active",
-         //                value: "Active",
-         //                parent_id: 1
-         //            },
-         //            {
-         //                id: 2,
-         //                title: "In-Active",
-         //                value: "In-Active",
-         //                parent_id: 1
-         //            }
-         //        ]
-         //    };
+        'apiPostData',
+        '$cookieStore',
+        function ($scope,$rootScope,apiPostData,$cookieStore) {
+            
+            $rootScope.globals = $cookieStore.get('globals') || {};
+            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
-         //    $scope.group_status_config = {
-         //        create: false,
-         //        maxItems: 1,
-         //        placeholder: 'Select...',
-         //        optgroupField: 'parent_id',
-         //        optgroupLabelField: 'title',
-         //        optgroupValueField: 'ogid',
-         //        valueField: 'value',
-         //        labelField: 'title',
-         //        searchField: 'title'
-         //    };
+            /*alert($rootScope.u_id);*/
+            $scope.template = {};
+           // $scope.senderEdited = {};
+           $scope.saveTemplate = function(template) {   
+                var addTemplate = "saveTemplate";  
+                var templateData = template;
+                templateData.userId = $rootScope.u_id;
+                
+                templateData = JSON.stringify(templateData);
+
+                //console.log(senderData);
+                
+                apiPostData.async(addTemplate, templateData).then(function(d) {
+                   // console.log(d);
+                    $scope.responseData = d.data;
+                    if($scope.responseData.code == 201){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Successfully Add Template');
+                        modal.show();
+                       // getData();
+                        setTimeout(function(){
+                            modal.hide();
+                            window.location.href="/mobismsui/#/template/manage";
+                        },3000);
+
+                    }else if($scope.responseData.code == 406){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please Enter  Template Details');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.responseData.code == 400){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Somethig going worng');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else{
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid  Token Credentials');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    //console.log($scope.responseData);
+                });            
+            }; 
+            $scope.messagesCount = 0;
+            $scope.remainingCount = 0;
+            $scope.totalCount = 0;
+
+            $scope.messageCount = function(){
+                $scope.part1Count = 160;
+                $scope.part2Count = 146;
+                $scope.part3Count = 153;
+              // alert($scope.template.description);
+                if($scope.template.description == undefined){
+
+                    
+                    $scope.messagesCount = 0;
+                    $scope.remainingCount = 0;
+                    $scope.totalCount = 0;
+                    return false;
+                }
+                
+                var chars = $scope.template.description.length;
+
+                if (chars <= $scope.part1Count) {
+                    $scope.messagesCount = 1;
+                    $scope.remainingCount = $scope.part1Count - chars;
+                } else if (chars <= ($scope.part1Count + $scope.part2Count)) { 
+                    $scope.messagesCount = 2;
+                    $scope.remainingCount = $scope.part1Count + $scope.part2Count - chars;
+                } else if (chars > ($scope.part1Count + $scope.part2Count)) { 
+                    moreM = Math.ceil((chars - $scope.part1Count - $scope.part2Count) / $scope.part3Count) ;
+                    $scope.remainingCount = $scope.part1Count + $scope.part2Count + (moreM * $scope.part3Count) - chars;
+                    $scope.messagesCount = 2 + moreM;
+
+                    if($scope.messagesCount > 10)
+                    {
+                        alert("Counts of message not more than 10.");
+                        return false;                        
+                    }
+                }
+                $scope.totalCount = chars;
+            }
+            /*$scope.deleteSenderId = function(id){   
+                alert(id);
+                UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     
+                    var deleteSenderData = "deleteSenderId/"+id;
+
+                    apiGetData.async(deleteSenderData).then(function(d) {
+                        $scope.responseData = d;
+                        $scope.data = $scope.responseData.data;
+                        if($scope.data.code == 200){
+                            getData();
+                            UIkit.modal.alert('Data Deleted Successfully');
+                        }
+                    });
+                });                
+            };*/
         }
     ]);
