@@ -26,7 +26,7 @@
                                 </h2>
                             </div>
                             <div class="md-fab-wrapper">
-                                <a class="md-fab md-fab-success md-fab-wave-light waves-effect waves-button waves-light" href="javascript:void(0)" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons">&#xE161;</i></a>                               
+                                <a class="md-fab md-fab-success md-fab-wave-light waves-effect waves-button waves-light" href="javascript:void(0)" ng-click="updateUserDetails(userData[0])" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons">&#xE161;</i></a>                               
                             </div>
                         </div>
                         <div class="user_content">
@@ -46,8 +46,8 @@
                                                 <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="userData[0].name" md-input />
                                             </div>
                                             <div class="uk-width-medium-1-2">
-                                                <label for="user_edit_position_control">User Name</label>
-                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData[0].userName" md-input />
+                                                <label for="user_edit_position_control">User Company Name</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData[0].companyName" md-input />
                                             </div>
                                         </div>
                                                                             
@@ -71,6 +71,14 @@
                                                 <label for="user_edit_position_control">User Address</label>
                                                 <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData[0].address" md-input />
                                             </div>
+                                             <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">Country</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData[0].country" md-input />
+                                            </div>
+                                             <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">State</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData[0].state" md-input />
+                                            </div>
                                         </div> 
                                         <h3 class="full_width_in_card heading_c">
                                             Product Details
@@ -81,13 +89,15 @@
                                                     <tr>
                                                         <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                                                         <th class="uk-width-2-10 uk-text-center">Product Name</th>
+                                                        <th class="uk-width-2-10 uk-text-center">Balance</th>
                                                         
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="data in userProduct" >                                
+                                                    <tr ng-repeat="data in userBalanceData" >                                
                                                         <td class="uk-text-center">{{ $index +1 }}</td>
-                                                        <td class="uk-text-center" >{{ data.name}}</td>
+                                                        <td class="uk-text-center" >{{ data.productId['name']}}</td>
+                                                        <td class="uk-text-center" >{{ data.balance}}</td>
                                                         
                                                     </tr>                           
 
