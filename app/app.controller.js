@@ -212,6 +212,22 @@ angular
                 },
                 {
                     id: 7,
+                    title: 'User',
+                    icon: '&#xE7FD;',
+                     submenu: [
+                        {
+                            title: 'Add User',
+                            link: 'restricted.addUser'
+                        },
+                        {
+                            title: 'Manage User',
+                            link: 'restricted.manageUser'
+                        }
+                        
+                    ]
+                },
+                {
+                    id: 8,
                     title: 'LogOut',
                     icon: '&#xE5C4;',
                     link: 'restricted.logout'

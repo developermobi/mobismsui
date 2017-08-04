@@ -8,12 +8,12 @@ altairApp
         function($scope, $rootScope,apiGetData,apiPostData,$cookieStore){
         	$rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-
+            $scope.profile = {};
+            $scope.userData ="";
 
         	getData();
             getUserBalance();
-            $scope.profile = {};
-            $scope.userData;
+            
              function getData(){
                 var getUserDetails = "getUserById/"+$rootScope.u_id;                
 

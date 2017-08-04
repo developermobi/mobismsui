@@ -158,6 +158,47 @@ altairApp
                     }
                 })
 
+                .state("restricted.transactions", {
+                    url: "/transactions",
+                    templateUrl: 'app/components/profile/transaction.html',
+                    controller: 'transactionCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'app/components/profile/transactionController.js'
+                                ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Profile'
+                    }
+                })
+
+                .state("restricted.addUser", {
+                    url: "/addUser",
+                    templateUrl: 'app/components/user/addUser.html',
+                    controller: 'addUserController',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'lazy_parsleyjs',
+                                'app/modules/angular-selectize.js',
+                                'app/components/user/addUserController.js'
+                                
+
+                                ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'User'
+                    }
+                })
                 .state("restricted.addgroup", {
                     url: "/group/add",
                     templateUrl: 'app/components/contacts/add_group.html',
