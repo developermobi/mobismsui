@@ -10,7 +10,11 @@ angular
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams) {
 
             $rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.userId;
+            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
+
+            //alert($rootScope.globals.currentUser);
+
+            //console.log($rootScope.globals.currentUser);
 
             getData();
 

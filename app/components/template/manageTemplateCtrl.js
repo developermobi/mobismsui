@@ -6,7 +6,8 @@ angular
         'apiGetData',
         'apiPostData',
         '$cookieStore',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore) {
+        'pagerService',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService) {
             $rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
@@ -14,7 +15,7 @@ angular
             getData();
             $scope.template = {};
              function getData(){
-                var getSender = "getAllTemplate/"+$rootScope.u_id;                
+                var getSender = "getAllTemplate/"+$rootScope.u_id+"/1/10";                
 
                 apiGetData.async(getSender).then(function(d) {
                     $scope.responseData = d;
@@ -22,8 +23,9 @@ angular
                     console.log('d data',d);*/
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
-                        $scope.userTemplateData = $scope.data.data;
-                        console.log($scope.userTemplateData[0]);
+                        $scope.userTemplateData = $scope.data.data.template_data;
+                        console.log($scope.data.data.total);
+                        console.log(pagerService.GetPager($scope.data.data.total,1,10));
                     }
                 });
              }
