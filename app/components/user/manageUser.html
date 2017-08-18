@@ -1,0 +1,176 @@
+<style type="text/css">
+.hidden_row
+{
+ display:none;
+}
+</style>
+<div id="page_content">
+    <div id="page_content_inner">
+        <form action="" class="uk-form-stacked" id="user_edit_form">
+            <div class="uk-grid uk-flex-center" data-uk-grid-margin>
+                <div class="uk-width-large-9-10">
+                    <div class="md-card">
+                        <!-- <div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
+                            <div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail">
+                                    <img ng-src="assets/img/avatars/user.png" alt="user avatar"/>
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                <div class="user_avatar_controls">
+                                        <span class="btn-file">
+                                            <span class="fileinput-new"><i class="material-icons">&#xE2C6;</i></span>
+                                            <span class="fileinput-exists"><i class="material-icons">&#xE86A;</i></span>
+                                            <input type="file" name="user_edit_avatar_control" id="user_edit_avatar_control">
+                                        </span>
+                                    <a href="#" class="btn-file fileinput-exists" data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
+                                </div>
+                            </div>
+                            <div class="user_heading_content">
+                                <h2 class="heading_b">
+                                    <span class="uk-text-truncate" id="user_edit_uname">{{userData[0].name}}</span>
+                                    <span class="sub-heading" id="user_edit_position">{{userData[0].role ==1 ? 'Reseller User' : 'User'}}</span>
+                                </h2>
+                            </div>
+                            <div class="md-fab-wrapper">
+                                <a class="md-fab md-fab-success md-fab-wave-light waves-effect waves-button waves-light" href="javascript:void(0)" ng-click="updateUserDetails(userData[0])" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons">&#xE161;</i></a>                               
+                            </div>
+                        </div> -->
+                        <div class="user_content">
+                            <ul id="user_edit_tabs" class="uk-tab" data-uk-tab="{connect:'#user_edit_tabs_content'}">
+                                <li class="uk-active"><a href="#">User</a></li>
+                              <!--   <li><a href="#">Credit</a></li> -->
+                            </ul>
+                            <ul id="user_edit_tabs_content" class="uk-switcher uk-margin">
+                                <li>
+                                    <div class="uk-margin-top">
+                                 
+                                        <h3 class="full_width_in_card heading_c">
+                                            User Details
+                                        </h3>
+                                            <div class="uk-overflow-container">
+                                                <table class="uk-table uk-table-nowrap">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                                                        <th class="uk-width-2-10 uk-text-center">User Name</th>
+                                                        <th class="uk-width-2-10 uk-text-center">Name</th>
+                                                        <th class="uk-width-2-10 uk-text-center">Mobile</th>
+                                                        <th class="uk-width-2-10 uk-text-center">Email</th>
+                                                        <th class="uk-width-2-10 uk-text-center">City</th>
+                                                        <th class="uk-width-2-10 uk-text-center">State</th>
+                                                        <th class="uk-width-2-10 uk-text-center">Country</th>
+                                                        <th class="uk-width-2-10 uk-text-center">Role</th>
+                                                        <th class="uk-width-2-10 uk-text-center">Status</th>                                                     
+                                                        <th class="uk-width-2-10 uk-text-center">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="data in resellerData">                                
+                                                        <td class="uk-text-center">{{ $index +1 }}</td>
+                                                        <td class="uk-text-center" >{{data.userName}}</td>
+                                                        
+                                                        <td class="uk-text-center" >{{ data.name}}</td>
+                                                        <td class="uk-text-center" >{{ data.mobile}}</td>
+                                                        <td class="uk-text-center" >{{ data.email}}</td>
+                                                        <td class="uk-text-center" >{{ data.city}}</td>
+                                                        <td class="uk-text-center" >{{ data.state}}</td>
+                                                        
+                                                        <td class="uk-text-center" >{{ data.country}}</td>
+                                                        <td class="uk-text-center" >{{ data.role==1 ? 'Reseller' : 'User' }}</td>
+                                                        <td class="uk-text-center" ><span class="uk-badge uk-badge-success">{{ data.status == 1 ? 'Active' : 'InActive' }}</span></td>                                                       
+                                                         <td class="uk-text-center">
+                                                             <a href="javascript:void(0);"><i class="md-icon material-icons" data-uk-modal="{target:'#edit_group'}" ng-click="getUserProdcut(data.userId)" data-uk-tooltip="{pos:'bottom'}" title="Edit">&#xE254;</i></a>
+                                                             <a ><i class="md-icon material-icons" ng-click="deleteUser(data.userId)" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
+                                                             <a ><i class="md-icon material-icons" ng-click="viewProdctDetails(data.userId)" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
+                                                         </td>
+                                                        
+                                                    </tr>                           
+                                                   
+                                                    </tbody>
+                                                </table>
+                                            </div>                       
+                                    </div>
+                                </li>
+                               
+                                
+                                <li>
+                                    <ul class="md-list md-list-addon" id="user_todo">
+                                        <li class="" ng-class="{'md-list-item-disabled': todo.closed}" ng-repeat="todo in user_data.todo">
+                                            <div class="md-list-addon-element">
+                                                <input name="todo_item_{{$index}}" type="checkbox" icheck ng-model="todo.closed" />
+                                            </div>
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading" ng-class="{'uk-text-danger': todo.important}">{{todo.title}}</span>
+                                                <span class="uk-text-small" ng-class="{'uk-text-danger': todo.important, 'uk-text-muted': !todo.important}">{{todo.description}}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+<div class="uk-modal" id="edit_group">
+    <div class="uk-modal-dialog">
+        <div class="uk-modal-header">
+        <h3 class="uk-modal-title">Product And Balance Details</h3>
+        </div>        
+        <div class="md-card-content">
+            <div class="uk-overflow-container">
+                <table class="uk-table uk-table-nowrap">
+                    <thead>
+                    <tr>
+                        <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                        <th class="uk-width-2-10 uk-text-center">Product Name</th>
+                        <th class="uk-width-2-10 uk-text-center">Balance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in userBalanceData" >                                
+                            <td class="uk-text-center">{{ $index +1 }}</td>
+                            <td class="uk-text-center" >{{ data.productId['name']}}</td>
+                            <td class="uk-text-center" >{{ data.balance}}</td>                            
+                        </tr>                       
+                    </tbody>
+                </table>
+            </div>
+            <!-- <button data-ng-click="addProdcut()" my-directive>click</button> -->
+            <div class="uk-margin-top">
+                <h3 class="full_width_in_card heading_c">
+                    Add  Prodcut
+                </h3>
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-medium-1-2">
+                    <label for="user_edit_position_control">Select Prodcut</label>
+                    <select class="md-input" ng-model="prodcut.productId" class="uk-form-width-medium" md-input> 
+                        <option  ng-repeat="data in prodcutArray" value="{{data['id']}}">{{data['name']}}</option>
+                    </select>
+                                                                     
+                </div>
+                <div class="uk-width-medium-1-2">
+                    <label for="user_edit_position_control">Enter Balance</label>
+                     <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="prodcut.balance" md-input />                                                                     
+                </div> 
+                <div class="uk-width-large-1-3">
+                    <div class="uk-form-row">
+                     <input type="hidden" ng-model="user.userId" value="data.userId['userId']" name="userId" >
+                        <div class="md-input-wrapper" style="margin-top: 3%;">
+                            <button type="button" class="md-btn md-btn-success md-input" ng-click="addProdcut(prodcut)">Add User</button>                            
+                        </div>
+                    </div>
+                </div>                                           
+                                 
+            </div>
+        </div>       
+    </div>
+<style type="text/css">
+.hideDiv{
+    display:none
+}
+</style>

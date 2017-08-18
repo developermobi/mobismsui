@@ -199,6 +199,29 @@ altairApp
                         pageTitle: 'User'
                     }
                 })
+
+                .state("restricted.manageUser", {
+                    url: "/manageUser",
+                    templateUrl: 'app/components/user/manageUser.html',
+                    controller: 'manageUserController',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'lazy_parsleyjs',
+                                'app/modules/angular-selectize.js',
+                                'app/components/user/manageUserController.js'
+                                
+
+                                ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'User'
+                    }
+                })
                 .state("restricted.addgroup", {
                     url: "/group/add",
                     templateUrl: 'app/components/contacts/add_group.html',

@@ -42,25 +42,38 @@
                                         </h3>
                                         <div class="uk-grid" data-uk-grid-margin>
                                             <div class="uk-width-medium-1-2">
-                                                <label for="user_edit_position_control">Select Prodcut</label>
-                                              <select class="md-input" ng-model="user.productId" class="uk-form-width-medium" md-input>
+                                            <label for="user_edit_position_control">Select Prodcut</label>
+                                            <select class="md-input" ng-model="user.productId" class="uk-form-width-medium" md-input>
                                                
-                                                 <option  ng-repeat="data in userProductData[0].userProduct" value="{{data.id}}">{{data.name}}</option>
+                                                 <option  ng-repeat="data in prodcutArray" value="{{data['id']}}">{{data['name']}}</option>
                                                 
-                                                </select>
+                                             </select>
                                                                                              
-                                            </div>
-                                            <div class="uk-width-medium-1-2">
-                                                <label for="user_edit_uname_control">Name</label>
-                                                <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="user.name" md-input />
-                                            </div>
-                                            
+                                        </div>
+                                        <div class="uk-width-medium-1-2">
+                                            <label for="user_edit_position_control">Select Prodcut</label>
+                                            <select class="md-input" ng-model="user.role" class="uk-form-width-medium" md-input>
+                                              <option selected="selected">Select Role</option>
+                                              <option value="1">Reseller</option>
+                                              <option value="2">User</option>
+                                            </select>
+                                                                                             
+                                        </div>                                            
                                         </div>
                                                                             
                                         <h3 class="full_width_in_card heading_c">
                                             Contact info
                                         </h3>
+                                         
+                                         <div class="uk-width-medium-1-2">
+                                            <label for="user_edit_uname_control">Name</label>
+                                            <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="user.name" md-input />
+                                         </div>
                                          <div class="uk-grid" data-uk-grid-margin>
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">User Name</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="user.userName" md-input />
+                                            </div>
                                             <div class="uk-width-medium-1-2">
                                                 <label for="user_edit_uname_control">Email</label>
                                                 <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="user.email" md-input />
@@ -89,9 +102,22 @@
                                                 <label for="user_edit_position_control">User Company Name</label>
                                                 <input class="md-input" type="text" id="user_edit_position_control"  ng-model="user.companyName" md-input />
                                             </div>
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_uname_control">Credit Balance</label>
+                                                <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="user.creditBalnce" md-input />
+                                         </div>
                                         </div> 
-                                                           
+                                    <div class="uk-width-large-1-3">
+                                        <div class="uk-form-row">
+                                            <div class="md-input-wrapper" style="margin-top: 3%;">
+                                                <!-- <input type="hidden" ng-model="sender.userId" name="userId" value="1"> -->
+                                                <button type="button" class="md-btn md-btn-success md-input" ng-click="saveUserDetails(user)">Add User</button>
+                                                <button type="button" class="md-btn md-btn-warning">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>                 
                                     </div>
+                                       
                                 </li>
                                
                                 <li>

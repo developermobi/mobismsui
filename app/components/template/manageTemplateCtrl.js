@@ -27,7 +27,7 @@ angular
                     }
                 });
              }
-             $scope.deleteTemplate = function(id){   
+            $scope.deleteTemplate = function(id){   
                 alert(id);
                 UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     
                     var deleteSenderData = "deleteTemplate/"+id;
