@@ -11,8 +11,28 @@ angular
             $rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
+            $scope.vm = {};          
+
             /*alert($rootScope.u_id);*/
             getData();
+            function initController(totalItems, currentPage, pageSize) {
+                // initialize to page 1
+                setPage(totalItems, currentPage, pageSize);
+            }
+
+            function setPage(totalItems, currentPage, pageSize) {
+
+                $scope.vm.pager = pagerService.GetPager(totalItems, currentPage, pageSize);
+                
+                if (currentPage < 1 || currentPage > $scope.vm.pager.totalPages) {
+                    return;
+                }
+
+                // get pager object from service
+                
+               
+            }
+
             $scope.template = {};
              function getData(){
                 var getSender = "getAllTemplate/"+$rootScope.u_id+"/1/10";                
@@ -26,6 +46,13 @@ angular
                         $scope.userTemplateData = $scope.data.data.template_data;
                         console.log($scope.data.data.total);
                         console.log(pagerService.GetPager($scope.data.data.total,1,10));
+
+                        initController($scope.data.data.total, 1, 10);
+
+                        $scope.vm.dummyItems = _.range(1, 151); // dummy array of items to be paged
+                        $scope.vm.pager = {};
+                        $scope.vm.setPage = setPage;
+                        
                     }
                 });
              }

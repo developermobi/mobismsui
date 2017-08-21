@@ -3,6 +3,11 @@
 */
 ;"use strict";
 
+var underscore = angular.module('underscore', []);
+underscore.factory('_', ['$window', function($window) {
+  return $window._; // assumes underscore has already been loaded on the page
+}]);
+
 var altairApp = angular.module('altairApp', [
     'ui.router',
     'oc.lazyLoad',
@@ -10,7 +15,8 @@ var altairApp = angular.module('altairApp', [
     'ngAnimate',
     'ngRetina',
     'ConsoleLogger',
-    'ngCookies'
+    'ngCookies',
+    'underscore'
 ]);
 
 altairApp.value('globalUrl', 'http://localhost:9090/sms/api/');
@@ -20,6 +26,10 @@ altairApp.constant('variables', {
     easing_swiftOut: [ 0.4,0,0.2,1 ],
     bez_easing_swiftOut: $.bez([ 0.4,0,0.2,1 ])
 });
+
+altairApp.constant('_',
+    window._
+);
 
 altairApp.config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([

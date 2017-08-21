@@ -172,7 +172,7 @@ altairApp.service('apiFileUpload', ['$http','$rootScope','$state','globalUrl','$
 
 }]);
 
-altairApp.service('pagerService', ['$rootScope','$state','$cookieStore', function ($rootScope,$state,$cookieStore) {
+altairApp.service('pagerService', ['$rootScope','$state','$cookieStore','_', function ($rootScope,$state,$cookieStore,_) {
 
    
     var service = {};
@@ -183,6 +183,7 @@ altairApp.service('pagerService', ['$rootScope','$state','$cookieStore', functio
 
     // service implementation
     function GetPager(totalItems, currentPage, pageSize) {
+
         // default to first page
         currentPage = currentPage || 1;
 
