@@ -39,21 +39,21 @@
     </ul> -->
 
      <!-- pager -->
-    <ul ng-if="vm.pager.pages.length" class="pagination">
-        <li ng-class="{disabled:vm.pager.currentPage === 1}">
-            <a ng-click="vm.setPage(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+    <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
+        <li ng-class="{disabled:pagination.currentPage === 1}">
+            <a ng-click="getData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
         </li>
-        <li ng-class="{disabled:vm.pager.currentPage === 1}">
-            <a ng-click="vm.setPage(vm.pager.currentPage - 1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+        <li ng-class="{disabled:pagination.currentPage === 1}">
+            <a ng-click="getData(pagination.currentPage - 1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
         </li>
-        <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
-            <a ng-click="vm.setPage(page)">{{page}}</a>
+        <li ng-repeat="page in pagination.pages" ng-class="{uk-active:pagination.currentPage === page}">
+            <a ng-click="getData(page)">{{page}}</a>
         </li>                
-        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-            <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
+        <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+            <a ng-click="getData(pagination.currentPage + 1)">Next</a>
         </li>
-        <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
-            <a ng-click="vm.setPage(vm.pager.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+        <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+            <a ng-click="getData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
         </li>
     </ul>
     

@@ -11,31 +11,29 @@ angular
             $rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
-            $scope.vm = {};          
+            $scope.pagination = {};
+            $scope.page = 1;
+            $scope.no_of_data = 10;
+            
 
-            /*alert($rootScope.u_id);*/
-            getData();
-            function initController(totalItems, currentPage, pageSize) {
-                // initialize to page 1
-                setPage(totalItems, currentPage, pageSize);
-            }
-
-            function setPage(totalItems, currentPage, pageSize) {
-
-                $scope.vm.pager = pagerService.GetPager(totalItems, currentPage, pageSize);
-                
-                if (currentPage < 1 || currentPage > $scope.vm.pager.totalPages) {
-                    return;
+            function setPage(page){
+                var s = 0;
+                if(page > 1){
+                    s = page - 1;
                 }
 
-                // get pager object from service
-                
-               
+                $scope.start =  s * $scope.no_of_data;
             }
 
+            /*alert($rootScope.u_id);*/
+            getData($scope.page);
+            
             $scope.template = {};
-             function getData(){
-                var getSender = "getAllTemplate/"+$rootScope.u_id+"/1/10";                
+             function getData(page){                
+                setPage(page);
+                var getSender = "getAllTemplate/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.no_of_data; 
+
+                //console.log(getSender);               
 
                 apiGetData.async(getSender).then(function(d) {
                     $scope.responseData = d;
@@ -44,14 +42,10 @@ angular
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
                         $scope.userTemplateData = $scope.data.data.template_data;
-                        console.log($scope.data.data.total);
-                        console.log(pagerService.GetPager($scope.data.data.total,1,10));
+                        //console.log($scope.data.data);
+                        $scope.pagination = pagerService.GetPager($scope.data.data.total,page,10);
+                        console.log($scope.pagination.pages.length);
 
-                        initController($scope.data.data.total, 1, 10);
-
-                        $scope.vm.dummyItems = _.range(1, 151); // dummy array of items to be paged
-                        $scope.vm.pager = {};
-                        $scope.vm.setPage = setPage;
                         
                     }
                 });
