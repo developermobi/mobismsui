@@ -13,9 +13,9 @@ angular
 
             $scope.pagination = {};
             $scope.page = 1;
-            $scope.no_of_data = 10;
-            
-
+            $scope.no_of_data = 1;
+            $scope.sr_no = 0;
+           
             function setPage(page){
                 var s = 0;
                 if(page > 1){
@@ -24,12 +24,10 @@ angular
 
                 $scope.start =  s * $scope.no_of_data;
             }
-
-            /*alert($rootScope.u_id);*/
-            getData($scope.page);
-            
+                       
             $scope.template = {};
-             function getData(page){                
+             $scope.getData = function(page){   
+                //alert(page);             
                 setPage(page);
                 var getSender = "getAllTemplate/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.no_of_data; 
 
@@ -43,13 +41,17 @@ angular
                     if($scope.data.code == 302){
                         $scope.userTemplateData = $scope.data.data.template_data;
                         //console.log($scope.data.data);
-                        $scope.pagination = pagerService.GetPager($scope.data.data.total,page,10);
-                        console.log($scope.pagination.pages.length);
+                        $scope.pagination = pagerService.GetPager($scope.data.data.total,page,$scope.no_of_data);
+                        console.log($scope.pagination);
 
                         
                     }
                 });
-             }
+            }
+
+             $scope.getData($scope.page);
+
+
             $scope.deleteTemplate = function(id){   
                 alert(id);
                 UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     

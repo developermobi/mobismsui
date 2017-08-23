@@ -14,7 +14,7 @@
                 <tbody>
                     <tr ng-repeat="data in userTemplateData">
 
-                        <td class="uk-text-center">{{$index+1}}</td>
+                        <td class="uk-text-center">{{no_of_data *(pagination.currentPage - 1)+$index+1}}</td>
                         <td class="uk-text-center">{{data.name}}</td>
                         <td class="uk-text-center">{{data.description}}</td>
                         <td class="uk-text-center">{{data.created}}</td>
@@ -37,23 +37,23 @@
         <li><a href="#">10</a></li>
         <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
     </ul> -->
-
+    
      <!-- pager -->
     <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
         <li ng-class="{disabled:pagination.currentPage === 1}">
-            <a ng-click="getData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+            <a ng-click="pagination.currentPage !== 1 && getData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
         </li>
         <li ng-class="{disabled:pagination.currentPage === 1}">
-            <a ng-click="getData(pagination.currentPage - 1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+            <a ng-click="pagination.currentPage !== 1 && getData(pagination.currentPage - 1)">Prev</i></span></a>
         </li>
-        <li ng-repeat="page in pagination.pages" ng-class="{uk-active:pagination.currentPage === page}">
-            <a ng-click="getData(page)">{{page}}</a>
+        <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
+            <a ng-click="pagination.currentPage !== page &&  getData(page)">{{page}}</a>
         </li>                
         <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
-            <a ng-click="getData(pagination.currentPage + 1)">Next</a>
+            <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.currentPage + 1)">Next</a>
         </li>
         <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
-            <a ng-click="getData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+            <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
         </li>
     </ul>
     
@@ -118,3 +118,17 @@
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .active a{
+        background: #7cb342 !important;
+        color: #fff !important;
+    }
+    .disabled a{
+        border: none !important;
+        text-shadow: none !important;
+        background: transparent !important;
+        color: #aaa !important;
+        cursor: not-allowed !important;
+    }
+</style>
