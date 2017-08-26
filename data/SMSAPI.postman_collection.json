@@ -1,0 +1,906 @@
+{
+	"id": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+	"name": "SMSAPI",
+	"description": "",
+	"order": [],
+	"folders": [
+		{
+			"id": "2e0d3844-cee3-2d06-f171-627919980c1a",
+			"name": "Sender Id",
+			"description": "",
+			"order": [
+				"faa942df-bf71-7f2e-f2a0-26980cc2133c",
+				"29233ae3-8553-637c-0e79-227bfd915219",
+				"2c1ef158-9211-a34c-0985-dfc05806ee40",
+				"0478cfce-830b-591c-238d-359833a524c9",
+				"fef5ee96-6995-95d3-d6a7-284258f3527a"
+			],
+			"owner": "379861"
+		},
+		{
+			"id": "06646440-923c-66c6-baf7-f60de1904b5e",
+			"name": "Template",
+			"description": "",
+			"order": [
+				"46ce8663-f49e-92e7-87dd-2bb6e2b540c9",
+				"036a8443-9ff3-efa2-a3bb-4ee1a6823cf6",
+				"3caa2bbc-bdf2-6752-4b1d-682e722b94f8",
+				"8bc08bb3-6a28-41c9-79cf-93a71910844f",
+				"c867c7d3-5d90-205d-b0ff-ce722138a60b"
+			]
+		},
+		{
+			"id": "8c16c601-fb0a-d596-9b27-f8b7d4ce085b",
+			"name": "User",
+			"description": "",
+			"order": [
+				"4ef40b16-9dac-c1a8-3160-f859d0da599f",
+				"c35444a1-edef-a2ce-5da2-bb293fa3570c",
+				"33fb3507-01d9-a74d-004d-c29de8261ff1",
+				"85a1543b-4939-25ab-dc72-1baa3b954d9a",
+				"8360b159-65ee-97bc-b63f-4b7a02a00df3",
+				"994b9f0c-4794-bd6a-9747-ba0f89bd7743",
+				"f6e06506-131c-ad1b-50ed-66ea95b73942",
+				"6547a3d4-42f1-a09e-520a-121458eab2ea",
+				"0cba9dcc-23ae-53c9-4272-da608e79b125",
+				"7af566eb-e22c-e531-6476-3f1c358e8df4",
+				"1feaca77-e5f8-89bc-ca9e-31f9a8ac3641",
+				"1fb1e65a-19fa-8986-bdab-b592ee5ce6a2",
+				"1255f39a-86a1-90be-3a6d-bb1f5f8cded6",
+				"e9e917d5-7afa-e912-cd13-fc13b7e63cd7"
+			],
+			"owner": "379861"
+		}
+	],
+	"folders_order": [
+		"2e0d3844-cee3-2d06-f171-627919980c1a",
+		"06646440-923c-66c6-baf7-f60de1904b5e",
+		"8c16c601-fb0a-d596-9b27-f8b7d4ce085b"
+	],
+	"timestamp": 1500714762979,
+	"owner": "379861",
+	"public": false,
+	"requests": [
+		{
+			"id": "036a8443-9ff3-efa2-a3bb-4ee1a6823cf6",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getAllTemplate/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1501500684674,
+			"name": "getAllTemplate",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "0478cfce-830b-591c-238d-359833a524c9",
+			"headers": "Authorization: Basic YWJjOjEyMw==\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/updateSenderById/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502350184237,
+			"name": "updateSenderById",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": [],
+			"rawModeData": "{\n\t\"senderId\":\"MOBSFT\",\n\t\"status\":\"1\"\n}"
+		},
+		{
+			"id": "0cba9dcc-23ae-53c9-4272-da608e79b125",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getDebitByUserId/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"data": null,
+			"dataMode": "params",
+			"name": "getDebitByUserId",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1501850027469,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "8c16c601-fb0a-d596-9b27-f8b7d4ce085b"
+		},
+		{
+			"id": "1255f39a-86a1-90be-3a6d-bb1f5f8cded6",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/deductCreditByReseller/75/1/1/500",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"data": null,
+			"dataMode": "params",
+			"name": "deductCreditByReseller",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1502372617785,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "8c16c601-fb0a-d596-9b27-f8b7d4ce085b"
+		},
+		{
+			"id": "1fb1e65a-19fa-8986-bdab-b592ee5ce6a2",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/addCreditByReseller/75/1/1/500",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"data": null,
+			"dataMode": "params",
+			"name": "addCreditByReseller",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1502372539587,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "8c16c601-fb0a-d596-9b27-f8b7d4ce085b"
+		},
+		{
+			"id": "1feaca77-e5f8-89bc-ca9e-31f9a8ac3641",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/addProduct/75/1/1/500",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502351471164,
+			"name": "addProduct",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "29233ae3-8553-637c-0e79-227bfd915219",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getAllSenderId/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502346101890,
+			"name": "getAllSenderIdByUserId",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "2c1ef158-9211-a34c-0985-dfc05806ee40",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getSenderById/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502346259875,
+			"name": "getSenderById",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "33fb3507-01d9-a74d-004d-c29de8261ff1",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getUserById/74",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502349882647,
+			"name": "getUserById",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "3caa2bbc-bdf2-6752-4b1d-682e722b94f8",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/deleteTemplate/2",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1501651773894,
+			"name": "deleteTemplate",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "46ce8663-f49e-92e7-87dd-2bb6e2b540c9",
+			"headers": "Content-Type: application/json\nAuthorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/saveTemplate",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1501651779997,
+			"name": "saveTemplate",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": [],
+			"rawModeData": "{\n\t\"description\":\"fdgdfg\",\n\t\"name\":\"dsfsf\",\n\t\"userId\":\"1\"\n}"
+		},
+		{
+			"id": "4ef40b16-9dac-c1a8-3160-f859d0da599f",
+			"headers": "Content-Type: application/json\nAuthorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{local_url}}saveUser",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1503581510652,
+			"name": "saveUser",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": [],
+			"rawModeData": "{\n\t\"userName\":\"r009\",\n\t\"name\":\"sani verma1\",\n\t\"address\":\"xxz1\",\n\t\"city\":\"xxz1\",\n\t\"companyName\":\"xxz\",\n\t\"country\":\"xxz\",\n\t\"email\":\"pramod1.v@mobisofttech.co.in\",\n\t\"mobile\":\"9415422104\",\n\t\"role\":\"2\",\n\t\"state\":\"ddd\",\n\t\"status\":\"1\",\n\t\"creditBalnce\":\"500\",\n\t\"productId\":\"1\",\n\t\"userId\":\"1\",\n\t\"creditBy\":\"Reseller User Id 1\",\n\t\"dndCheck\":\"Y\",\n\t\"spamCheck\":\"N\",\n\t\"percentage\":\"100\"\n\t\n}"
+		},
+		{
+			"id": "6547a3d4-42f1-a09e-520a-121458eab2ea",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getCreditByUserId/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1501849990254,
+			"name": "getCreditByUserId",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "7af566eb-e22c-e531-6476-3f1c358e8df4",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getUserByResellerId/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"data": null,
+			"dataMode": "params",
+			"name": "getUserByResellerId",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1502086839778,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "8c16c601-fb0a-d596-9b27-f8b7d4ce085b"
+		},
+		{
+			"id": "8360b159-65ee-97bc-b63f-4b7a02a00df3",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/deleteUser/2/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502372709783,
+			"name": "deleteUser",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "85a1543b-4939-25ab-dc72-1baa3b954d9a",
+			"headers": "Content-Type: application/json\nAuthorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/updateUserById/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1501849952259,
+			"name": "updateUserById",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": [],
+			"rawModeData": "{\n\n\t\"name\":\"sani verma1\",\n\t\"address\":\"xxz1\",\n\t\"city\":\"xxz1\",\n\t\"companyName\":\"xxz\",\n\t\"country\":\"xxz\",\n\t\"email\":\"sani07info@gmail.com\",\n\t\"mobile\":\"919415422104\",\n\t\"state\":\"ddd\"\n\n}"
+		},
+		{
+			"id": "8bc08bb3-6a28-41c9-79cf-93a71910844f",
+			"headers": "Authorization: Basic YWJjOjEyMw==\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/updateTemplateById/5",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"data": [],
+			"dataMode": "raw",
+			"name": "updateTemplateById",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1501069527270,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "06646440-923c-66c6-baf7-f60de1904b5e",
+			"rawModeData": "{\n\t\"description\":\"hi dear How are you1111111\",\n\t\"name\":\"sani verma1\"\n}"
+		},
+		{
+			"id": "994b9f0c-4794-bd6a-9747-ba0f89bd7743",
+			"headers": "Content-Type: application/json\nAuthorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{local_url}}user/login",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1503581512620,
+			"name": "user/login",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": [],
+			"rawModeData": "{\n\t\"userName\":\"abc\",\n\t\"password\":\"123\"\n}"
+		},
+		{
+			"id": "c35444a1-edef-a2ce-5da2-bb293fa3570c",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getAllUser",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1501219968453,
+			"name": "getAllUser",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "c867c7d3-5d90-205d-b0ff-ce722138a60b",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getTemplateById/1",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502350350116,
+			"name": "getTemplateById",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "e9e917d5-7afa-e912-cd13-fc13b7e63cd7",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{server_url}}/saveUserJobs",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "file",
+					"value": "number.txt",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				},
+				{
+					"key": "userId",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "message",
+					"value": "fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd fsdfdsfdsf  dfgsdfas safsadfas adasd ",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "sender",
+					"value": "MOBSFT",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "scheduledAt",
+					"value": "2017-08-12 00:00:00",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "jobStatus",
+					"value": "0",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "jobType",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": " columns",
+					"value": "23",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "sendNow",
+					"value": "sa",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "sendRatio",
+					"value": "100",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "route",
+					"value": "netcore",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "messageType",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "productId",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1503552194203,
+			"name": "saveUserJobs",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		},
+		{
+			"id": "f6e06506-131c-ad1b-50ed-66ea95b73942",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/getBalanceByUserId/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"data": null,
+			"dataMode": "params",
+			"name": "getBalanceByUserId",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1501763234315,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "8c16c601-fb0a-d596-9b27-f8b7d4ce085b"
+		},
+		{
+			"id": "faa942df-bf71-7f2e-f2a0-26980cc2133c",
+			"headers": "Authorization: Basic YWJjOjEyMw==\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/saveSenderId",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1501140902748,
+			"name": "saveSenderId",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": [],
+			"rawModeData": "{\n\t\"senderId\":\"saNIvE\",\n\t\"status\":\"1\",\n\t\"userId\":\"1\"\n}"
+		},
+		{
+			"id": "fef5ee96-6995-95d3-d6a7-284258f3527a",
+			"headers": "Authorization: Basic YWJjOjEyMw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic YWJjOjEyMw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/sms/api/deleteSenderId/3",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1502350210861,
+			"name": "deleteSenderId",
+			"description": "",
+			"collectionId": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+			"responses": []
+		}
+	]
+}

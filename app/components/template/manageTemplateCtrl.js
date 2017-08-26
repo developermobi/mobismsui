@@ -13,8 +13,59 @@ angular
 
             $scope.pagination = {};
             $scope.page = 1;
-            $scope.no_of_data = 1;
+            //$scope.no_of_data = 5;
             $scope.sr_no = 0;
+
+            $scope.no_of_data = {
+                options: [
+                    {
+                        id: 1,
+                        title: "5",
+                        value: "5",
+                        parent_id: 1
+                    },
+                    {
+                        id: 2,
+                        title: "10",
+                        value: "10",
+                        parent_id: 1
+                    },
+                    {
+                        id: 3,
+                        title: "25",
+                        value: "25",
+                        parent_id: 1
+                    },
+                    {
+                        id: 4,
+                        title: "50",
+                        value: "50",
+                        parent_id: 1
+                    },
+                    {
+                        id: 5,
+                        title: "100",
+                        value: "100",
+                        parent_id: 1
+                    }
+                ]
+            };
+
+            $scope.no_of_data_config = {
+                create: false,
+                maxItems: 1,
+                placeholder: 'No of data per page',
+                optgroupField: 'parent_id',
+                optgroupLabelField: 'title',
+                optgroupValueField: 'ogid',
+                valueField: 'value',
+                labelField: 'title',
+                searchField: 'title',
+                hideSelected: false,
+                highlight: true
+            };
+
+            $scope.data_per_page = $scope.no_of_data.options[0].value;
            
             function setPage(page){
                 var s = 0;
@@ -22,14 +73,17 @@ angular
                     s = page - 1;
                 }
 
-                $scope.start =  s * $scope.no_of_data;
+                $scope.start =  s * $scope.data_per_page;
             }
                        
             $scope.template = {};
-             $scope.getData = function(page){   
+            $scope.getData = function(page){   
                 //alert(page);             
-                setPage(page);
-                var getSender = "getAllTemplate/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.no_of_data; 
+                $scope.page = page;
+
+                setPage($scope.page);
+                
+                var getSender = "getAllTemplate/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
 
                 //console.log(getSender);               
 
@@ -41,7 +95,7 @@ angular
                     if($scope.data.code == 302){
                         $scope.userTemplateData = $scope.data.data.template_data;
                         //console.log($scope.data.data);
-                        $scope.pagination = pagerService.GetPager($scope.data.data.total,page,$scope.no_of_data);
+                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
 
                         
@@ -49,7 +103,7 @@ angular
                 });
             }
 
-             $scope.getData($scope.page);
+            $scope.getData($scope.page);
 
 
             $scope.deleteTemplate = function(id){   

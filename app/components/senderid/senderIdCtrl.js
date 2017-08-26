@@ -7,7 +7,8 @@ angular
         'apiPostData',
         '$cookieStore', 
         '$compile',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$compile) {
+        'pagerService',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$compile,pagerService) {
             $rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
@@ -15,10 +16,80 @@ angular
             $scope.sender = {};
             $scope.senderEdited = {};
 
-            getData();
-            function getData(){
+            $scope.pagination = {};
+            $scope.page = 1;
+            //$scope.no_of_data = 5;
+            $scope.sr_no = 0;
+
+            $scope.no_of_data = {
+                options: [
+                    {
+                        id: 1,
+                        title: "5",
+                        value: "5",
+                        parent_id: 1
+                    },
+                    {
+                        id: 2,
+                        title: "10",
+                        value: "10",
+                        parent_id: 1
+                    },
+                    {
+                        id: 3,
+                        title: "25",
+                        value: "25",
+                        parent_id: 1
+                    },
+                    {
+                        id: 4,
+                        title: "50",
+                        value: "50",
+                        parent_id: 1
+                    },
+                    {
+                        id: 5,
+                        title: "100",
+                        value: "100",
+                        parent_id: 1
+                    }
+                ]
+            };
+
+            $scope.no_of_data_config = {
+                create: false,
+                maxItems: 1,
+                placeholder: 'No of data per page',
+                optgroupField: 'parent_id',
+                optgroupLabelField: 'title',
+                optgroupValueField: 'ogid',
+                valueField: 'value',
+                labelField: 'title',
+                searchField: 'title',
+                hideSelected: false,
+                highlight: true
+            };
+
+            $scope.data_per_page = $scope.no_of_data.options[0].value;
+           
+            function setPage(page){
+                var s = 0;
+                if(page > 1){
+                    s = page - 1;
+                }
+
+                $scope.start =  s * $scope.data_per_page;
+            }
+            
+            $scope.getData = function(page){   
+
+                //alert(page);
+
+                $scope.page = page;
+
+                setPage($scope.page);
                 
-                var getSender = "getAllSenderId/"+$rootScope.u_id;                
+                var getSender = "getAllSenderId/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page;               
 
                 apiGetData.async(getSender).then(function(d) {
                     $scope.responseData = d;
@@ -26,11 +97,15 @@ angular
                     console.log('d data',d);*/
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
-                        $scope.userSenderData = $scope.data.data;
-                        console.log($scope.userSenderData[0]);
+                        $scope.userSenderData = $scope.data.data.sender_id_data;
+                        
+                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
+                        console.log($scope.pagination);
                     }
                 });
-            };     
+            };   
+
+            $scope.getData($scope.page);  
 
             $scope.saveSenderId = function(sender) {   
                 var addSender = "saveSenderId";  
@@ -45,15 +120,23 @@ angular
                    // console.log(d);
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Successfully Add Sender Id');
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Sender Id successfully added ');
                         modal.show();
-                        getData();
+                        $scope.sender.senderId = '';
+                        $scope.getData($scope.page);  
                         setTimeout(function(){
                             modal.hide();
                         },3000);
 
-                    }else if($scope.responseData.code == 406){
+                    }else if($scope.responseData.code == 411){
                         var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please Enter valid sender id');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.responseData.code == 406){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please enter Sender Id');
                         modal.show();
                         setTimeout(function(){
                             modal.hide();
@@ -78,7 +161,7 @@ angular
             }; 
 
             $scope.deleteSenderId = function(id){   
-                alert(id);
+                //alert(id);
                 UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     
                     var deleteSenderData = "deleteSenderId/"+id;
 
@@ -86,7 +169,7 @@ angular
                         $scope.responseData = d;
                         $scope.data = $scope.responseData.data;
                         if($scope.data.code == 200){
-                            getData();
+                            $scope.getData($scope.page);  
                             UIkit.modal.alert('Data Deleted Successfully');
                         }
                     });
@@ -96,19 +179,23 @@ angular
             $scope.editFlag = true;
 
             $scope.editSender = function(id){
+
+                //alert($scope.editFlag);
                 
                 if($scope.editFlag == true){
-                    var element = $(".senderIdtd"+id).text();
-                    var html = '<input type="text" class="md-input" ng-modal="senderEdited.senderId" value="'+element+'" md-input>'+
-                                '<div class="md-card-toolbar-actions">'+
-                                    '<i ng-click="removeTexBox()" data-uk-tooltip={pos:"bottom"} title="Click to cancel" class="removeTexBox md-icon material-icons md-color-blue-grey-500">&#xE14C;</i>'+
-                                    '<i data-uk-tooltip={pos:"bottom"} title="Click to save" class="saveSenderId md-icon material-icons md-color-light-blue-500">&#xE161;</i>'+
-                                '</div>';
+                    var element = $(".senderIdtd"+id).text();  
+                    $(".senderIdtd"+id).html('');                 
 
-                    $compile(html)($scope);           
-                    $(".senderIdtd"+id).html(html);
+                    var $el = $('<input type="text" class="md-input" ng-modal="senderEdited.sender" id="senderEdited'+id+'" value="'+element+'" md-input>'+
+                                '<div class="md-card-toolbar-actions">'+
+                                    '<i ng-click="removeTexBox('+id+')" data-uk-tooltip={pos:"bottom"} title="Click to cancel" class="removeTexBox md-icon material-icons md-color-blue-grey-500">&#xE14C;</i>'+
+                                    '<i ng-click="updateSenderId('+id+')" data-uk-tooltip={pos:"bottom"} title="Click to save" class="updateSenderId md-icon material-icons md-color-light-blue-500">&#xE161;</i>'+
+                                '</div>').appendTo(".senderIdtd"+id);
+                    $compile($el)($scope);
+
+                    $scope.senderEdited.sender = element;
                     
-                    console.log(element);
+                    //console.log(element);
                 }
                 
                 $scope.editFlag = false;
@@ -116,24 +203,68 @@ angular
             };
           
 
-            $scope.removeTexBox = function(){
-                alert();
-                // if($scope.editFlag == false){                   
-                //     var data = $scope.senderEdited.senderId;
-                //     $(".senderIdtd"+id).html('');
-                //     $(".senderIdtd"+id).html(data);
-                //     console.log(data);
-                // }
-                
-                // $scope.editFlag = true;
+            $scope.removeTexBox = function(id){
+                //alert(id);
+                $scope.editFlag = true;
+                $scope.getData($scope.page);
                 
             };
 
-            // $scope.removeTextBox = function(){                
-            //     alert("sdsadklj");
-            //     // $(".senderIdtd"+id).html("");
-            //     // $(".senderIdtd"+id).html(element);
-            // };
+         
+            $scope.updateSenderId = function(id) {   
+                $scope.editFlag = true;
+                var updateSenderId = "updateSenderById/"+id;
+                                
+                var senderData = {};
+                senderData.senderId = $("#senderEdited"+id).val();
+                senderData.status = 1;
+                senderData = JSON.stringify(senderData);
+
+                // console.log(senderData);
+                // return false;
+                
+                apiPostData.async(updateSenderId, senderData).then(function(d) {
+                   // console.log(d);
+                    $scope.responseData = d.data;
+                    if($scope.responseData.code == 200){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Sender Id updated successfully');
+                        modal.show();
+                        $scope.getData($scope.page);
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+
+                    }else if($scope.responseData.code == 411){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please Enter valid sender id');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.responseData.code == 304){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Error occured during updation');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.responseData.code == 400){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please enter Sender Id');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else{
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid token credentials');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    //console.log($scope.responseData);
+                });            
+            }; 
 
            
 

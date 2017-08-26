@@ -1,6 +1,8 @@
+
+
 <div class="md-card uk-margin-medium-bottom">
     <div class="md-card-content">
-        <div class="uk-overflow-container">
+        <div class="uk-overflow-container">            
             <table class="uk-table uk-table-nowrap">
                 <thead>
                     <tr>
@@ -14,7 +16,7 @@
                 <tbody>
                     <tr ng-repeat="data in userTemplateData">
 
-                        <td class="uk-text-center">{{no_of_data *(pagination.currentPage - 1)+$index+1}}</td>
+                        <td class="uk-text-center">{{data_per_page *(pagination.currentPage - 1)+$index+1}}</td>
                         <td class="uk-text-center">{{data.name}}</td>
                         <td class="uk-text-center">{{data.description}}</td>
                         <td class="uk-text-center">{{data.created}}</td>
@@ -27,18 +29,8 @@
              </tbody>
          </table>
      </div>
-    <!--  <ul class="uk-pagination uk-margin-medium-top" ng-if="vm.pager.pages.length">
-        <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-        <li class="uk-active"><span>1</span></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><span>&hellip;</span></li>
-        <li><a href="#">10</a></li>
-        <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-    </ul> -->
     
-     <!-- pager -->
+    <!-- pager -->
     <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
         <li ng-class="{disabled:pagination.currentPage === 1}">
             <a ng-click="pagination.currentPage !== 1 && getData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
@@ -118,17 +110,3 @@
         </div>
     </div>
 </div>
-
-<style type="text/css">
-    .active a{
-        background: #7cb342 !important;
-        color: #fff !important;
-    }
-    .disabled a{
-        border: none !important;
-        text-shadow: none !important;
-        background: transparent !important;
-        color: #aaa !important;
-        cursor: not-allowed !important;
-    }
-</style>

@@ -1,22 +1,20 @@
 <div class="uk-grid" data-uk-grid-margin="">
-	    <div class="uk-width-large-1-4 uk-row-first">
-		    <div class="uk-form-row">
-		        <div class="md-input-wrapper">
-		        	<label>Sender ID</label>
-			    	<input type="text" class="md-input" ng-model="sender.senderId" name="senderId" md-input />
-		        </div>
+    <div class="uk-width-large-1-4 uk-row-first">
+	    <div class="uk-form-row">
+	        <div class="md-input-wrapper">
+	        	<label>Sender ID</label>
+		    	<input type="text" class="md-input" ng-model="sender.senderId" name="senderId" md-input />
+	        </div>
+	    </div>
+	</div>
+	<div class="uk-width-large-1-3">
+		<div class="uk-form-row">
+			<div class="md-input-wrapper" style="margin-top: 3%;">
+				<!-- <input type="hidden" ng-model="sender.userId" name="userId" value="1"> -->
+				<button type="button" class="md-btn md-btn-success md-input" ng-click="saveSenderId(sender)">Add Sender ID</button>
+		        <button type="button" class="md-btn md-btn-warning">Reset</button>
 		    </div>
-		</div>
-		<div class="uk-width-large-1-3">
-			<div class="uk-form-row">
-				<div class="md-input-wrapper" style="margin-top: 3%;">
-					<!-- <input type="hidden" ng-model="sender.userId" name="userId" value="1"> -->
-					<button type="button" class="md-btn md-btn-success md-input" ng-click="saveSenderId(sender)">Add Sender ID</button>
-			        <button type="button" class="md-btn md-btn-warning">Reset</button>
-			    </div>
-		    </div>
-		</div> <!-- <div class="uk-width-large-1 uk-text-center">
-        
-    </div> -->
+	    </div>
+	</div> 
 </div>
 

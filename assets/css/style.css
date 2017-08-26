@@ -20,3 +20,14 @@
   padding: 2px !important;
 }
 
+.active a{
+    background: #7cb342 !important;
+    color: #fff !important;
+}
+.disabled a{
+    border: none !important;
+    text-shadow: none !important;
+    background: transparent !important;
+    color: #aaa !important;
+    cursor: not-allowed !important;
+}
