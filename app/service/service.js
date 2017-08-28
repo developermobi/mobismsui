@@ -178,6 +178,7 @@ altairApp.service('pagerService', ['$rootScope','$state','$cookieStore','_', fun
     var service = {};
 
     service.GetPager = GetPager;
+    service.setPage = setPage;
 
     return service;
 
@@ -232,6 +233,15 @@ altairApp.service('pagerService', ['$rootScope','$state','$cookieStore','_', fun
             pages: pages
         };
     }
+
+    function setPage(page,data_per_page){
+        var s = 0;
+        if(page > 1){
+            s = page - 1;
+        }
+        return s * data_per_page;
+    }
+
 }]);   
 
 
@@ -276,4 +286,20 @@ altairApp.factory('AuthenticationService',
         };
   
         return service;
-    }]);
+}]);
+
+altairApp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+        var model = $parse(attrs.fileModel);
+        var modelSetter = model.assign;
+
+        element.bind('change', function(){
+            scope.$apply(function(){
+                modelSetter(scope, element[0].files[0]);
+            });
+        });
+    }
+   };
+}]);

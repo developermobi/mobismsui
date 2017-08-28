@@ -67,21 +67,13 @@ angular
 
             $scope.data_per_page = $scope.no_of_data.options[0].value;
            
-            function setPage(page){
-                var s = 0;
-                if(page > 1){
-                    s = page - 1;
-                }
-
-                $scope.start =  s * $scope.data_per_page;
-            }
-                       
+                                  
             $scope.template = {};
             $scope.getData = function(page){   
                 //alert(page);             
                 $scope.page = page;
 
-                setPage($scope.page);
+                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
                 
                 var getSender = "getAllTemplate/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
 

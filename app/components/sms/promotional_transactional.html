@@ -1,111 +1,129 @@
 <div class="uk-grid" data-uk-grid-margin="">
-    <div class="uk-width-medium-1-2">
-        <div class="md-card" style="height: 100%;">
-            <div class="md-card-content">
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-medium-1 uk-width-large-1">
-                        <div class="parsley-row">
-                            <label>Sender Id</label>
-                            <input type="text" config="sender_id_config" options="sender_id_data.options" ng-model="sender_id" name="sender_id" selectize />
-                        </div>                                                        
-                    </div>                 
-                </div>
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div ng-show="toShowUnicode != 'UNICODE'" class="uk-width-medium-1 uk-width-large-1">
-                        <div class="parsley-row">
-                            <label>SMS Type</label>
-                            <input type="text" ng-change="changeSMSType()" config="sms_type_config" options="sms_type_data.options" ng-model="sms_type" name="sms_type" selectize />
-                        </div>                                                        
-                    </div>
-                    <div ng-show="toShowUnicode == 'UNICODE'" class="uk-width-medium-1-2 uk-width-large-1-2">
-                        <div class="parsley-row">
-                            <label>SMS Type</label>
-                            <input type="text" ng-change="changeSMSType()" config="sms_type_config" options="sms_type_data.options" ng-model="sms_type" name="sms_type" selectize />                            
-                        </div>                                                        
-                    </div>
-                    <div ng-show="toShowUnicode == 'UNICODE'" class="uk-width-medium-1-2 uk-width-large-1-2" ng-controller="bulkSmsUnicodeCtrl">
-                        <sms-unicode></sms-unicode>                                               
-                    </div>                     
-                </div>
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-medium-1 uk-width-large-1">
-                        <div class="parsley-row">
-                            <label>SMS Method</label>
-                            <input type="text" ng-change="changeMethod()" config="sms_method_config" options="sms_method_data.options" ng-model="sms_method" name="sms_method" selectize />                            
-                        </div>                                                                                
-                    </div>
-                </div>                                                      
-            </div>
-        </div>
-    </div>
-    <div class="uk-width-medium-1-2">
-        <div class="md-card" style="height: 100%;">
-            <div class="md-card-content">      
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-medium-1-2 uk-width-large-1-2">                        
-                        <div class="parsley-row" ng-show="toShow==1">
-                            <label>Mobile</label>
-                            <textarea no-space only-digits ng-keyup="mobileCount()" ng-paste="keepNumericsAndCountMobile()" class="md-input teaxtarea-scroll" rows="4" required ng-model="sms.quick_mobile" md-input></textarea>
-                        </div>
-                        <div class="parsley-row" ng-show="toShow==2">
-                            <label>Group</label>
-                            <selectize id="select_group" config="select_group_config" options="select_group_options" position="bottom" ng-model="sms.group_mobile"></selectize>
-                        </div>
-                        <div class="parsley-row" ng-show="toShow==3">
-                            <h4 class="heading_a uk-margin-bottom">Notepad file</h4>
-                            <div class="uk-form-file md-btn md-btn-primary">
-                                &nbsp;&nbsp;Select File&nbsp;&nbsp;
-                                <input id="form-file" type="file">
-                            </div>
-                        </div>
-                        <div class="parsley-row" ng-show="toShow==4">
-                            <h4 class="heading_a uk-margin-bottom">Excel file</h4>
-                            <div class="uk-form-file md-btn md-btn-primary">
-                                &nbsp;&nbsp;Select File&nbsp;&nbsp;
-                                <input id="form-file" type="file">
-                            </div>
-                        </div> 
-                    </div>
-                    <div class="uk-width-medium-1-2 uk-width-large-1-2" >
-                        <div class="parsley-row">
-                            <input type="checkbox" ui-switch ng-model="sms.duplicate" id="duplicate" />   
-                            <label for="duplicate" class="inline-label">Remove Duplicate</label>
-                            <br>                            
-                            <br>
-                            <button ng-class="{disabled: mobCount}" ng-click="mobileCount()" type="button" class="md-btn md-btn-small md-btn-primary uk-text-center" style="width: 175px;" >Count Numbers: {{ mobile_count }}</button>
-                            
-                        </div>
-                    </div>
-                </div>          
-                <div class="uk-grid" data-uk-grid-margin>                    
-                    <div class="uk-width-medium-1-2">
-                        <div class="parsley-row">
-                            <label>Message</label>
-                            <textarea ng-keyup="messageCount()" ng-paste="autoDetectLanguage()" ng-show="toShowUnicode != 'UNICODE'" class="md-input teaxtarea-scroll" rows="4" id="message" required ng-model="message" md-input></textarea>                       
-                            <textarea ng-keyup="unicodeMessageCount()" ng-paste="autoDetectLanguage()" ng-show="toShowUnicode == 'UNICODE'" class="md-input teaxtarea-scroll" rows="4" id="unicode_message" required ng-model="message" md-input></textarea>                                                                            
-                        </div>
-                    </div>
-                    <div class="uk-width-medium-1-2">
-                        <ul class="md-list md-list-addon">
+	<div class="uk-width-medium-1-2">
+		<div class="md-card" style="height: 100%;">
+			<div class="md-card-content">
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-1 uk-width-large-1">
+						<div class="parsley-row">
+							<label>Sender Id</label>
+							<input type="text" config="sender_id_config" options="sender_id_data.options" ng-model="sender_id" name="sender_id" selectize />
+						</div>                                                        
+					</div>                 
+				</div>
+				<div class="uk-grid" data-uk-grid-margin>
+					<div ng-show="toShowUnicode != '3'" class="uk-width-medium-1 uk-width-large-1">
+						<div class="parsley-row">
+							<label>SMS Type</label>
+							<input type="text" ng-change="changeSMSType()" config="sms_type_config" options="sms_type_data.options" ng-model="sms_type" name="sms_type" selectize />
+						</div>                                                        
+					</div>
+					<div ng-show="toShowUnicode == '3'" class="uk-width-medium-1-2 uk-width-large-1-2">
+						<div class="parsley-row">
+							<label>SMS Type</label>
+							<input type="text" ng-change="changeSMSType()" config="sms_type_config" options="sms_type_data.options" ng-model="sms_type" name="sms_type" selectize />                            
+						</div>                                                        
+					</div>
+					<div ng-show="toShowUnicode == '3'" class="uk-width-medium-1-2 uk-width-large-1-2" ng-controller="bulkSmsUnicodeCtrl">
+						<sms-unicode></sms-unicode>                                               
+					</div>                     
+				</div>
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-1 uk-width-large-1">
+						<div class="parsley-row">
+							<label>SMS Method</label>
+							<input type="text" ng-change="changeMethod()" config="sms_method_config" options="sms_method_data.options" ng-model="sms_method" name="sms_method" selectize />                            
+						</div>                                                                                
+					</div>
+				</div>                                                      
+			</div>
+		</div>
+	</div>
+	<div class="uk-width-medium-1-2">
+		<div class="md-card" style="height: 100%;">
+			<div class="md-card-content">      
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-1-2 uk-width-large-1-2">                        
+						<div class="parsley-row" ng-show="toShow==1">
+							<label>Mobile</label>
+							<textarea no-space only-digits ng-keyup="mobileCount()" ng-paste="keepNumericsAndCountMobile()" class="md-input teaxtarea-scroll" rows="4" required ng-model="sms_mobile" md-input></textarea>
+						</div>
+						<div class="parsley-row" ng-show="toShow==2">
+							<label>Group</label>
+							<selectize id="select_group" config="select_group_config" options="select_group_options" position="bottom" ng-model="group_mobile"></selectize>
+						</div>
+						<div class="parsley-row" ng-show="toShow==3">
+							<h4 class="heading_a uk-margin-bottom">Notepad file</h4>
+							<div class="uk-form-file md-btn md-btn-primary">
+								&nbsp;&nbsp;Select File&nbsp;&nbsp;
+								<input id="form-file" required file-model="smsFile" type="file">
+							</div>
+						</div>
+						<div class="parsley-row" ng-show="toShow==4">
+							<h4 class="heading_a uk-margin-bottom">Excel file</h4>
+							<div class="uk-form-file md-btn md-btn-primary">
+								&nbsp;&nbsp;Select File&nbsp;&nbsp;
+								<input id="form-file" required file-model="smsFile" type="file">
+							</div>
+						</div> 
+					</div>
+					<div class="uk-width-medium-1-2 uk-width-large-1-2" >
+						<div class="parsley-row">
+							<input type="checkbox" ui-switch ng-model="sms.duplicate" id="duplicate" />   
+							<label for="duplicate" class="inline-label">Remove Duplicate</label>
+							<br>                            
+							<br>
+							<button ng-class="{disabled: mobCount}" ng-click="mobileCount()" type="button" class="md-btn md-btn-small md-btn-primary uk-text-center" style="width: 175px;" >Count Numbers: {{ mobile_count }}</button>
+
+						</div>
+					</div>
+				</div>          
+				<div class="uk-grid" data-uk-grid-margin>                    
+					<div class="uk-width-medium">
+						<div class="parsley-row">
+							<label>Message</label>
+							<textarea ng-keyup="messageCount()" ng-paste="autoDetectLanguage()" class="md-input teaxtarea-scroll" rows="4" id="message" required ng-model="message" md-input></textarea>                       
+							<!-- <textarea ng-keyup="unicodeMessageCount()" ng-paste="autoDetectLanguage()" ng-show="toShowUnicode == '3'" class="md-input teaxtarea-scroll" rows="4" id="unicode_message" required ng-model="message" md-input></textarea>   -->
+
+							<div class="uk-grid" data-uk-grid-margin>
+								<div class="uk-text-left uk-width-medium-1-2">
+									<div class="md-list-content">
+										<span class="md-list-heading">{{ messagesCount }} / {{ remainingCount }} remaining</span>
+									</div>
+								</div>
+								<div class="uk-text-right uk-width-medium-1-2">
+									<div class="md-list-content">
+										<span class="md-list-heading">{{ totalCount }} Character Count</span>
+									</div>
+								</div> 
+							</div>                            
+
+						</div>
+					</div>
+					<div class="uk-width-medium">
+                        <!-- <ul class="md-list md-list-addon">
                             <li>
-                                <div class="md-list-addon-element">
-                                    <i class="sm-list-addon-icon material-icons">&#xE158;</i>
+                                <div class="uk-text-left">
+                                    <div class="md-list-addon-element">
+                                        <i class="sm-list-addon-icon material-icons">&#xE158;</i>
+                                    </div>
+                                    <div class="md-list-content">
+                                        <span class="md-list-heading">{{ messagesCount }} / {{ remainingCount }} remaining</span>
+                                    </div>
                                 </div>
-                                <div class="md-list-content">
-                                    <span class="md-list-heading">{{ messagesCount }} / {{ remainingCount }} remaining</span>
+                                <div class="uk-text-right">
+                                    <div class="md-list-addon-element">
+                                        <i class="sm-list-addon-icon material-icons uk-text-success">&#xE158;</i>
+                                    </div>
+                                    <div class="md-list-content">
+                                        <span class="md-list-heading">{{ totalCount }} Character Count</span>
+                                    </div>
                                 </div>
+                                
                             </li>
-                            <li>
-                                <div class="md-list-addon-element">
-                                    <i class="sm-list-addon-icon material-icons uk-text-success">&#xE158;</i>
-                                </div>
-                                <div class="md-list-content">
-                                    <span class="md-list-heading">{{ totalCount }} Character Count</span>
-                                </div>
-                            </li>                                                     
-                        </ul>
-                        <div class="uk-width-medium-1">
-                            <button type="button" class="md-btn md-btn-small md-btn-primary"  style="width: 175px;" >Select Template</button>
+                                                                                
+                        </ul> -->
+                        <div class="uk-width-medium-1" ng-show="toShowUnicode != '3'">
+                        	<button type="button" ng-click="getTemplateData(1)" class="md-btn md-btn-small md-btn-primary" data-uk-modal="{target:'#view_template'}" style="width: 175px;" >Select Template</button>
                         </div>
                         
                     </div>
@@ -115,20 +133,72 @@
     </div>    
 </div>
 <div class="uk-grid" data-uk-grid-margin="">
-    <div class="uk-width-medium-1">
-        <div class="md-card">
-            <div class="md-card-content">
-                <div class="uk-grid">
-                    <div class="uk-width-large-1 uk-text-center">
-                        <button type="submit" class="md-btn md-btn-success" style="width: 120px;">Send</button> &nbsp;OR 
-                        <button type="button" class="md-btn md-btn-warning" style="width: 120px;">Schedule</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="uk-width-medium-1">
+		<div class="md-card">
+			<div class="md-card-content">
+				<div class="uk-grid">
+					<div class="uk-width-large-1 uk-text-center">
+						<button type="button" ng-click="sendSMS()" class="md-btn md-btn-success" style="width: 120px;">Send</button> &nbsp;OR 
+						<button type="button" class="md-btn md-btn-warning" style="width: 120px;">Schedule</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<script type="text/javascript">
-   
-</script>
+<div class="uk-modal" id="view_template">
+	<div class="uk-modal-dialog uk-modal-dialog-large">
+		<div class="uk-modal-header">
+			<h3 class="uk-modal-title">View Template</h3>
+		</div>        
+		<div class="md-card-content">
+			<div class="uk-overflow-container">            
+				<table class="uk-table uk-table-nowrap">
+					<thead>
+						<tr>
+							<th class="uk-width-1-10 uk-text-center">Sr No.</th>
+							<th class="uk-width-2-10 uk-text-center">Title</th>
+							<th class="uk-width-2-10 uk-text-center">Message</th>
+							<th class="uk-width-1-10 uk-text-center">Created</th>
+							<th class="uk-width-2-10 uk-text-center">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="data in userTemplateData">
+
+							<td class="uk-text-center">{{data_per_page *(pagination.currentPage - 1)+$index+1}}</td>
+							<td class="uk-text-center">{{data.name}}</td>
+							<td class="uk-text-center">{{data.description}}</td>
+							<td class="uk-text-center">{{data.created}}</td>
+							<td class="uk-text-center">
+								<a href="javascript:void(0);"><i class="md-icon material-icons uk-modal-close" ng-click="getTemplateDetails(data.id)" data-uk-tooltip="{pos:'bottom'}" title="Select">&#xE876;</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
+				<li ng-class="{disabled:pagination.currentPage === 1}">
+					<a ng-click="pagination.currentPage !== 1 && getTemplateData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+				</li>
+				<li ng-class="{disabled:pagination.currentPage === 1}">
+					<a ng-click="pagination.currentPage !== 1 && getTemplateData(pagination.currentPage - 1)">Prev</i></span></a>
+				</li>
+				<li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
+					<a ng-click="pagination.currentPage !== page &&  getTemplateData(page)">{{page}}</a>
+				</li>                
+				<li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+					<a ng-click="pagination.currentPage !== pagination.totalPages && getTemplateData(pagination.currentPage + 1)">Next</a>
+				</li>
+				<li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+					<a ng-click="pagination.currentPage !== pagination.totalPages && getTemplateData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+				</li>
+			</ul>
+		</div>       
+		<div class="uk-modal-footer uk-text-right">
+			<button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+		</div>
+	</div>
+</div>
