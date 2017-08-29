@@ -1,3 +1,4 @@
+
 <div class="uk-grid" data-uk-grid-margin="">
 	<div class="uk-width-medium-1-2">
 		<div class="md-card" style="height: 100%;">
@@ -68,7 +69,7 @@
 					</div>
 					<div class="uk-width-medium-1-2 uk-width-large-1-2" >
 						<div class="parsley-row">
-							<input type="checkbox" ui-switch ng-model="sms.duplicate" id="duplicate" />   
+							<input type="checkbox" ui-switch ng-model="sms_duplicate" id="duplicate" />   
 							<label for="duplicate" class="inline-label">Remove Duplicate</label>
 							<br>                            
 							<br>
@@ -138,8 +139,8 @@
 			<div class="md-card-content">
 				<div class="uk-grid">
 					<div class="uk-width-large-1 uk-text-center">
-						<button type="button" ng-click="sendSMS()" class="md-btn md-btn-success" style="width: 120px;">Send</button> &nbsp;OR 
-						<button type="button" class="md-btn md-btn-warning" style="width: 120px;">Schedule</button>
+						<button type="button" ng-click="sendNonScheduledSMS()" class="md-btn md-btn-success" style="width: 120px;">Send</button> &nbsp;OR 
+						<button type="button" data-uk-modal="{target:'#schedule_modal'}" class="md-btn md-btn-warning" style="width: 120px;">Schedule</button>
 					</div>
 				</div>
 			</div>
@@ -202,3 +203,89 @@
 		</div>
 	</div>
 </div>
+
+<div class="uk-modal" id="schedule_modal">
+	<div class="uk-modal-dialog">
+		<div class="uk-modal-header">
+			<h3 class="uk-modal-title"><center>Schedule Your SMS</center></h3>
+		</div>        
+		<div class="md-card-content">			           
+			<div class="uk-grid" data-uk-grid-margin>
+	            <div class="uk-width-medium-1-2">
+	                <div class="md-card">
+	                    <div class="md-card-content">
+	                        <h3 class="heading_a">Date</h3>
+	                        <div class="uk-grid">
+	                            <div class="uk-width-large">
+	                                <div class="uk-input-group">
+	                                    <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+	                                    <label for="uk_dp_1">Select date</label>
+	                                    <input class="md-input" type="text" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD', minDate:'{{date | date:'yyyy-MM-dd'}}'}" md-input ng-model="schedule_date">
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="uk-width-medium-1-2">
+	                <div class="md-card">
+	                    <div class="md-card-content">
+	                        <h3 class="heading_a">Time</h3>
+	                        <div class="uk-grid">
+	                            <div class="uk-width-large">
+	                                <div class="uk-input-group">
+	                                    <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-clock-o"></i></span>
+	                                    <label for="uk_tp_1">Select time</label>
+	                                    <input class="md-input timepicker" type="text" md-input ng-model="schedule_time">
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="uk-grid" data-uk-grid-margin="">
+				<div class="uk-width-medium-1">
+					<div class="md-card">
+						<div class="md-card-content">
+							<div class="uk-grid">
+								<div class="uk-width-large-1 uk-text-center">
+									<button type="button" ng-click="sendScheduledSMS()" class="md-btn md-btn-success" style="width: 120px;">Send</button> &nbsp;
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>       
+		<div class="uk-modal-footer uk-text-right">
+			<button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(function(){
+		$('.timepicker').timepicker({
+		    timeFormat: 'h:mm p',
+		    interval: 1,
+		    minTime: '00:00am',
+		    maxTime: '11:59pm',
+		    defaultTime: '11:00am',
+		    startTime: '00:00am',
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true
+		});
+	});
+</script>
+
+<style type="text/css">
+	.uk-datepicker{
+		z-index: 9999999 !important;
+	}
+	.ui-timepicker-container{
+		z-index: 9999999 !important;
+	}
+</style>

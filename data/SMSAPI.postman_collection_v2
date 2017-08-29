@@ -1,0 +1,823 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SMSAPI",
+		"_postman_id": "e79d95b6-bdb7-ce91-e609-395d9831a246",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sender Id",
+			"description": "",
+			"item": [
+				{
+					"name": "GroupDetails",
+					"description": "",
+					"item": [],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "saveSenderId",
+					"request": {
+						"url": "http://localhost:8080/sms/api/saveSenderId",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"senderId\":\"saNIvE\",\n\t\"status\":\"1\",\n\t\"userId\":\"1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAllSenderIdByUserId",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getAllSenderId/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getSenderById",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getSenderById/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "updateSenderById",
+					"request": {
+						"url": "http://localhost:8080/sms/api/updateSenderById/1",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"senderId\":\"MOBSFT\",\n\t\"status\":\"1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSenderId",
+					"request": {
+						"url": "http://localhost:8080/sms/api/deleteSenderId/3",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Template",
+			"description": "",
+			"item": [
+				{
+					"name": "saveTemplate",
+					"request": {
+						"url": "http://localhost:8080/sms/api/saveTemplate",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\":\"fdgdfg\",\n\t\"name\":\"dsfsf\",\n\t\"userId\":\"1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTemplate",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getAllTemplate/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTemplate",
+					"request": {
+						"url": "http://localhost:8080/sms/api/deleteTemplate/2",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "updateTemplateById",
+					"request": {
+						"url": "http://localhost:8080/sms/api/updateTemplateById/5",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\":\"hi dear How are you1111111\",\n\t\"name\":\"sani verma1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTemplateById",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getTemplateById/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "saveUser",
+					"request": {
+						"url": "{{local_url}}saveUser",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userName\":\"abc1234\",\n\t\"name\":\"sani verma1\",\n\t\"address\":\"xxz1\",\n\t\"city\":\"xxz1\",\n\t\"companyName\":\"xxz\",\n\t\"country\":\"xxz\",\n\t\"email\":\"pramod1.v@mobisofttech.co.in\",\n\t\"mobile\":\"9415422104\",\n\t\"role\":\"1\",\n\t\"state\":\"ddd\",\n\t\"status\":\"1\",\n\t\"creditBalnce\":\"500\",\n\t\"productId\":\"2\",\n\t\"userId\":\"1\",\n\t\"creditBy\":\"Reseller User Id 1\",\n\t\"dndCheck\":\"Y\",\n\t\"spamCheck\":\"N\",\n\t\"percentage\":\"100\"\n\t\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUser",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getAllUser",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"url": "{{server_url}}getUserById/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserById",
+					"request": {
+						"url": "http://localhost:8080/sms/api/updateUserById/1",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\t\"name\":\"sani verma1\",\n\t\"address\":\"xxz1\",\n\t\"city\":\"xxz1\",\n\t\"companyName\":\"xxz\",\n\t\"country\":\"xxz\",\n\t\"email\":\"sani07info@gmail.com\",\n\t\"mobile\":\"919415422104\",\n\t\"state\":\"ddd\"\n\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"url": "http://localhost:8080/sms/api/deleteUser/2/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "user/login",
+					"request": {
+						"url": "{{new_sms}}user/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userName\":\"abc\",\n\t\"password\":\"123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getBalanceByUserId",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getBalanceByUserId/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getCreditByUserId",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getCreditByUserId/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getDebitByUserId",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getDebitByUserId/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getUserByResellerId",
+					"request": {
+						"url": "http://localhost:8080/sms/api/getUserByResellerId/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "addProduct",
+					"request": {
+						"url": "http://localhost:8080/sms/api/addProduct/75/1/1/500",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "addCreditByReseller",
+					"request": {
+						"url": "http://localhost:8080/sms/api/addCreditByReseller/75/1/1/500",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deductCreditByReseller",
+					"request": {
+						"url": "http://localhost:8080/sms/api/deductCreditByReseller/75/1/1/500",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "saveUserJobs",
+					"request": {
+						"url": "{{new_sms}}/saveUserJobs",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "",
+									"type": "file",
+									"src": "singlenumber.txt"
+								},
+								{
+									"key": "userId",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "Test Vedant 1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "sender",
+									"value": "MOBSFT",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "scheduledAt",
+									"value": "2017-08-12 00:00:00",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "jobStatus",
+									"value": "0",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "jobType",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": " columns",
+									"value": "23",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "sendNow",
+									"value": "sa",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "sendRatio",
+									"value": "100",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "route",
+									"value": "vedant1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "messageType",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "productId",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "{{server_url}}/saveDlrStatus",
+					"request": {
+						"url": "{{new_sms}}/saveDlrStatus",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Group Details",
+			"description": "",
+			"item": [
+				{
+					"name": "saveGroupDetails",
+					"request": {
+						"url": "{{local_url}}saveGroupDetails",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"employee\",\n\t\"status\":\"1\",\n\t\"groupDescription\":\"Office Employee\",\n\t\"userId\":\"1\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAllGroup/userId/start/max",
+					"request": {
+						"url": "{{local_url}}getAllGroup/1/0/10",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getGroupById/groupId",
+					"request": {
+						"url": "{{local_url}}getGroupById/8",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "updateGroupById/groupId",
+					"request": {
+						"url": "{{local_url}}updateGroupById/8",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"eamploy\",\n\t\"status\":\"1\",\n\t\"groupDescription\":\"scholl employee\"\n\t\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteGroup/groupId",
+					"request": {
+						"url": "{{local_url}}deleteGroup/8",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getGroupById/groupId",
+					"request": {
+						"url": "{{local_url}}getGroupById/8",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contact",
+			"description": "",
+			"item": [
+				{
+					"name": "saveContact",
+					"request": {
+						"url": "{{local_url}}saveContact",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"designation\":\"dfasdsa\",\n\t\"emailId\":\"asdad\",\n\t\"mobile\":\"321321323\",\n\t\"name\":\"zfdszas\",\n\t\"userId\":\"1\",\n\t\"groupId\":\"8\"\n\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAllContact/UserId/start/max",
+					"request": {
+						"url": "{{local_url}}getAllContact/1/0/10",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getContactById/contactId",
+					"request": {
+						"url": "{{local_url}}getContactById/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "updateContactById/contactId",
+					"request": {
+						"url": "{{local_url}}updateContactById/131",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"sanmi\",\n\t\"status\":\"1\",\n\t\"designation\":\"sd\",\n\t\"mobile\":\"9415422104\",\n\t\"emailId\":\"pramod.v@mobisofttech.co.in\",\n\t\"groupId\":\"8\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteContact/contactId",
+					"request": {
+						"url": "{{local_url}}deleteContact/1231",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWJjOjEyMw==",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

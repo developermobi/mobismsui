@@ -19,6 +19,9 @@ angular
             $rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
+            $scope.date = new Date();
+            $scope.schedule_time = '11:00 AM';
+
             $scope.pagination = {};
             $scope.page = 1;
             //$scope.no_of_data = 5;
@@ -325,6 +328,7 @@ angular
 
             };
             
+            $scope.sms_duplicate = false;
             $scope.mobileCount = function(){                
                 $scope.mobile_count = 0;
                 var mobile = $scope.sms_mobile;
@@ -332,7 +336,7 @@ angular
                 mobile = mobile.trim();
                 mobile = mobile.replace(/(^[ \t]*\n)/gm, "");
                 var mob_array = mobile.split(/\r\n|\r|\n/);
-                if($scope.sms.duplicate == true){
+                if($scope.sms_duplicate == true){
                     var mob_array = unique(mob_array);
                     $scope.sms_mobile = mob_array.toString().replace(/\,/g,'\n');
                 }
@@ -537,90 +541,7 @@ angular
                     $scope.mobileCount();
                 }, 100);
             }
-
-            $scope.sendSMS = function(){
-                var fd = new FormData();
-                fd.append('file', $scope.smsFile);
-                fd.append('userId', $rootScope.u_id);
-                fd.append('message', $scope.message);
-                fd.append('sender', $scope.sender_id);
-                fd.append('scheduledAt', '2017-08-12 00:00:00');
-                fd.append('jobStatus', 0);
-                fd.append('jobType', $scope.sms_method);
-                fd.append('columns', 23);
-                fd.append('sendNow', 'SV');
-                fd.append('sendRatio', 100);
-                fd.append('route', 'netcore');
-                fd.append('messageType', $scope.sms_type);
-                fd.append('productId', $scope.selectedProductId);
-               
-
-                for (var pair of fd.entries()) {
-                    console.log(pair[0]+ ', ' + pair[1]); 
-                }
-
-                var sendSMS = "saveUserJobs";               
-
-                apiFileUpload.async(sendSMS,fd).then(function(d) {
-                    $scope.responseData = d;
-                    /*alert("hello data");
-                    console.log('d data',d);*/
-                    $scope.data = $scope.responseData.data;
-                    
-                    if($scope.data.code == 201){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Message Successfully Sent');
-                        modal.show();  
-                        $scope.clearFields();                      
-                       // getData();
-                        setTimeout(function(){
-                            modal.hide();
-                            //window.location.href="/mobismsui/#/template/manage";
-                        },3000);
-
-                    }else if($scope.data.code == 401){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid Token Credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 403){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 413){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Maximum message sending count is 10');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 414){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>File is too large');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 404){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>File not found');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Bad request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                });
-            }
+           
 
             $scope.clearFields = function(){
                 $scope.message = '';
@@ -706,7 +627,117 @@ angular
                 });
             };
 
-            //$scope.getTemplateData($scope.page);
+             $scope.sendSMS = function(fd){
+                
+                if($scope.sms_method == 3 || $scope.sms_method == 4){
+                    fd.append('file', $scope.smsFile);
+                }
+                
+                fd.append('userId', $rootScope.u_id);
+                fd.append('message', $scope.message);
+                fd.append('sender', $scope.sender_id);                
+                fd.append('jobStatus', 0);
+                fd.append('jobType', $scope.sms_method);
+                fd.append('columns', 23);
+                fd.append('sendNow', 'SV');
+                fd.append('sendRatio', 100);
+                fd.append('route', 'netcore');
+                fd.append('messageType', $scope.sms_type);
+                fd.append('productId', $scope.selectedProductId);
+
+                if( $scope.sms_duplicate == false){
+                    fd.append('duplicateStatus', 0);
+                }else{
+                    fd.append('duplicateStatus', 1);
+                }                
+               
+
+                for (var pair of fd.entries()) {
+                    console.log(pair[0]+ ', ' + pair[1]); 
+                }
+                return false;
+
+                var sendSMS = "saveUserJobs";               
+
+                apiFileUpload.async(sendSMS,fd).then(function(d) {
+                    $scope.responseData = d;
+                    /*alert("hello data");
+                    console.log('d data',d);*/
+                    $scope.data = $scope.responseData.data;
+                    
+                    if($scope.data.code == 201){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Message Successfully Sent');
+                        modal.show();  
+                        $scope.clearFields();                      
+                       // getData();
+                        setTimeout(function(){
+                            modal.hide();
+                            //window.location.href="/mobismsui/#/template/manage";
+                        },3000);
+
+                    }else if($scope.data.code == 401){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid Token Credentials');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 403){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 413){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Maximum message sending count is 10');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 414){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>File is too large');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 404){
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>File not found');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else{
+                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Bad request');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                });
+            }
+
+            $scope.sendNonScheduledSMS = function(){
+                var fd = new FormData();
+                fd.append('scheduledAt', '0000-00-00 00:00:00');
+                fd.append('scheduledStatus', 0);
+                $scope.sendSMS(fd);
+            };
+
+            $scope.sendScheduledSMS = function(){
+                var fd = new FormData();
+
+                var t = $(".timepicker").val();
+                $scope.schedule_time = t;
+                var momentObj = moment($scope.schedule_time, ["h:mm A"]);
+                fd.append('scheduledAt', $scope.schedule_date +" "+ momentObj.format("HH:mm:ss"));
+                fd.append('scheduledStatus', 1);
+
+                $scope.sendSMS(fd);
+            };
             
 
         }
