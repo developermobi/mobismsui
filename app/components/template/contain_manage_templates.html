@@ -61,45 +61,34 @@
             <form >
                 <div class="uk-grid" data-uk-grid-margin="">
                     <div class="uk-width-medium-1 uk-row-first">
-                        <div class="uk-form-row">
-                            <div class="md-input-wrapper">
-                                <label>Title Name</label>
-                                <input type="text" class="md-input" ng-model="template.name" md-input />
-                            </div>                          
-                        </div>                            
-                    </div>
-                    <div class="uk-width-medium-1 uk-row-first">
-                        <div class="uk-form-row">
-                            <div class="md-input-wrapper">
-                                <label>Description</label>
-                                <!-- <input type="text" class="md-input" ng-model="template.description" md-input /> -->
 
-                                <textarea class="md-input teaxtarea-scroll ng-pristine ng-isolate-scope ng-invalid ng-invalid-required md-input-processed ng-touched" ng-keyup="messageCount()" rows="4" id="temp_message" required="" ng-model="template.description" name="temp_message" md-input="" style=""></textarea>
-                                <span class="md-input-bar"></span>
-                            </div>                          
-                        </div>                            
-                    </div>
-                    <div class="uk-width-medium-1-2">
-                        <ul class="md-list md-list-addon">
-                            <li>
-                                <div class="md-list-addon-element">
-                                    <i class="sm-list-addon-icon material-icons">&#xE158;</i>
-                                </div>
-                                <div class="md-list-content">
-                                    <span class="md-list-heading">{{ messagesCount }} / {{ remainingCount }} remaining</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="md-list-addon-element">
-                                    <i class="sm-list-addon-icon material-icons uk-text-success">&#xE158;</i>
-                                </div>
-                                <div class="md-list-content">
-                                    <span class="md-list-heading">{{ totalCount }} Character Count</span>
-                                </div>
-                            </li>                                                     
-                        </ul>
-
-                        
+                        <div class="uk-width-medium-1 uk-row-first">
+                            <div class="uk-form-row">
+                                <div class="md-input-wrapper">
+                                    <label>Title Name</label>
+                                    <input type="text" class="md-input" ng-model="template.name" md-input />
+                                </div>                                
+                            </div>
+                            <div class="uk-form-row">
+                               <div class="parsley-rowr">
+                                    <label>Description</label>
+                                    <textarea class="md-input teaxtarea-scroll" ng-keyup="messageCount()" rows="4" id="temp_message" required="" ng-model="template.description" name="temp_message" md-input="" style=""></textarea>
+                                    
+                                    <div class="uk-grid" data-uk-grid-margin>
+                                        <div class="uk-text-left uk-width-medium-1-2">
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading">{{ messagesCount }} / {{ remainingCount }} remaining</span>
+                                            </div>
+                                        </div>
+                                        <div class="uk-text-right uk-width-medium-1-2">
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading">{{ totalCount }} Character Count</span>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>                                
+                            </div>                        
+                        </div>                        
                     </div>
 
                 </div>

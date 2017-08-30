@@ -7,42 +7,92 @@ angular
         'apiPostData',
         '$cookieStore',
         '$stateParams',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams) {
+        'pagerService',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService) {
 
             $rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
 
-            //alert($rootScope.globals.currentUser);
+            $scope.pagination = {};
+            $scope.page = 1;
+            
+            $scope.no_of_data = {
+                options: [
+                    {
+                        id: 1,
+                        title: "5",
+                        value: "5",
+                        parent_id: 1
+                    },
+                    {
+                        id: 2,
+                        title: "10",
+                        value: "10",
+                        parent_id: 1
+                    },
+                    {
+                        id: 3,
+                        title: "25",
+                        value: "25",
+                        parent_id: 1
+                    },
+                    {
+                        id: 4,
+                        title: "50",
+                        value: "50",
+                        parent_id: 1
+                    },
+                    {
+                        id: 5,
+                        title: "100",
+                        value: "100",
+                        parent_id: 1
+                    }
+                ]
+            };
 
-            //console.log($rootScope.globals.currentUser);
+            $scope.no_of_data_config = {
+                create: false,
+                maxItems: 1,
+                placeholder: 'No of data per page',
+                optgroupField: 'parent_id',
+                optgroupLabelField: 'title',
+                optgroupValueField: 'ogid',
+                valueField: 'value',
+                labelField: 'title',
+                searchField: 'title',
+                hideSelected: false,
+                highlight: true
+            };
 
-            getData();
+            $scope.data_per_page = $scope.no_of_data.options[0].value;          
 
-            function getData(){
-                var getContact = "getContactByUser/"+$rootScope.u_id;
+            $scope.getData = function(page){
+
+                $scope.page = page;
+
+                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
+
+                var getContact = "getAllContact/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
+
                 $scope.userContactData = {};
 
                 apiGetData.async(getContact).then(function(d) {
                     $scope.responseData = d;
+                    //alert("hello data");
+                    console.log('d data',d);
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
-                        $scope.userContactData = $scope.data.data;
-                        console.log($scope.userContactData);
+                        $scope.contactData = $scope.data.data.contactData;
+                        console.log('getAllContact data',$scope.contactData);
+                        
+                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
+                        console.log($scope.pagination);
                     }
-                });  
-
-                var getGroupName = "getGroupByUserId/"+$rootScope.u_id;
-                $scope.groupNameData = {};
-
-                apiGetData.async(getGroupName).then(function(d) {
-                    $scope.responseData = d;
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 302){
-                        $scope.groupNameData = $scope.data.data;
-                        planets_data = $scope.group_name_data = $scope.groupNameData;
-                    }
-                });              
+                });           
             }  
+
+            $scope.getData($scope.page);    
 
             var planets_data = $scope.group_name_data = [];
             $scope.group_name_config = {
@@ -75,17 +125,17 @@ angular
                 var getContactData = "getContactById/"+id;
                 $scope.contactData = {};
                 apiGetData.async(getContactData).then(function(d) {                    
-                    $scope.responseData = d;
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 302){
-                        $scope.contactData = $scope.data.data;
-                        $scope.contact.g_id =  $scope.contactData[0].g_id;
+                    $scope.responseData = d.data;
+                    console.log('responseData',$scope.responseData);   
+                    if($scope.responseData.code == 302){
+                        $scope.contactData = $scope.responseData.data;
+                        $scope.contact.g_id =  $scope.contactData[0].groupId.groupId;
                         $scope.contact.mobile =  $scope.contactData[0].mobile;
                         $scope.contact.name =  $scope.contactData[0].name;
-                        $scope.contact.email =  $scope.contactData[0].email;
-                        $scope.contact.id =  $scope.contactData[0].id;
+                        $scope.contact.email =  $scope.contactData[0].emailId;
+                        $scope.contact.id =  $scope.contactData[0].contactId;
 
-                        console.log($scope.contactData);                        
+                        console.log($scope.contact);                        
                     }
                 }); 
             };
@@ -103,20 +153,46 @@ angular
                 });
             };
 
-            $scope.changeStatus = function(status,mob,id){
-                if(status == 1){
-                    status = 0;
-                }else if(status == 0){
-                    status = 1;
-                }
+            $scope.changeStatus = function(status,id){
+                
+                var updateStatus = "updateContactStatus/"+id+"/"+status;
+                console.log(updateStatus);
+                apiGetData.async(updateStatus).then(function(d) {
+                    $scope.responseData = d.data;
+                    console.log($scope.responseData);
 
-                $scope.contact_data = 
-                    {
-                        'mobile': mob,
-                        'status': status
-                    };
-               
-                $scope.updateContact($scope.contact_data,id);
+                    if($scope.responseData.code == 200){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data updated successfully');
+                        modal.show();
+                        $scope.getData($scope.page);
+                        setTimeout(function(){
+                            $('.uk-modal-close').trigger('click');
+                            modal.hide();
+                        },3000);
+
+                    }
+                    else if($scope.responseData.code == 304){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during updation');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.responseData.code == 400){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad Request');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }                   
+                });
             };
 
             $scope.deleteContact = function(id){   

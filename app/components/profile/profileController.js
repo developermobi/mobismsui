@@ -58,7 +58,7 @@ altairApp
                 apiPostData.async(updateUserDetails, userDetailsData).then(function(d) {
                     $scope.data = d.data;
                     if($scope.data.code == 200){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Data Updated Successfully');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
                             modal.show();
                            // getData();
                             setTimeout(function(){

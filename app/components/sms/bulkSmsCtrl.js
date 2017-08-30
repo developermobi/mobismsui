@@ -163,27 +163,27 @@ angular
                     if($scope.data.code == 302){
                         $scope.userData = $scope.data.data;
                         
-                        console.log($scope.userData.length);
+                        console.log($scope.userData);
 
                         var response_data = $scope.userData;                         
 
                         var increment = 1;
                         $.each(response_data,function(i){
 
-                            console.log(response_data[i].product['id']);
+                            console.log(response_data[i].productId['id']);
 
 
 
                             var array_product = Array();
-                            array_product['id'] = response_data[i].product['id'];
-                            array_product['title'] = response_data[i].product['name'];
+                            array_product['id'] = response_data[i].productId['id'];
+                            array_product['title'] = response_data[i].productId['name'];
                             increment++;
 
                             $scope.smsTypes[i]= Object.assign({}, array_product);
 
                             if(i == 0){
-                                $scope.selectedProductId = response_data[i].product['id'];
-                                $scope.selectedProductName = response_data[i].product['name']; 
+                                $scope.selectedProductId = response_data[i].productId['id'];
+                                $scope.selectedProductName = response_data[i].productId['name']; 
                             }
                             
                         });
@@ -608,7 +608,7 @@ angular
 
                             if($scope.messagesCount > 10)
                             {
-                                var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Counts of message not more than 10.');
+                                var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Counts of message not more than 10.');
                                 modal.show();
                                 setTimeout(function(){
                                     modal.hide();
@@ -666,7 +666,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Message Successfully Sent');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Message Successfully Sent');
                         modal.show();  
                         $scope.clearFields();                      
                        // getData();
@@ -676,42 +676,42 @@ angular
                         },3000);
 
                     }else if($scope.data.code == 401){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid Token Credentials');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid Token Credentials');
                         modal.show();
                         setTimeout(function(){
                             modal.hide();
                         },3000);
                     }
                     else if($scope.data.code == 403){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
                         modal.show();
                         setTimeout(function(){
                             modal.hide();
                         },3000);
                     }
                     else if($scope.data.code == 413){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Maximum message sending count is 10');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Maximum message sending count is 10');
                         modal.show();
                         setTimeout(function(){
                             modal.hide();
                         },3000);
                     }
                     else if($scope.data.code == 414){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>File is too large');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File is too large');
                         modal.show();
                         setTimeout(function(){
                             modal.hide();
                         },3000);
                     }
                     else if($scope.data.code == 404){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>File not found');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File not found');
                         modal.show();
                         setTimeout(function(){
                             modal.hide();
                         },3000);
                     }
                     else{
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Bad request');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad request');
                         modal.show();
                         setTimeout(function(){
                             modal.hide();

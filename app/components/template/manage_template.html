@@ -5,7 +5,14 @@
     			<h3 class="heading_b uk-margin-bottom">Manage Templates</h3>
     		</div>
     	</div>
-    	
+    	<div class="uk-grid">
+            <div class="uk-width-medium-1-2 uk-text-left">  
+                <div class="uk-width-medium-1-6 uk-text-center">        
+                        <input type="text" size="5" ng-change="getData(1)" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
+                </div>     
+            </div>            
+        </div>
+        <br>
     	<manage-templates></manage-templates>
 
     </div>
