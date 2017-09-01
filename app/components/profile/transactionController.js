@@ -1,4 +1,5 @@
-altairApp
+angular
+    .module('altairApp')
     .controller('transactionCtrl', [
         '$scope',
         '$rootScope',
@@ -10,8 +11,8 @@ altairApp
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
             $scope.transction = {};
             $scope.userData ="";
-             getDebitData();
-                getCreditData();
+            getDebitData();
+            getCreditData();
         	
             
 
@@ -26,7 +27,7 @@ altairApp
                     if($scope.data.code == 302){
                         $scope.userData = $scope.data.data;
                         
-                        console.log($scope.userData);
+                        console.log('debit data',$scope.userData);
                         //console.log($scope.userProduct);
                     }
                 });
@@ -40,12 +41,13 @@ altairApp
                     $scope.responseData = d;
 
                     $scope.data = $scope.responseData.data;
+                    console.log('credit',$scope.data);
 
                     if($scope.data.code == 302){
                       
                         $scope.getCreditData = $scope.data.data;  
                         //$scope.userProduct = $scope.userBalanceData[0]['userProduct'];                     
-                        console.log($scope.getCreditData);
+                        console.log('credit data',$scope.getCreditData);
                         //console.log($scope.userProduct);
                     }
                 });

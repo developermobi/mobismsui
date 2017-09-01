@@ -59,6 +59,7 @@ altairApp
         '$cookieStore',
         function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables,$cookieStore) {
 
+            
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 
@@ -151,4 +152,16 @@ altairApp
             PrintToConsole.active = false;
         }
     ])
+    .run(run)
 ;
+
+run.$inject = ['$rootScope', '$cookieStore'];
+
+function run($rootScope, $cookieStore) {
+
+    $rootScope.globals1 = $cookieStore.get('globals') || {};
+    alert($rootScope.globals1);
+    $rootScope.u_id1 = $rootScope.globals1.currentUser.u_id;
+
+    //alert($rootScope.u_id1);
+}

@@ -123,19 +123,19 @@ angular
             $scope.contact = {};
             $scope.getContactDetails = function(id){                
                 var getContactData = "getContactById/"+id;
-                $scope.contactData = {};
+                $scope.contactDetails = {};
                 apiGetData.async(getContactData).then(function(d) {                    
                     $scope.responseData = d.data;
                     console.log('responseData',$scope.responseData);   
                     if($scope.responseData.code == 302){
-                        $scope.contactData = $scope.responseData.data;
-                        $scope.contact.g_id =  $scope.contactData[0].groupId.groupId;
-                        $scope.contact.mobile =  $scope.contactData[0].mobile;
-                        $scope.contact.name =  $scope.contactData[0].name;
-                        $scope.contact.email =  $scope.contactData[0].emailId;
-                        $scope.contact.id =  $scope.contactData[0].contactId;
+                        $scope.contactDetails = $scope.responseData.data;
+                        $scope.contact.g_id =  $scope.contactDetails[0].groupId.groupId;
+                        $scope.contact.mobile =  $scope.contactDetails[0].mobile;
+                        $scope.contact.name =  $scope.contactDetails[0].name;
+                        $scope.contact.email =  $scope.contactDetails[0].emailId;
+                        $scope.contact.id =  $scope.contactDetails[0].contactId;
 
-                        console.log($scope.contact);                        
+                        //console.log($scope.contact);                        
                     }
                 }); 
             };

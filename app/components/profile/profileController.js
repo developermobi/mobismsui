@@ -1,10 +1,11 @@
-altairApp
+angular
+    .module('altairApp')
     .controller('profileCtrl', [
         '$scope',
         '$rootScope',
-         'apiGetData',
-         'apiPostData',
-         '$cookieStore',
+        'apiGetData',
+        'apiPostData',
+        '$cookieStore',
         function($scope, $rootScope,apiGetData,apiPostData,$cookieStore){
         	$rootScope.globals = $cookieStore.get('globals') || {};
             $rootScope.u_id = $rootScope.globals.currentUser.u_id;
