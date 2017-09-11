@@ -159,9 +159,10 @@ run.$inject = ['$rootScope', '$cookieStore'];
 
 function run($rootScope, $cookieStore) {
 
-    $rootScope.globals1 = $cookieStore.get('globals') || {};
-    alert($rootScope.globals1);
-    $rootScope.u_id1 = $rootScope.globals1.currentUser.u_id;
-
-    //alert($rootScope.u_id1);
+    $rootScope.globals = $cookieStore.get('globals') || {};
+    if(Object.keys($rootScope.globals).length === 0 && $rootScope.globals.constructor === Object){
+    }else{
+        $rootScope.u_id = $rootScope.globals.currentUser.u_id;
+        $rootScope.auth_key = $rootScope.globals.currentUser.auth_key;
+    }
 }

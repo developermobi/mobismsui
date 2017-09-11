@@ -6,9 +6,7 @@ altairApp
         'apiPostData',
         '$cookieStore',
         function($scope, $rootScope,apiGetData,apiPostData,$cookieStore){
-        	$rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-            
+        	
             $scope.userProductData ={};
             $scope.resellerData ={};
             getUserData();

@@ -16,9 +16,7 @@ angular
         'pagerService',
         function ($scope,$rootScope,$http,apiGetData,apiPostData,apiFileUpload,$cookieStore,pagerService) {
 
-            $rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-
+           
             $scope.date = new Date();
             $scope.schedule_time = '11:00 AM';
 

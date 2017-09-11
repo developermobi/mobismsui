@@ -299,6 +299,8 @@ altairApp.directive('fileModel', ['$parse', function ($parse) {
             scope.$apply(function(){
                 modelSetter(scope, element[0].files[0]);
                 console.log(element[0].files[0].name);
+
+                scope.fileName = element[0].files[0].name;
             });
         });
     }

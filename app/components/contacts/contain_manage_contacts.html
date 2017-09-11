@@ -69,7 +69,7 @@
                         <div class="uk-form-row">
                             <div class="md-input-wrapper">
                                 <label>Group Name</label>
-                                <input type="text" config="group_name_config" options="group_name_data" ng-model="contact.g_id" selectize />
+                                <selectize id="select_group" config="group_name_config" options="user_group_data" position="bottom" ng-model="contact.groupId"></selectize>
                             </div>                          
                         </div> 
                         <div class="uk-form-row">
@@ -87,16 +87,28 @@
                         <div class="uk-form-row">
                             <div class="md-input-wrapper">
                                 <label>Email</label>
-                                <input type="text" class="md-input" ng-model="contact.email" md-input />
+                                <input type="text" class="md-input" ng-model="contact.emailId" md-input />
+                            </div>                          
+                        </div>
+                        <div class="uk-form-row">
+                            <div class="md-input-wrapper">
+                                <label>Designation</label>
+                                <input type="text" class="md-input" ng-model="contact.designation" md-input />
                             </div>                          
                         </div>                            
+                        <div class="uk-form-row">
+                            <div class="">
+                                <label>Status</label>
+                                <input type="text" config="contact_status_config" options="contact_status.options" ng-model="contact.status" name="status" selectize />
+                            </div>                          
+                        </div>
                     </div>                                      
                 </div>
             </form>
         </div>       
         <div class="uk-modal-footer uk-text-right">
             <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
-            <button type="button" class="md-btn md-btn-flat md-btn-flat-primary" ng-click="updateContact(contact,contact.id)">Update</button>
+            <button type="button" class="md-btn md-btn-flat md-btn-flat-primary" ng-click="updateContact(contact,contactDetails[0].contactId)">Update</button>
         </div>
     </div>
 </div>

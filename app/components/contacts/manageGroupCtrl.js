@@ -8,10 +8,7 @@ angular
         '$cookieStore',
         'pagerService',
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService) {
-
-            // $rootScope.globals = $cookieStore.get('globals') || {};
-            // $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-
+           
             $scope.pagination = {};
             $scope.page = 1;
             
@@ -74,7 +71,7 @@ angular
 
                 $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
                 
-                var getGroup = "getAllGroupPaginate/"+$rootScope.u_id1+"/"+$scope.start+"/"+$scope.data_per_page;                
+                var getGroup = "getAllGroupPaginate/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page;                
                 
                 apiGetData.async(getGroup).then(function(d) {
                     $scope.responseData = d;

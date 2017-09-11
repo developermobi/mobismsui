@@ -9,9 +9,7 @@ angular
         '$compile',
         'pagerService',
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$compile,pagerService) {
-            $rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-
+            
             /*alert($rootScope.u_id);*/
             $scope.sender = {};
             $scope.senderEdited = {};

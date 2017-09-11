@@ -23,30 +23,19 @@ altairApp
         '$http','$rootScope','$state','globalUrl',
         function($http,$rootScope,$state,globalUrl) {
 
-           	var urlBase = 'http://localhost:2307/Service1.svc';
-
 		    var group = {};
 
-		    group.all = function (url) {
+		    group.all = function () {
 
 		        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
 	            modal.show();   
 
-	            url = globalUrl+"getActiveGroupByUserId/"+$rootScope.u_id;
+	            var url = globalUrl+"getActiveGroupByUserId/"+$rootScope.u_id;
 
-	            var promise = $http.post(url, data, config)        
-	            .success(function(response){
-	                modal.hide();
-	                return response.data.data;
-	            })
-	            .error(function(response){
-	                modal.hide();
-	                UIkit.modal.alert(response.message);
-	                return response.data.data;
-	            });
-
-	            // Return the promise to the controller
-	            return promise;
+	            return {
+	            	
+	            }
+	            
 		    };
 
 		    group.paginate = function (stud) {

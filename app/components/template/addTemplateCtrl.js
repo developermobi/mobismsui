@@ -7,9 +7,7 @@ angular
         '$cookieStore',
         function ($scope,$rootScope,apiPostData,$cookieStore) {
             
-            $rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-
+           
             /*alert($rootScope.u_id);*/
             $scope.template = {};
            // $scope.senderEdited = {};

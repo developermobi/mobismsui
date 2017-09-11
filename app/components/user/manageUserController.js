@@ -8,9 +8,7 @@ angular
         '$cookieStore', 
         '$compile',
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$compile) {
-            $rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-
+            
             $scope.resellerData = {};
             $scope.userBalanceData={};
 

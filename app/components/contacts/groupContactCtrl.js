@@ -9,8 +9,6 @@ angular
         '$stateParams',
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams) {
 
-            $rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.userId;
 
             getData();
 

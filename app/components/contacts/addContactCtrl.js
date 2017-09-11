@@ -8,16 +8,21 @@ angular
         'apiFileUpload',
         '$cookieStore',
         function ($scope,$rootScope,apiGetData,apiPostData,apiFileUpload,$cookieStore) {
-        	$rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-            
+        	
             $scope.contact = {};
 
             $scope.fileName = '';
 
-            var planets_data = $scope.user_group_data = [];
+            $scope.clearFields = function(){
+                $scope.contact = '';
+                $scope.fileName = '';
+                $scope.contactFile = '';
+            };
 
-            $scope.getGroupData = function(){               
+            var groups_data = $scope.user_group_data = [];
+
+            $scope.getGroupData = function(){
+               
                 var getGroupName = "getActiveGroupByUserId/"+$rootScope.u_id;
                 $scope.groupNameData = {};
 
@@ -54,28 +59,6 @@ angular
             }  
 
             $scope.getGroupData();
-
-            // $scope.group_name_config = {
-            //     plugins: {
-            //         'remove_button': {
-            //             label     : ''
-            //         }
-            //     },
-            //     placeholder: 'Select Group',
-            //     maxItems: null,
-            //     valueField: 'id',
-            //     labelField: 'title',
-            //     searchField: 'title',
-            //     create: false,
-            //     render: {
-            //         option: function(planets_data, escape) {
-            //             return  '<div class="option">' +
-            //                 '<span class="title">' + escape(planets_data.title) + '</span>' +
-            //                 '</div>';
-            //         }
-            //     }
-            // };
-
             
             $scope.group_name_config = {
                 plugins: {
@@ -92,13 +75,13 @@ angular
                 hideSelected: false,
                 highlight: true,
                 render: {
-                    option: function(planets_data, escape) {
+                    option: function(groups_data, escape) {
                         return  '<div class="option">' +
-                            '<span class="title">' + escape(planets_data.title) + '</span>' +
+                            '<span class="title">' + escape(groups_data.title) + '</span>' +
                             '</div>';
                     },
-                    item: function(planets_data, escape) {
-                        return '<div class="item">' + escape(planets_data.title) + '</div>';
+                    item: function(groups_data, escape) {
+                        return '<div class="item">' + escape(groups_data.title) + '</div>';
                     }
                 }
             };
@@ -113,7 +96,8 @@ angular
                 apiPostData.async(addContact, contactData).then(function(d) {
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        $scope.contact = null;
+                        //$scope.contact = null;
+                        $scope.clearFields();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Inserted Successfully');
                         setTimeout(function(){
                             modal.hide();
@@ -146,24 +130,63 @@ angular
             $scope.uploadContactFile = function() {
                 
                 var file = $scope.contactFile;
-                var uploadContact = "uploadContact";
+                var uploadContact = "saveMultipleContact";
 
                 var formData = new FormData();
-                formData.append('file', file);
-                formData.append('g_id', $scope.contact.g_id);
-                formData.append('u_id', $rootScope.u_id);
+                formData.append('contactFile', file);
+                formData.append('groupId', $scope.contact.groupId);
+                formData.append('userId', $rootScope.u_id);
+
+                for (var pair of formData.entries()) {
+                    console.log(pair[0]+ ', ' + pair[1]); 
+                }
 
                 apiFileUpload.async(uploadContact, formData).then(function(d) {
-                    $scope.data = d.data;
-                    if($scope.data.code == 201){
-                        $scope.contact = null;
-                        UIkit.modal.alert('Data Inserted Successfully');
-                    }                    
+                    $scope.responseData = d.data;
+                    console.log('Upload Contact Response: ',$scope.data);
+                    if($scope.responseData.code == 200){
+                        //$scope.contact = null;
+                        $scope.clearFields();
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Inserted Successfully');
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    } 
+                    else if($scope.responseData.code == 403){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during insertion');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.responseData.code == 400){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad Request');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.responseData.code == 401){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }else if($scope.responseData.code == 413){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Request File Too Large');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
+                        modal.show();
+                        // setTimeout(function(){
+                        //     modal.hide();
+                        // },3000);
+                    }                   
                 });          
             }; 
         }
     ]);
-
-function FileNameController($scope) {
-    $scope.fileName = '';
-  }

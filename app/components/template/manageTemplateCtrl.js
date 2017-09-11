@@ -8,9 +8,7 @@ angular
         '$cookieStore',
         'pagerService',
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService) {
-            $rootScope.globals = $cookieStore.get('globals') || {};
-            $rootScope.u_id = $rootScope.globals.currentUser.u_id;
-
+            
             $scope.pagination = {};
             $scope.page = 1;
             //$scope.no_of_data = 5;
