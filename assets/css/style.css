@@ -31,3 +31,11 @@
     color: #aaa !important;
     cursor: not-allowed !important;
 }
+.editSender{
+  border-bottom: 2px dotted #7cb342;
+  padding: 0 0 2px 0;
+  font-weight: 600;
+}
+.erro-message{
+  color: red;
+}
