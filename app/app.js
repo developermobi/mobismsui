@@ -20,6 +20,7 @@ var altairApp = angular.module('altairApp', [
 ]);
 
 altairApp.value('globalUrl', 'http://localhost:9090/sms/api/');
+altairApp.value('appUrl', 'http://localhost/mobismsui/#/');
 
 altairApp.constant('variables', {
     header__main_height: 48,

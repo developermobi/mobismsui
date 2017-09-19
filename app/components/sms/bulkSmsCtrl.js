@@ -20,6 +20,8 @@ angular
             $scope.date = new Date();
             $scope.schedule_time = '11:00 AM';
 
+            $scope.fileName = '';
+
             $scope.pagination = {};
             $scope.page = 1;
             //$scope.no_of_data = 5;
@@ -278,16 +280,45 @@ angular
             };
 
             //Group
-            var groups_data = $scope.select_group_options = [
-                {id: 1, title: 'Mercury', url: 'http://en.wikipedia.org/wiki/Mercury_(planet)'},
-                {id: 2, title: 'Venus', url: 'http://en.wikipedia.org/wiki/Venus'},
-                {id: 3, title: 'Earth', url: 'http://en.wikipedia.org/wiki/Earth'},
-                {id: 4, title: 'Mars', url: 'http://en.wikipedia.org/wiki/Mars'},
-                {id: 5, title: 'Jupiter', url: 'http://en.wikipedia.org/wiki/Jupiter'},
-                {id: 6, title: 'Saturn', url: 'http://en.wikipedia.org/wiki/Saturn'},
-                {id: 7, title: 'Uranus', url: 'http://en.wikipedia.org/wiki/Uranus'},
-                {id: 8, title: 'Neptune', url: 'http://en.wikipedia.org/wiki/Neptune'}
-            ];
+            var groups_data = $scope.user_group_data = [];
+
+            $scope.getGroupData = function(){
+               
+                var getGroupName = "getActiveGroupByUserId/"+$rootScope.u_id;
+                $scope.groupNameData = {};
+
+                apiGetData.async(getGroupName).then(function(d) {
+                    $scope.responseData = d;
+                    $scope.data = $scope.responseData.data;
+
+                    if($scope.data.code == 302){
+                        $scope.userGroupData = $scope.data.data;
+                        
+                        console.log("userGroupData",$scope.userGroupData);
+
+                        var response_group = $scope.userGroupData;                         
+
+                        var increment = 1;
+                        $.each(response_group,function(i){
+
+                            console.log(response_group[i]['name']);
+
+                            var array_group = Array();
+                            array_group['title'] = response_group[i]['name'];
+                            array_group['id'] = response_group[i]['groupId'];
+
+                            console.log("array_group",Object.assign({}, array_group));
+
+                            $scope.user_group_data[i]= Object.assign({}, array_group);
+
+                        });
+
+                        console.log("user_group_data",$scope.user_group_data);                        
+                    }
+                });              
+            }  
+
+            $scope.getGroupData();
 
             $scope.select_group_config = {
                 plugins: {
@@ -547,6 +578,10 @@ angular
                 $scope.messagesCount = 0;
                 $scope.remainingCount = 0;
                 $scope.totalCount = 0;
+                $scope.fileName = '';
+                $scope.groupId = '';
+                $scope.sms_mobile = '';
+                $scope.mobile_count = 0;
             }
 
             $scope.getTemplateData = function(page){   
@@ -577,7 +612,8 @@ angular
 
             
             $scope.getTemplateDetails = function(id){ 
-                $scope.clearFields(); 
+                //$scope.clearFields(); 
+                $scope.message = '';
                 $scope.part1Count = 160
                 var getTemplateData = "getTemplateById/"+id;
                 $scope.templateData = {};
@@ -625,21 +661,12 @@ angular
                 });
             };
 
-             $scope.sendSMS = function(fd){
-                
-                if($scope.sms_method == 3 || $scope.sms_method == 4){
-                    fd.append('file', $scope.smsFile);
-                }
+             $scope.sendSMS = function(fd){   
                 
                 fd.append('userId', $rootScope.u_id);
                 fd.append('message', $scope.message);
-                fd.append('sender', $scope.sender_id);                
-                fd.append('jobStatus', 0);
+                fd.append('sender', $scope.sender_id);
                 fd.append('jobType', $scope.sms_method);
-                fd.append('columns', 23);
-                fd.append('sendNow', 'SV');
-                fd.append('sendRatio', 100);
-                fd.append('route', 'netcore');
                 fd.append('messageType', $scope.sms_type);
                 fd.append('productId', $scope.selectedProductId);
 
@@ -647,14 +674,106 @@ angular
                     fd.append('duplicateStatus', 0);
                 }else{
                     fd.append('duplicateStatus', 1);
-                }                
+                }             
                
+                if($scope.sms_method == 1 ){                    
+                    fd.append('mobileNumber', $scope.sms_mobile.replace(/\r?\n/g, ','));
+                    $scope.sendQuickSMS(fd);  
 
-                for (var pair of fd.entries()) {
-                    console.log(pair[0]+ ', ' + pair[1]); 
+                }else if($scope.sms_method == 2 ){
+                    fd.append('groupId', $scope.groupId);
+                    $scope.sendGroupSMS(fd);
+
+                }else if($scope.sms_method == 3 || $scope.sms_method == 4){
+
+                    fd.append('file', $scope.smsFile);
+                    $scope.sendFileSMS(fd);
+
                 }
-                return false;
+                
+            }
 
+            $scope.sendQuickSMS = function(fd){
+                
+                var returnArray = {};
+                for (var pair of fd.entries()) {
+                    //console.log("sendGroupSMS: ",pair[0]+ ', ' + pair[1]); 
+                    returnArray[pair[0]] = pair[1];
+                }
+
+                var json_data = JSON.stringify(returnArray);
+
+                console.log("json_data: ",json_data);
+                //return false;
+
+                var sendSMS = "sendQuickMessage";               
+
+                apiPostData.async(sendSMS,json_data).then(function(d) {
+                    $scope.responseData = d;
+                    /*alert("hello data");
+                    console.log('d data',d);*/
+                    $scope.data = $scope.responseData.data;
+                    
+                    if($scope.data.code == 201){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Message Successfully Sent');
+                        modal.show();  
+                        $scope.clearFields();                      
+                       // getData();
+                        setTimeout(function(){
+                            modal.hide();
+                            //window.location.href="/mobismsui/#/template/manage";
+                        },3000);
+
+                    }else if($scope.data.code == 401){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid Token Credentials');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 403){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 413){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Maximum message sending count is 10');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 414){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File is too large');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 404){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File not found');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad request');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                });
+            }
+
+            $scope.sendFileSMS = function(fd){
+                for (var pair of fd.entries()) {
+                    console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
+                }
+                //return false;
                 var sendSMS = "saveUserJobs";               
 
                 apiFileUpload.async(sendSMS,fd).then(function(d) {
@@ -718,10 +837,84 @@ angular
                 });
             }
 
+            $scope.sendGroupSMS = function(fd){
+                var returnArray = {};
+                for (var pair of fd.entries()) {
+                    returnArray[pair[0]] = pair[1];
+                }
+
+                var json_data = JSON.stringify(returnArray);
+
+                console.log("json_data: ",json_data);
+                
+                //return false;
+                var sendSMS = "saveUserGroupJobs";               
+
+                apiPostData.async(sendSMS,json_data).then(function(d) {
+                    $scope.responseData = d;
+                    /*alert("hello data");
+                    console.log('d data',d);*/
+                    $scope.data = $scope.responseData.data;
+                    
+                    if($scope.data.code == 201){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Message Successfully Sent');
+                        modal.show();  
+                        $scope.clearFields();                      
+                       // getData();
+                        setTimeout(function(){
+                            modal.hide();
+                            //window.location.href="/mobismsui/#/template/manage";
+                        },3000);
+
+                    }else if($scope.data.code == 401){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid Token Credentials');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 403){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 413){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Maximum message sending count is 10');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 414){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File is too large');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else if($scope.data.code == 404){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File not found');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad request');
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                });
+            }
+
             $scope.sendNonScheduledSMS = function(){
                 var fd = new FormData();
-                fd.append('scheduledAt', '0000-00-00 00:00:00');
-                fd.append('scheduledStatus', 0);
+                fd.append('scheduledAt', '2017-08-12 00:00:00');
+                fd.append('scheduleStatus', 0);
                 $scope.sendSMS(fd);
             };
 
@@ -732,10 +925,19 @@ angular
                 $scope.schedule_time = t;
                 var momentObj = moment($scope.schedule_time, ["h:mm A"]);
                 fd.append('scheduledAt', $scope.schedule_date +" "+ momentObj.format("HH:mm:ss"));
-                fd.append('scheduledStatus', 1);
+                fd.append('scheduleStatus', 1);
 
                 $scope.sendSMS(fd);
             };
+
+            function objectifyForm(formArray) {//serialize data function
+
+                var returnArray = {};
+                for (var i = 0; i < formArray.length; i++){
+                    returnArray[formArray[i]['name']] = formArray[i]['value'];
+                }
+                return returnArray;
+            }
             
 
         }

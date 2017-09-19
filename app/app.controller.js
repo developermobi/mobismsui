@@ -137,12 +137,12 @@ angular
                     icon: '&#xE158;',
                     link: 'restricted.bulk_sms'
                 },
-                {
-                    id: 2,
-                    title: 'Personalised Msg',
-                    icon: '&#xE158;',
-                    link: 'restricted.personalised'
-                },                
+                // {
+                //     id: 2,
+                //     title: 'Personalised Msg',
+                //     icon: '&#xE158;',
+                //     link: 'restricted.personalised'
+                // },                
                 {            
 
                     id: 3,

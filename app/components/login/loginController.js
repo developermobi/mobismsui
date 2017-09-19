@@ -95,6 +95,7 @@ angular
                         /*console.log($scope.responseData.data['userId']);
                         return false;*/
                         AuthenticationService.SetCredentials($scope.responseData.data);
+                        //window.location.reload();
                         $location.path('dashboard');                        
                     }else{
                         var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid Credentials');

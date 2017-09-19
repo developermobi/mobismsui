@@ -34,9 +34,9 @@ angular
                     if($scope.data.code == 302){
                          $scope.prodcutArray = new Array();
                         $scope.userProductData = $scope.data.data; 
-                       
+                       console.log("userProductData",$scope.userProductData);
                         for (var i = $scope.userProductData.length - 1; i >= 0; i--) {
-                             $scope.prodcutArray[i] = $scope.userProductData[i].product;
+                             $scope.prodcutArray[i] = $scope.userProductData[i].productId;
                         }
                         
                     }
@@ -57,12 +57,47 @@ angular
             };
             $scope.addProdcut = function(product)
             {
-                var addUser = "addProduct";  
-                var productData = product;
-                userData.userId = $rootScope.u_id;
-                userData.status = 1;
-                userData = JSON.stringify(userData);
-            };
+                var addUserProduct = "addProduct/"+$scope.userId+"/"+$rootScope.u_id+"/"+product.productId+"/"+product.balance;  
+                
+                apiGetData.async(addUserProduct).then(function(d) {
+                   // console.log(d);
+                    $scope.responseData = d.data;
+                    if($scope.responseData.code == 201){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
+                        modal.show();  
+                        $scope.getUserProdcut($scope.userId);                      
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);                        
+
+                    }
+                    else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
+                        modal.show();
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }
+                    //console.log($scope.responseData);
+                });
+            };                    
+
+            $scope.getUserData = function(id){
+                var getUserDetails = "getUserById/"+id;                
+
+                apiGetData.async(getUserDetails).then(function(d) {
+                    $scope.responseData = d;
+                        /*alert("hello data");
+                        console.log('d data',d);*/
+                        $scope.data = $scope.responseData.data;
+                        if($scope.data.code == 302){
+                            $scope.userData = $scope.data.data[0].userId;
+                            
+                            console.log("getUserById: ",$scope.userData);
+                            console.log($scope.userData.name);
+                        }
+                    });
+            }
 
             $scope.deleteUser = function(id){
                
