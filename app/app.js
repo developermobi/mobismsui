@@ -163,7 +163,10 @@ function run($rootScope, $cookieStore) {
     $rootScope.globals = $cookieStore.get('globals') || {};
     if(Object.keys($rootScope.globals).length === 0 && $rootScope.globals.constructor === Object){
     }else{
+        //console.log($rootScope.globals);
         $rootScope.u_id = $rootScope.globals.currentUser.u_id;
+        $rootScope.u_role = $rootScope.globals.currentUser.role;
         $rootScope.auth_key = $rootScope.globals.currentUser.auth_key;
+        console.log($rootScope.u_role);
     }
 }

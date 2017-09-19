@@ -23,6 +23,9 @@ angular
                     if($scope.data.code == 302){
                         $scope.resellerData = $scope.data.data;                        
                         //console.log($scope.resellerData);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             }
@@ -39,6 +42,9 @@ angular
                              $scope.prodcutArray[i] = $scope.userProductData[i].productId;
                         }
                         
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             }
@@ -52,6 +58,9 @@ angular
                         $scope.userId = $scope.userBalanceData[0].userId['userId'];
                         console.log($scope.userId);
                        
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             };
@@ -70,13 +79,9 @@ angular
                             modal.hide();
                         },3000);                        
 
-                    }
-                    else{
+                    }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                     //console.log($scope.responseData);
                 });
@@ -95,6 +100,9 @@ angular
                             
                             console.log("getUserById: ",$scope.userData);
                             console.log($scope.userData.name);
+                        }else{
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                            modal.show();
                         }
                     });
             }
@@ -114,26 +122,9 @@ angular
                                 modal.hide();
 
                             },3000);
-                        }
-                        else if($scope.data.code == 404){
-                            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Not found User');
+                        }else{
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                             modal.show();
-                           // getData();
-                            setTimeout(function(){
-                                modal.hide();
-                               
-                               
-                            },3000);
-                        }
-                        else{
-                            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>error occured during detetion');
-                            modal.show();
-                           // getData();
-                            setTimeout(function(){
-                                modal.hide();
-                               
-                               
-                            },3000);
                         }
                     });
                 });                

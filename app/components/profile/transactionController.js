@@ -28,6 +28,9 @@ angular
                         
                         console.log('debit data',$scope.userData);
                         //console.log($scope.userProduct);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
              }
@@ -48,6 +51,9 @@ angular
                         //$scope.userProduct = $scope.userBalanceData[0]['userProduct'];                     
                         console.log('credit data',$scope.getCreditData);
                         //console.log($scope.userProduct);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
                 

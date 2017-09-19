@@ -52,8 +52,10 @@ angular
 
                         });
 
-                        console.log("user_group_data",$scope.user_group_data);
-                        
+                        console.log("user_group_data",$scope.user_group_data);                        
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });              
             }  
@@ -102,28 +104,10 @@ angular
                         setTimeout(function(){
                             modal.hide();
                         },3000);
-                    } 
-                    else if($scope.responseData.code == 403){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during insertion');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad Request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }                
+                    }               
                 });
             };
 
@@ -151,41 +135,10 @@ angular
                         setTimeout(function(){
                             modal.hide();
                         },3000);
-                    } 
-                    else if($scope.responseData.code == 403){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during insertion');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad Request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 401){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }else if($scope.responseData.code == 413){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Request File Too Large');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
-                        modal.show();
-                        // setTimeout(function(){
-                        //     modal.hide();
-                        // },3000);
-                    }                   
+                    }                 
                 });          
             }; 
         }

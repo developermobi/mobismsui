@@ -28,6 +28,9 @@ angular
                         
                         console.log("getUserById: ",$scope.userData);
                         console.log($scope.userData.name);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
         }
@@ -44,11 +47,14 @@ angular
                 if($scope.data.code == 302){
 
                     $scope.userBalanceData = $scope.data.data;  
-                        //$scope.userProduct = $scope.userBalanceData[0]['userProduct'];                     
-                        console.log($scope.userBalanceData);
-                        //console.log($scope.userProduct);
-                    }
-                });
+                    //$scope.userProduct = $scope.userBalanceData[0]['userProduct'];                     
+                    console.log($scope.userBalanceData);
+                    //console.log($scope.userProduct);
+                }else{
+                    var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                    modal.show();
+                }
+            });
 
         }
         $scope.updateUserDetails = function(userdata){
@@ -70,10 +76,9 @@ angular
                             modal.hide();
                             getData();
                         },3000);
-                    }
-                    else if($scope.data.code == 400)
-                    {
-                        UIkit.modal.alert('Somethig Going Worng........');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
 

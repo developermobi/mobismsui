@@ -89,6 +89,9 @@ angular
                         console.log($scope.pagination);
 
                         
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             }
@@ -113,6 +116,9 @@ angular
                                getData();
                                
                             },3000);
+                        }else{
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                            modal.show();
                         }
                     });
                 });                
@@ -156,6 +162,9 @@ angular
                         $scope.totalCount = chars;
 
                         console.log($scope.templateData);                        
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             };
@@ -175,10 +184,9 @@ angular
                                
                         },3000);
                         
-                    }
-                    else if($scope.data.code == 400)
-                    {
-                        UIkit.modal.alert('Somethig Going Worng........');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             };
@@ -213,9 +221,11 @@ angular
                     $scope.remainingCount = $scope.part1Count + $scope.part2Count + (moreM * $scope.part3Count) - chars;
                     $scope.messagesCount = 2 + moreM;
 
-                    if($scope.messagesCount > 10)
+                    if($scope.messagesCount > 1000)
                     {
-                        alert("Counts of message not more than 10.");
+                       
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Only 1000 mobile numbers are allowed.');
+                        modal.show();                   
                         return false;                        
                     }
                 }

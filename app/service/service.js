@@ -257,6 +257,7 @@ altairApp.factory('AuthenticationService',
             $rootScope.globals = {
                 currentUser: {
                     u_id: data['userId'],
+                    role: data['userRole'],
                     auth_key: auth_key
                 }
             };            

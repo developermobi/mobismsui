@@ -132,6 +132,9 @@ angular
 
                         console.log($scope.sender_id_data);
                         
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             };
@@ -190,6 +193,9 @@ angular
 
                         console.log($scope.smsTypes);
                         
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             }
@@ -314,6 +320,9 @@ angular
                         });
 
                         console.log("user_group_data",$scope.user_group_data);                        
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });              
             }  
@@ -606,6 +615,9 @@ angular
                         console.log($scope.pagination);
 
                         
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             }
@@ -657,6 +669,9 @@ angular
                         //$("#view_template").hide();
 
                         console.log($scope.templateData);                        
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             };
@@ -724,47 +739,9 @@ angular
                             //window.location.href="/mobismsui/#/template/manage";
                         },3000);
 
-                    }else if($scope.data.code == 401){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid Token Credentials');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 403){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 413){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Maximum message sending count is 10');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 414){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File is too large');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 404){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File not found');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                 });
             }
@@ -792,47 +769,9 @@ angular
                             //window.location.href="/mobismsui/#/template/manage";
                         },3000);
 
-                    }else if($scope.data.code == 401){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid Token Credentials');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 403){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 413){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Maximum message sending count is 10');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 414){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File is too large');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 404){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File not found');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                 });
             }
@@ -866,47 +805,9 @@ angular
                             //window.location.href="/mobismsui/#/template/manage";
                         },3000);
 
-                    }else if($scope.data.code == 401){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid Token Credentials');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 403){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng. File not uploaded');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 413){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Maximum message sending count is 10');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 414){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File is too large');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.data.code == 404){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>File not found');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                 });
             }

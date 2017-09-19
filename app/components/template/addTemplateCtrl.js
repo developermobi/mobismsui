@@ -32,26 +32,9 @@ angular
                             window.location.href="/mobismsui/#/template/manage";
                         },3000);
 
-                    }else if($scope.responseData.code == 406){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please Enter  Template Details');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Somethig going worng');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid  Token Credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                     //console.log($scope.responseData);
                 });            

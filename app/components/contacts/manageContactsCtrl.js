@@ -117,6 +117,9 @@ angular
                         
                         $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });           
             }  
@@ -158,6 +161,9 @@ angular
 
                         console.log("user_group_data",$scope.user_group_data);
                         
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });              
             } 
@@ -207,6 +213,9 @@ angular
                         $scope.contact.status =  $scope.contactDetails[0].status;
 
                         console.log("resp: ",$scope.contact);                        
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
+                        modal.show();
                     }
                 }); 
             };
@@ -226,32 +235,10 @@ angular
                         setTimeout(function(){
                             modal.hide();
                         },3000);
-                    } 
-                    else if($scope.responseData.code == 403){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during updation');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad Request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 401){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
-                        modal.show();
-                    }                    
+                    }                  
                 });
             };
 
@@ -272,28 +259,10 @@ angular
                             modal.hide();
                         },3000);
 
-                    }
-                    else if($scope.responseData.code == 304){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during updation');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad Request');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }                   
+                    }                
                 });
             };
 
@@ -314,29 +283,7 @@ angular
                                 modal.hide();
                             },3000);
 
-                        }
-                        else if($scope.responseData.code == 304){
-                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during deletion');
-                            modal.show();
-                            setTimeout(function(){
-                                modal.hide();
-                            },3000);
-                        }
-                        else if($scope.responseData.code == 400){
-                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Bad Request');
-                            modal.show();
-                            setTimeout(function(){
-                                modal.hide();
-                            },3000);
-                        }
-                        else if($scope.responseData.code == 401){
-                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
-                            modal.show();
-                            setTimeout(function(){
-                                modal.hide();
-                            },3000);
-                        }
-                        else{
+                        }else{
                             var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                             modal.show();
                         } 

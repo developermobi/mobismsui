@@ -29,6 +29,9 @@ angular
                              $scope.prodcutArray[i] = $scope.userProductData[i].productId;
                         }
                         console.log("prodcutArray",$scope.prodcutArray[0]['name']);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
+                        modal.show();
                     }
                 });
             }
@@ -68,40 +71,9 @@ angular
                             modal.hide();
                         },3000);                        
 
-                    }else if($scope.responseData.code == 204){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>InSufficient Balance');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 405){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please set positive balance');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 406){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please Purchase Selected  Product');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid  Token Credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                     //console.log($scope.responseData);
                 });            

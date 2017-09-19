@@ -57,27 +57,9 @@ angular
                             modal.hide();
                         },3000);
 
-                    }
-                    else if($scope.responseData.code == 403){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Group not inserted');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Somethig going worng');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid  Token Credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                 });              
             }; 

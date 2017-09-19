@@ -92,17 +92,14 @@ angular
                     //return false;
                     $scope.responseData = d.data;
                     if($scope.responseData.status == 302){
-                        /*console.log($scope.responseData.data['userId']);
-                        return false;*/
+                        // console.log($scope.responseData);
+                        // return false;
                         AuthenticationService.SetCredentials($scope.responseData.data);
                         //window.location.reload();
                         $location.path('dashboard');                        
                     }else{
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Invalid Credentials');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                     //console.log($scope.responseData);
                 }); 

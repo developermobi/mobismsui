@@ -22,6 +22,9 @@ angular
                     if($scope.data.code == 302){
                         $scope.groupContactData = $scope.data.data;
                         //console.log($scope.groupContactData);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });  
 
@@ -34,6 +37,9 @@ angular
                     if($scope.data.code == 302){
                         $scope.groupNameData = $scope.data.data;
                         planets_data = $scope.group_name_data = $scope.groupNameData;
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });              
             }  
@@ -80,6 +86,9 @@ angular
                         $scope.contact.id =  $scope.contactData[0].id;
 
                         console.log($scope.contactData);                        
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 }); 
             };
@@ -93,6 +102,9 @@ angular
                     if($scope.data.code == 200){
                         getData();
                         UIkit.modal.alert('Data Updated Successfully');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }                    
                 });
             };
@@ -124,6 +136,9 @@ angular
                         if($scope.data.code == 200){
                             getData();
                             UIkit.modal.alert('Data Deleted Successfully');
+                        }else{
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                            modal.show();
                         }
                     });
                 });                

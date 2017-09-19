@@ -86,6 +86,9 @@ angular
                         
                         $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
                     }
                 });
             };   
@@ -113,33 +116,9 @@ angular
                             modal.hide();
                         },3000);
 
-                    }else if($scope.responseData.code == 411){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please Enter valid sender id');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 406){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please enter Sender Id');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Somethig going worng');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid  Token Credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                     //console.log($scope.responseData);
                 });            
@@ -156,6 +135,9 @@ angular
                         if($scope.data.code == 200){
                             $scope.getData($scope.page);  
                             UIkit.modal.alert('Data Deleted Successfully');
+                        }else{
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                            modal.show();
                         }
                     });
                 });                
@@ -219,33 +201,9 @@ angular
                             modal.hide();
                         },3000);
 
-                    }else if($scope.responseData.code == 411){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please Enter valid sender id');
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 304){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Error occured during updation');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else if($scope.responseData.code == 400){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please enter Sender Id');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
-                    }
-                    else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Invalid token credentials');
-                        modal.show();
-                        setTimeout(function(){
-                            modal.hide();
-                        },3000);
                     }
                     //console.log($scope.responseData);
                 });            
