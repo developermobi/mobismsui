@@ -91,6 +91,7 @@ angular
                     //console.log(d);
                     //return false;
                     $scope.responseData = d.data;
+                    //console.log($scope.responseData.message);
                     if($scope.responseData.status == 302){
                         // console.log($scope.responseData);
                         // return false;
@@ -98,7 +99,7 @@ angular
                         //window.location.reload();
                         $location.path('dashboard');                        
                     }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
                     }
                     //console.log($scope.responseData);
