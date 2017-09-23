@@ -137,12 +137,12 @@ angular
                     icon: '&#xE158;',
                     link: 'restricted.bulk_sms'
                 },
-                // {
-                //     id: 2,
-                //     title: 'Personalised Msg',
-                //     icon: '&#xE158;',
-                //     link: 'restricted.personalised'
-                // },                
+                {
+                    id: 2,
+                    title: 'Personalised Msg',
+                    icon: '&#xE158;',
+                    link: 'restricted.personalised'
+                },                
                 {            
 
                     id: 3,
@@ -228,6 +228,30 @@ angular
                 },
                 {
                     id: 8,
+                    title: 'Report',
+                    icon: '&#xE24B;',
+                     submenu: [
+                        {
+                            title: 'Daily',
+                            link: 'restricted.dailyReport'
+                        },
+                        {
+                            title: 'Custom',
+                            link: 'restricted.customReport'
+                        },
+                        {
+                            title: 'Schedule Report',
+                            link: 'restricted.scheduleReport'
+                        },
+                        {
+                            title: 'Export Report',
+                            link: 'restricted.exportReport'
+                        }
+                        
+                    ]
+                },
+                {
+                    id: 9,
                     title: 'LogOut',
                     icon: '&#xE5C4;',
                     link: 'restricted.logout'

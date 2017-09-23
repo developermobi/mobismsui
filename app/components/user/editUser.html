@@ -1,0 +1,93 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <h3 class="heading_b uk-margin-bottom">Edit User</h3>
+        <form action="" class="uk-form-stacked" id="user_edit_form">
+            <div class="uk-grid uk-flex-center" data-uk-grid-margin>
+                <div class="uk-width-large-9-1">
+                    <div class="md-card">
+                        <div class="user_content">
+                            <ul id="user_edit_tabs" class="uk-tab" data-uk-tab="{connect:'#user_edit_tabs_content'}">
+                                <li class="uk-active"><a href="#">User Info</a></li>
+                            </ul>
+                            <ul id="user_edit_tabs_content" class="uk-switcher uk-margin">
+                                <li>
+                                    <div class="uk-margin-top">
+                                        <h3 class="full_width_in_card heading_c">
+                                            General info
+                                        </h3>
+                                        <div class="uk-grid" data-uk-grid-margin>
+                                            <div class="uk-width-medium-1-4">
+                                                <label for="user_edit_uname_control">User Name</label>
+                                                <input class="md-input" type="text" disabled name="user_edit_uname_control"  ng-model="userData.userName" md-input />
+                                            </div>
+                                            <div class="uk-width-medium-1-4">
+                                                <label for="user_edit_uname_control">Name</label>
+                                                <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="userData.name" md-input />
+                                            </div>
+                                            <div class="uk-width-medium-1-4">
+                                                <label for="user_edit_position_control">Company Name</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData.companyName" md-input />
+                                            </div>
+                                            <div class="uk-width-medium-1-4">
+                                                <label for="user_edit_uname_control">User Role</label>
+                                                <select class="md-input" ng-model="userData.role" class="uk-form-width-medium" md-input>
+                                                    <option >Select Role</option>
+                                                    <option ng-selected="userData.role" value="1">Reseller</option>
+                                                    <option ng-selected="userData.role" value="2">User</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                                                            
+                                        <h3 class="full_width_in_card heading_c">
+                                            Contact info
+                                        </h3>
+                                        <div class="uk-grid" data-uk-grid-margin>
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_uname_control">Email</label>
+                                                <input class="md-input" type="text"  name="user_edit_uname_control"  ng-model="userData.email" md-input />
+                                            </div>
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">Mobile</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData.mobile" md-input />
+                                            </div>                                            
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">Address</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData.address" md-input />
+                                            </div>
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">City</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData.city" md-input />
+                                            </div>                                            
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">State</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData.state" md-input />
+                                            </div>
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_position_control">Country</label>
+                                                <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData.country" md-input />
+                                            </div>
+                                        </div>                                                         
+                                    </div>                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div class="uk-grid" data-uk-grid-margin="">
+                    <div class="uk-width-medium-1">
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <div class="uk-grid">
+                                    <div class="uk-width-large-1 uk-text-center">
+                                        <button type="button" class="md-btn md-btn-success" ng-click="updateUserDetails(userData)" >Update User</button>
+                                        <button type="button" class="md-btn md-btn-warning" ng-click="getUserData()">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>

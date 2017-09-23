@@ -6,7 +6,8 @@ angular
     'apiGetData',
     'apiPostData',
     '$cookieStore',
-    function($scope, $rootScope,apiGetData,apiPostData,$cookieStore){
+    'AuthenticationService',
+    function($scope, $rootScope,apiGetData,apiPostData,$cookieStore,AuthenticationService){
 
         $scope.profile = {};
         $scope.userData ="";
@@ -59,7 +60,10 @@ angular
         }
         $scope.updateUserDetails = function(userdata){
             
-            var userDetailsData = JSON.stringify(userdata);               
+            var userDetailsData = userdata; 
+            userDetailsData.role = $rootScope.u_role;
+            userDetailsData = JSON.stringify(userDetailsData); 
+                          
             var updateUserDetails = "updateUserById/"+$rootScope.u_id;
 
             //alert($scope.profileBtnFlag);
@@ -86,8 +90,57 @@ angular
 
                 if($scope.passwordFlag == false){
                     return false;
-                }
-                alert("change pwd");
+                }                
+
+                var generateOtp = "generateOtp/"+$rootScope.u_id;                
+
+                apiGetData.async(generateOtp).then(function(d) {
+                    $scope.responseOtpData = d;
+
+                    $scope.otpData = $scope.responseOtpData.data;
+
+                    if($scope.otpData.code == 201){
+
+                        UIkit.modal.prompt('Please enter otp that sent to registered mobile number', '', function(val){ 
+                            var varifyOtp = "verifyOtp/"+val+"/"+$rootScope.u_id;
+                            apiGetData.async(varifyOtp).then(function(d) {
+                                $scope.responseVerifyData = d;
+
+                                $scope.varifyData = $scope.responseVerifyData.data;
+
+                                if($scope.varifyData.code == 201){
+
+                                    var updatePassword = "updatePassword"; 
+
+                                    var userPasswordData = userdata; 
+                                    userPasswordData = JSON.stringify(userPasswordData);  
+
+                                    apiPostData.async(updatePassword, userPasswordData).then(function(d) {
+                                        $scope.userPwdData = d.data;
+                                        if($scope.userPwdData.code == 201){
+                                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Password Changed Successfully And Sent To Registered Mobile Number');
+                                            modal.show();
+                                            AuthenticationService.logout();
+                                        }else{
+                                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.userPwdData.message);
+                                            modal.show();
+                                        }
+                                    });
+                                    
+                                }else{
+                                    var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.varifyData.message);
+                                    modal.show();
+                                }
+                            });
+                        });
+
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.otpData.message);
+                        modal.show();
+                    }
+                });
+
+                //alert("change pwd");
                 console.log("On Change Pwd: ",userdata);
             }
 

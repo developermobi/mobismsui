@@ -1,0 +1,73 @@
+<div id="page_content">
+    <div id="page_content_inner">
+    	<div class="uk-grid">
+    		<div class="uk-width-large-1-2 uk-text-left">
+    			<h3 class="heading_b uk-margin-bottom">Today's Report</h3>
+    		</div>
+    	</div>
+        
+        <div class="uk-grid">
+            <div class="uk-width-medium-1-2 uk-text-left">  
+                <div class="uk-width-medium-1-6 uk-text-center">        
+                    <input type="text" size="5" ng-change="getData(1)" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
+                </div>     
+            </div>
+        </div> 
+         
+    	<div class="md-card uk-margin-medium-bottom">
+            <div class="md-card-content">
+                <div class="uk-overflow-container">
+                    <table class="uk-table uk-table-nowrap">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" name="checkbox_demo_1" id="checkbox_demo_1" icheck ng-model="checkbox_demo_1" />
+                                </th>
+                                <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                                <th class="uk-width-2-10 uk-text-center">Message</th>
+                                <th class="uk-width-2-10 uk-text-center">Mobile</th>
+                                <th class="uk-width-2-10 uk-text-center">Sender Id</th>
+                                <th class="uk-width-1-10 uk-text-center">Status</th>
+                                <th class="uk-width-1-10 uk-text-center">Date</th>
+                                <th class="uk-width-1-10 uk-text-center">Time</th>
+                                <th class="uk-width-2-10 uk-text-center">SMS Credit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in dailyReportData">
+                                <td class="uk-text-center"><input type="checkbox" name="{{ 'checkbox_demo_' + $index }}" id="{{ 'checkbox_demo_' + $index }}" icheck ng-model="checkbox_demo_12" /></td>
+                                <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
+                                <td class="uk-text-center">{{ x.message }}</td>
+                                <td class="uk-text-center">{{ x.mobile }}</td>
+                                <td class="uk-text-center">{{ x.sender }}</td>
+                                <td class="uk-text-center">{{ x.status }}</td>
+                                <td class="uk-text-center">{{ x.loggedAt | date : 'dd/MM/yyyy' }}</td>
+                                <td class="uk-text-center">{{ x.dlrTime }}</td> 
+                                <td class="uk-text-center">{{ x.count }}</td>                               
+                            </tr>                             
+                        </tbody>
+                    </table>
+                </div>
+                <!-- pager -->
+                <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
+                    <li ng-class="{disabled:pagination.currentPage === 1}">
+                        <a ng-click="pagination.currentPage !== 1 && getData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+                    </li>
+                    <li ng-class="{disabled:pagination.currentPage === 1}">
+                        <a ng-click="pagination.currentPage !== 1 && getData(pagination.currentPage - 1)">Prev</i></span></a>
+                    </li>
+                    <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
+                        <a ng-click="pagination.currentPage !== page &&  getData(page)">{{page}}</a>
+                    </li>                
+                    <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                        <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.currentPage + 1)">Next</a>
+                    </li>
+                    <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                        <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

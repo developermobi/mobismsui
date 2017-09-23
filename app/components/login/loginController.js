@@ -5,11 +5,12 @@ angular
         '$rootScope',
         'utils',
         'apiLogin',
+        'apiResetPwd',
         '$location', 
         'AuthenticationService',
         '$cookieStore',
         '$window',
-        function ($scope,$rootScope,utils,apiLogin,$location,AuthenticationService,$cookieStore,$window) {
+        function ($scope,$rootScope,utils,apiLogin,apiResetPwd,$location,AuthenticationService,$cookieStore,$window) {
 
             // reset login status
             //AuthenticationService.ClearCredentials();
@@ -103,6 +104,28 @@ angular
                         modal.show();
                     }
                     //console.log($scope.responseData);
+                }); 
+            }
+
+            $scope.reset = {};
+            $scope.resetPassword = function(reset){
+                
+                var varifyUser = "validateUserName/"+reset.username;
+                apiResetPwd.async(varifyUser).then(function(d) {
+                    $scope.responseVerifyUserData = d;
+
+                    $scope.varifyUserData = $scope.responseVerifyUserData.data;
+
+                    if($scope.varifyUserData.code == 201){                        
+                        
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Your Password Sent To Registered Mobile Number');
+                        modal.show();
+                        $scope.reset = {};
+                        login_form_show();
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.varifyUserData.message);
+                        modal.show();
+                    }
                 }); 
             }
 

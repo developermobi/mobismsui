@@ -178,7 +178,7 @@ altairApp
                 })
 
                 .state("restricted.addUser", {
-                    url: "/addUser",
+                    url: "/user/add",
                     templateUrl: 'app/components/user/addUser.html',
                     controller: 'addUserController',
                     resolve: {
@@ -201,7 +201,7 @@ altairApp
                 })
 
                 .state("restricted.manageUser", {
-                    url: "/manageUser",
+                    url: "/user/manage",
                     templateUrl: 'app/components/user/manageUser.html',
                     controller: 'manageUserController',
                     resolve: {
@@ -213,6 +213,28 @@ altairApp
                                 'lazy_parsleyjs',
                                 'app/modules/angular-selectize.js',
                                 'app/components/user/manageUserController.js'
+                                
+
+                                ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'User'
+                    }
+                })
+                .state("restricted.editUser", {
+                    url: "/user/edit/:userId",
+                    templateUrl: 'app/components/user/editUser.html',
+                    controller: 'editUserController',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'lazy_parsleyjs',
+                                'app/modules/angular-selectize.js',
+                                'app/components/user/editUserController.js'
                                 
 
                                 ], {serie:true} );
@@ -378,6 +400,82 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Sender ID'
+                    }
+                })
+
+                .state("restricted.dailyReport", {
+                    url: "/report/daily",
+                    templateUrl: 'app/components/report/dailyReport.html',
+                    controller: 'dailyReportCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'app/components/report/dailyReportCtrl.js'
+                            ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Daliy Report'
+                    }
+                })
+
+                .state("restricted.customReport", {
+                    url: "/report/monthly",
+                    templateUrl: 'app/components/report/customReport.html',
+                    controller: 'customReportCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'app/components/report/customReportCtrl.js'
+                            ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Custom Report'
+                    }
+                })
+
+                .state("restricted.scheduleReport", {
+                    url: "/report/schedule",
+                    templateUrl: 'app/components/report/scheduleReport.html',
+                    controller: 'scheduleReportCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'app/components/report/scheduleReportCtrl.js'
+                            ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Custom Report'
+                    }
+                })
+
+                .state("restricted.exportReport", {
+                    url: "/report/export",
+                    templateUrl: 'app/components/report/exportReport.html',
+                    controller: 'exportReportCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'app/components/report/exportReportCtrl.js'
+                            ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Custom Report'
                     }
                 })
         }

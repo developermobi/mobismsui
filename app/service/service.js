@@ -48,6 +48,88 @@ altairApp.service('apiLogin', ['$http','$rootScope','$state','globalUrl', functi
 
 }]);
 
+altairApp.service('apiResetPwd', ['$http','$rootScope','$state','globalUrl', function ($http,$rootScope,$state,globalUrl) {
+
+    var config = {
+                    async: false,
+                    transformRequest: angular.identity,
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Process-Data': false
+                    },
+                    dataType: 'JSON'
+                }
+
+    var apiResetPwd = {
+        async: function(url) {
+            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            modal.show();   
+
+            url = globalUrl+url;
+            var promise = $http.get(url, config)        
+            .success(function(response){
+                modal.hide();
+                // console.log(response);
+                // return false;
+                return response.data;
+            })
+            .error(function(response){
+                modal.hide();
+                // console.log(response);
+                // return false;
+                UIkit.modal.alert(response.message);
+                return response.data.data;
+            });
+            // Return the promise to the controller
+            return promise;
+        }
+    };
+    return apiResetPwd; 
+
+}]);
+
+altairApp.service('apiDownloadData', ['$http','$rootScope','$state','globalUrl','$cookieStore', function ($http,$rootScope,$state,globalUrl,$cookieStore) {
+
+    var apiDownloadData = {
+        async: function(url) {   
+            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            modal.show();
+
+            var cookieData = $cookieStore.get('globals');
+
+            var config = {
+                    async: false,
+                    transformRequest: angular.identity,
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Process-Data': false,
+                        'Authorization': cookieData['currentUser']['auth_key']                        
+                    }
+                }
+
+            url = globalUrl+url;
+            var promise = $http.get(url,config)
+            .success(function(response){
+                modal.hide();
+                //console.log(response);
+                return response.data;
+            })
+            .error(function(response){
+                modal.hide();
+                //console.log(response);
+                //UIkit.modal.alert(response.message);
+                return response.data;
+            }); 
+
+            // Return the promise to the controller
+            return promise;
+            //return window.open(promise, 'neuesDokument');
+        }
+    };
+    return apiDownloadData; 
+    
+}]);
+
 altairApp.service('apiPostData', ['$http','$rootScope','$state','globalUrl','$cookieStore', function ($http,$rootScope,$state,globalUrl,$cookieStore) {
 
     var apiPostData = {
@@ -118,7 +200,7 @@ altairApp.service('apiGetData', ['$http','$rootScope','$state','globalUrl','$coo
             .error(function(response){
                 modal.hide();
                 //console.log(response);
-                UIkit.modal.alert(response.message);
+                //UIkit.modal.alert(response.message);
                 return response.data;
             }); 
 
@@ -257,6 +339,7 @@ altairApp.factory('AuthenticationService',
             $rootScope.globals = {
                 currentUser: {
                     u_id: data['userId'],
+                    u_name: data['userName'],
                     role: data['userRole'],
                     auth_key: auth_key
                 }

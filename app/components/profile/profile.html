@@ -108,7 +108,7 @@
                                                         <i class="material-icons">&#xE897;</i>
                                                     </span>
                                                     <label>Old Password</label>
-                                                    <input type="text" class="md-input" name="user_edit_facebook" ng-model="userData.oldPassword" required md-input />
+                                                    <input type="password" class="md-input" name="user_edit_facebook" ng-model="userData.oldPassword" required md-input />
                                                 </div>                        
                                             </div>                    
                                         </div>                               
@@ -122,7 +122,7 @@
                                                             <i class="material-icons">&#xE897;</i>
                                                         </span>
                                                         <label>New Password</label>
-                                                        <input type="text" class="md-input" name="newPassword" id="newPassword" ng-model="userData.newPassword" password-verify="{{userData.confirmPassword}}" required md-input />
+                                                        <input type="password" class="md-input" name="newPassword" id="newPassword" ng-model="userData.newPassword" password-verify="{{userData.confirmPassword}}" required md-input />
                                                     </div>                         
                                                 </div>                  
                                             </div>  
@@ -133,7 +133,7 @@
                                                             <i class="material-icons">&#xE897;</i>
                                                         </span>
                                                         <label>Confirm Password</label>
-                                                        <input type="text" class="md-input" name="confirmPassword" id="confirmPassword" ng-model="userData.confirmPassword" password-verify="{{userData.newPassword}}" required md-input />
+                                                        <input type="password" class="md-input" name="confirmPassword" id="confirmPassword" ng-model="userData.confirmPassword" password-verify="{{userData.newPassword}}" required md-input />
                                                         <label class="erro-message" ng-show="!passwordFlag">Passwords don't match. </label>
                                                     </div>                         
                                                 </div>                     

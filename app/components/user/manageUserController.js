@@ -12,6 +12,14 @@ angular
             $scope.resellerData = {};
             $scope.userBalanceData={};
 
+            $scope.credit = {};
+            $scope.debit = {};
+
+            function clearData(){
+                $scope.credit = {};
+                $scope.debit = {};
+            }
+
             getResellerData();
             getResellerProdcutData();
             function getResellerData(){
@@ -48,15 +56,17 @@ angular
                     }
                 });
             }
-            $scope.getUserProdcut = function(id) { 
+            $scope.getUserProduct = function(id) { 
+                clearData();
                 var getUserProduct = "getBalanceByUserId/"+id; 
                 apiGetData.async(getUserProduct).then(function(d) {
                     $scope.responseData = d;
                     $scope.data = $scope.responseData.data;
+                    console.log($scope.data);
                     if($scope.data.code == 302){
                         $scope.userBalanceData = $scope.data.data; 
                         $scope.userId = $scope.userBalanceData[0].userId['userId'];
-                        console.log($scope.userId);
+                        //console.log($scope.userId);
                        
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
@@ -74,7 +84,7 @@ angular
                     if($scope.responseData.code == 201){
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();  
-                        $scope.getUserProdcut($scope.userId);                      
+                        $scope.getUserProduct($scope.userId);                      
                         setTimeout(function(){
                             modal.hide();
                         },3000);                        
@@ -109,7 +119,7 @@ angular
 
             $scope.deleteUser = function(id){
                
-                UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     
+                UIkit.modal.confirm('Are you sure want to delete this user?', function(){                     
                     var deleteSenderData = "deleteUser/"+id+"/"+$rootScope.u_id;
                     apiGetData.async(deleteSenderData).then(function(d) {
                         $scope.responseData = d;
@@ -117,7 +127,7 @@ angular
                         if($scope.data.code == 200){
                             var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Data Deleted Successfully');
                             modal.show();
-                           // getData();
+                            getResellerData();
                             setTimeout(function(){
                                 modal.hide();
 
@@ -129,13 +139,49 @@ angular
                     });
                 });                
             };
+
+            $scope.updateCredit = function(id,credit,index){
+
+                var updateCredit = "addCreditByReseller/"+$scope.userId+"/"+$rootScope.u_id+"/"+id+"/"+$scope.credit.balance[index];
+               
+                apiGetData.async(updateCredit).then(function(d) {
+                    $scope.responseData = d;
+                    $scope.data = $scope.responseData.data;
+                    console.log("updateCredit response:",$scope.data);
+                    if($scope.data.code == 201){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
+                        modal.show();
+                        $scope.getUserProduct($scope.userId);
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
+                    }
+                });
+            };
+
+            $scope.updateDebit = function(id,debit,index){
+
+                var updateDebit = "deductCreditByReseller/"+$scope.userId+"/"+$rootScope.u_id+"/"+id+"/"+$scope.debit.balance[index];
+               
+                apiGetData.async(updateDebit).then(function(d) {
+                    $scope.responseData = d;
+                    $scope.data = $scope.responseData.data;
+                    console.log("updateDebit response:",$scope.data);
+                    if($scope.data.code == 201){
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
+                        modal.show();
+                        $scope.getUserProduct($scope.userId);
+                        setTimeout(function(){
+                            modal.hide();
+                        },3000);
+                    }else{
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
+                    }
+                });
+            };
         }
     ]);
-/*altairApp.directive('myDirective',function(){
-     return function(scope, element, attrs){
-          element.click(function(){
-               element.parent().find('.main').append('<div>Some text xfvdssd</div>');
-               return false;
-           })
-      }
-})*/
