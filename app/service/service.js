@@ -345,7 +345,8 @@ altairApp.factory('AuthenticationService',
                 }
             };            
             
-            $cookieStore.put('globals', $rootScope.globals);            
+            $cookieStore.put('globals', $rootScope.globals);    
+                   
             
         };
 

@@ -16,7 +16,7 @@ angular
         'pagerService',
         function ($scope,$rootScope,$http,apiGetData,apiPostData,apiFileUpload,$cookieStore,pagerService) {
 
-           
+           console.log("login cookie: ",$rootScope.globals); 
             $scope.date = new Date();
             $scope.schedule_time = '11:00 AM';
 
@@ -156,9 +156,9 @@ angular
             
             $scope.getUserData = function(){  
 
-                var getSender = "getUserById/"+$rootScope.u_id;               
+                var getUserById = "getUserById/"+$rootScope.u_id;               
 
-                apiGetData.async(getSender).then(function(d) {
+                apiGetData.async(getUserById).then(function(d) {
                     $scope.responseData = d;
                     /*alert("hello data");
                     console.log('d data',d);*/

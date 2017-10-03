@@ -89,7 +89,15 @@ altairApp
 
             });
 
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, toStateParams) {
+
+                
+                //alert($rootScope.u_role);
+
+                if(toState.authorize == false && $rootScope.u_role == 2){
+                    //alert(toState.authorize);
+                    //$state.go('restricted.dashboard');
+                }
                 // main search
                 $rootScope.mainSearchActive = false;
                 // single card

@@ -93,7 +93,7 @@ angular
                 });           
             }  
 
-            $scope.getData($scope.page);   
+            //$scope.getData($scope.page);   
 
             
         }

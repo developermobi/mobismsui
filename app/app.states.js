@@ -14,15 +14,18 @@ altairApp
                 // -- ERROR PAGES --
                 .state("error", {
                     url: "/error",
-                    templateUrl: 'app/views/error.html'
+                    templateUrl: 'app/views/error.html',
+                    authorize : true,
                 })
                 .state("error.404", {
                     url: "/404",
-                    templateUrl: 'app/components/pages/error_404View.html'
+                    templateUrl: 'app/components/pages/error_404View.html',
+                    authorize : true,
                 })
                 .state("error.500", {
                     url: "/500",
-                    templateUrl: 'app/components/pages/error_500View.html'
+                    templateUrl: 'app/components/pages/error_500View.html',
+                    authorize : true,
                 })
                 // -- LOGIN PAGE --
                 .state("login", {
@@ -36,7 +39,8 @@ altairApp
                                 'app/components/login/loginController.js'
                             ]);
                         }]
-                    }
+                    },
+                    authorize : true,
                 })
                 //LOGOUT
                 .state('restricted.logout', {
@@ -45,7 +49,8 @@ altairApp
                         logout: ['AuthenticationService', function(AuthenticationService) {
                             AuthenticationService.logout();
                         }]
-                    }
+                    },
+                    authorize : true,
                 })
                 // -- RESTRICTED --
                 .state("restricted", {
@@ -75,7 +80,8 @@ altairApp
                                 'lazy_style_switcher'
                             ],{ serie: true });
                         }]
-                    }
+                    },
+                    authorize : true,
                 })
             // -- DASHBOARD --
                 .state("restricted.dashboard", {
@@ -89,7 +95,7 @@ altairApp
                                 'lazy_countUp',
                                 'lazy_charts_easypiechart',
                                 'lazy_charts_metricsgraphics',
-                                'lazy_charts_chartist',
+                                'lazy_charts_c3',
                                 'lazy_clndr',
                                 'app/components/dashboard/dashboardController.js'
                             ], {serie: true} );
@@ -97,7 +103,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Dashboard'
-                    }
+                    },
+                    authorize : true,
                 })
                 .state("restricted.bulk_sms", {
                     url: "/bulk_sms",
@@ -118,7 +125,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Send Bulk SMS'
-                    }
+                    },
+                    authorize : true,
                 })
                 .state("restricted.personalised", {
                     url: "/personalised_sms",
@@ -136,7 +144,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Advanced Elements'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.profile", {
@@ -155,7 +164,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Profile'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.transactions", {
@@ -174,7 +184,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Profile'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.addUser", {
@@ -197,7 +208,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'User'
-                    }
+                    },
+                    authorize : false,
                 })
 
                 .state("restricted.manageUser", {
@@ -220,7 +232,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'User'
-                    }
+                    },
+                    authorize : false,
                 })
                 .state("restricted.editUser", {
                     url: "/user/edit/:userId",
@@ -242,7 +255,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'User'
-                    }
+                    },
+                    authorize : false,
                 })
                 .state("restricted.addgroup", {
                     url: "/group/add",
@@ -260,7 +274,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Add Group'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.managegroup", {
@@ -283,7 +298,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Manage Group'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.groupcontact", {
@@ -302,7 +318,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Group Contacts'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.addcontact", {
@@ -321,7 +338,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Add Contact'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.managecontacts", {
@@ -341,7 +359,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Manage Contacts'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.addtemplate", {
@@ -360,7 +379,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Add Template'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.managetemplate", {
@@ -380,7 +400,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Add Template'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.senderid", {
@@ -400,7 +421,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Sender ID'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.dailyReport", {
@@ -419,7 +441,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Daliy Report'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.customReport", {
@@ -438,7 +461,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Custom Report'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.scheduleReport", {
@@ -457,7 +481,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Custom Report'
-                    }
+                    },
+                    authorize : true,
                 })
 
                 .state("restricted.exportReport", {
@@ -476,7 +501,8 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Custom Report'
-                    }
+                    },
+                    authorize : true,
                 })
         }
     ])
@@ -489,6 +515,8 @@ altairApp
         }
   
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
+
+            //alert(toState.authorize);
             // redirect to login page if not logged in
             if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
                 $location.path('/login');
