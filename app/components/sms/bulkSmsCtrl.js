@@ -16,7 +16,7 @@ angular
         'pagerService',
         function ($scope,$rootScope,$http,apiGetData,apiPostData,apiFileUpload,$cookieStore,pagerService) {
 
-           console.log("login cookie: ",$rootScope.globals); 
+            //console.log("login cookie: ",$rootScope.globals); 
             $scope.date = new Date();
             $scope.schedule_time = '11:00 AM';
 
@@ -130,7 +130,7 @@ angular
 
                         });
 
-                        console.log($scope.sender_id_data);
+                        //console.log($scope.sender_id_data);
                         
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
@@ -166,14 +166,14 @@ angular
                     if($scope.data.code == 302){
                         $scope.userData = $scope.data.data;
                         
-                        console.log($scope.userData);
+                        //console.log($scope.userData);
 
                         var response_data = $scope.userData;                         
 
                         var increment = 1;
                         $.each(response_data,function(i){
 
-                            console.log(response_data[i].productId['id']);
+                            //console.log(response_data[i].productId['id']);
 
 
 
@@ -191,7 +191,7 @@ angular
                             
                         });
 
-                        console.log($scope.smsTypes);
+                        //console.log($scope.smsTypes);
                         
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
@@ -211,12 +211,12 @@ angular
                         value: 1,
                         parent_id: 1
                     },
-                    {
-                        id: 2,
-                        title: "FLASH",
-                        value: 2,
-                        parent_id: 1
-                    },
+                    // {
+                    //     id: 2,
+                    //     title: "FLASH",
+                    //     value: 2,
+                    //     parent_id: 1
+                    // },
                     {
                         id: 3,
                         title: "UNICODE",
@@ -263,7 +263,7 @@ angular
                     },
                     {
                         id: 4,
-                        title: "Bulk Push Excel",
+                        title: "Bulk Push CSV",
                         value: "4",
                         parent_id: 1
                     }
@@ -300,26 +300,26 @@ angular
                     if($scope.data.code == 302){
                         $scope.userGroupData = $scope.data.data;
                         
-                        console.log("userGroupData",$scope.userGroupData);
+                        //console.log("userGroupData",$scope.userGroupData);
 
                         var response_group = $scope.userGroupData;                         
 
                         var increment = 1;
                         $.each(response_group,function(i){
 
-                            console.log(response_group[i]['name']);
+                            //console.log(response_group[i]['name']);
 
                             var array_group = Array();
                             array_group['title'] = response_group[i]['name'];
                             array_group['id'] = response_group[i]['groupId'];
 
-                            console.log("array_group",Object.assign({}, array_group));
+                            //console.log("array_group",Object.assign({}, array_group));
 
                             $scope.user_group_data[i]= Object.assign({}, array_group);
 
                         });
 
-                        console.log("user_group_data",$scope.user_group_data);                        
+                        //console.log("user_group_data",$scope.user_group_data);                        
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
@@ -357,6 +357,7 @@ angular
             $scope.mobCount = false;
             
             $scope.changeMethod = function() {
+                $scope.fileName = '';
                 $scope.toShow = $scope.sms_method;  
                 if($scope.sms_method != 1){
                     $scope.mobCount = true;
@@ -612,7 +613,7 @@ angular
                         $scope.userTemplateData = $scope.data.data.template_data;
                         //console.log($scope.data.data);
                         $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
-                        console.log($scope.pagination);
+                        //console.log($scope.pagination);
 
                         
                     }else{
@@ -668,7 +669,7 @@ angular
 
                         //$("#view_template").hide();
 
-                        console.log($scope.templateData);                        
+                        //console.log($scope.templateData);                        
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
@@ -718,7 +719,7 @@ angular
 
                 var json_data = JSON.stringify(returnArray);
 
-                console.log("json_data: ",json_data);
+                //console.log("json_data: ",json_data);
                 //return false;
 
                 var sendSMS = "sendQuickMessage";               
@@ -747,9 +748,9 @@ angular
             }
 
             $scope.sendFileSMS = function(fd){
-                for (var pair of fd.entries()) {
-                    console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
-                }
+                // for (var pair of fd.entries()) {
+                //     console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
+                // }
                 //return false;
                 var sendSMS = "saveUserJobs";               
 
@@ -784,7 +785,7 @@ angular
 
                 var json_data = JSON.stringify(returnArray);
 
-                console.log("json_data: ",json_data);
+                //console.log("json_data: ",json_data);
                 
                 //return false;
                 var sendSMS = "saveUserGroupJobs";               
@@ -839,6 +840,14 @@ angular
                 }
                 return returnArray;
             }
+
+             $scope.$watch(function() {
+                return $scope.sms_duplicate;
+            }, function(n, o) {
+                if(n != o){
+                    $scope.mobileCount();
+                }     
+            }, true)
             
 
         }

@@ -129,19 +129,22 @@ angular
                     id: 0,
                     title: 'Dashboard',
                     icon: '&#xE871;',
-                    link: 'restricted.dashboard'
+                    link: 'restricted.dashboard',
+                    authorize: true
                 },      
                 {
                     id: 1,
                     title: 'Mobile Messages',
                     icon: '&#xE158;',
-                    link: 'restricted.bulk_sms'
+                    link: 'restricted.bulk_sms',
+                    authorize: true
                 },
                 {
                     id: 2,
                     title: 'Personalised Msg',
                     icon: '&#xE158;',
-                    link: 'restricted.personalised'
+                    link: 'restricted.personalised',
+                    authorize: true
                 },                
                 {            
 
@@ -169,7 +172,8 @@ angular
                             icon: '&#xE0CD;',
                             link: 'restricted.managecontacts'
                         }
-                    ]
+                    ],
+                    authorize: true
                 },
                 {
                     id: 4,
@@ -186,13 +190,15 @@ angular
                             icon: '&#xE0CD;',
                             link: 'restricted.managetemplate'
                         }
-                    ]
+                    ],
+                    authorize: true
                 },
                 {
                     id: 5,
                     title: 'Sender Id',
                     icon: '&#xE871;',
-                    link: 'restricted.senderid'
+                    link: 'restricted.senderid',
+                    authorize: true
                 },
                 {
                     id: 6,
@@ -208,7 +214,8 @@ angular
                             link: 'restricted.transactions'
                         }
                         
-                    ]
+                    ],
+                    authorize: true
                 },
                 {
                     id: 7,
@@ -224,7 +231,8 @@ angular
                             link: 'restricted.manageUser'
                         }
                         
-                    ]
+                    ],
+                    authorize: false
                 },
                 {
                     id: 8,
@@ -248,13 +256,15 @@ angular
                             link: 'restricted.exportReport'
                         }
                         
-                    ]
+                    ],
+                    authorize: true
                 },
                 {
                     id: 9,
                     title: 'LogOut',
                     icon: '&#xE5C4;',
-                    link: 'restricted.logout'
+                    link: 'restricted.logout',
+                    authorize: true
                 }
                                
             ]

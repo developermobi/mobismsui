@@ -47,6 +47,20 @@ angular
                     }
                 ]
             };
+
+            $scope.no_of_data_config = {
+                create: false,
+                maxItems: 1,
+                placeholder: 'No of data per page',
+                optgroupField: 'parent_id',
+                optgroupLabelField: 'title',
+                optgroupValueField: 'ogid',
+                valueField: 'value',
+                labelField: 'title',
+                searchField: 'title',
+                hideSelected: false,
+                highlight: true
+            };
         	
             $scope.transction = {};
             $scope.userData ="";
@@ -83,13 +97,6 @@ angular
                 $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);  
                 getTransactionDetails();              
             }
-
-            $scope.triggerClick = function () {
-                $timeout(function() {
-                    angular.element('#user_edit_tabs .debit_li').trigger('click');
-                }, 100);
-            };
-
 
             $scope.getUserData = function(){  
 
@@ -140,10 +147,12 @@ angular
         	
             function getTransactionDetails(){   
                 //alert($scope.page);
+                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
+
                 $scope.postData.userId = $rootScope.u_id;
                 $scope.postData.productId = $scope.selectedProductId;
                 $scope.postData.type = $scope.transType;
-                $scope.postData.start = $scope.page;
+                $scope.postData.start = $scope.start;
                 $scope.postData.limit =  $scope.data_per_page;
 
                 var postTransData = JSON.stringify($scope.postData);
@@ -173,6 +182,24 @@ angular
                     }
                 });
             }
+
+            $scope.triggerClick = function () {
+                $timeout(function() {
+                    angular.element('#user_edit_tabs .debit_li').trigger('click');
+                }, 100);
+            };
+
+            $scope.$watch(function() {
+                return $scope.data_per_page;
+            }, function(n, o) {
+                if(n != o){
+                    if($scope.transType == 1){
+                        $scope.getCreditData(1);
+                    }else if($scope.transType == 2){
+                        $scope.getDebitData(1);
+                    }
+                }     
+            }, true)
             
         }
     ]);

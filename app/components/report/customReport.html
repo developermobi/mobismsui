@@ -1,0 +1,115 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="uk-grid">
+            <div class="uk-width-large-1-2 uk-text-left">
+                <h3 class="heading_b uk-margin-bottom">Custom Report</h3>
+            </div>
+        </div>
+        
+        <div class="uk-grid">
+            <div class="uk-width-medium-1-2 uk-text-left">  
+                <div class="uk-width-medium-1-6 uk-text-center">        
+                    <input type="text" size="5" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
+                </div>     
+            </div>
+        </div> 
+         
+        <div class="md-card uk-margin-medium-bottom">
+            <div class="md-card-content">
+                <div class="uk-overflow-container">
+                    <table class="uk-table uk-table-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                                <th class="uk-width-2-10 uk-text-center">Message</th>
+                                <th class="uk-width-2-10 uk-text-center">Mobile Count</th>
+                                <th class="uk-width-2-10 uk-text-center">Sender Id</th>
+                                <th class="uk-width-1-10 uk-text-center">Sent Method</th>
+                                <th class="uk-width-1-10 uk-text-center">Status</th>
+                                <th class="uk-width-1-10 uk-text-center">Queued Date/Time</th>
+                                <th class="uk-width-1-10 uk-text-center">Completed Date/Time</th>
+                                <th class="uk-width-2-10 uk-text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            <tr ng-repeat="x in dailyReportData">
+                                <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
+                                <td class="uk-text-center">{{ x.message }}</td>
+                                <td class="uk-text-center">{{ x.totalNumbers }}</td>
+                                <td class="uk-text-center">{{ x.sender }}</td>
+                                <td class="uk-text-center">{{ x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }}</td>
+                                <td class="uk-text-center">{{ x.jobStatus == 0 ? 'Queued' : x.jobStatus == 1 ? 'Processed' : 'Completed' }}</td>
+                                <td class="uk-text-center">{{ x.queuedAt }}</td>
+                                <td class="uk-text-center">{{ x.completedAt }}</td>
+                                <td class="uk-text-center"><a ng-class="{disabled: x.jobStatus != 2}" class="md-btn md-btn-primary md-btn-small" data-uk-modal="{target:'#detail_report'}" href="javascript:void(0)" ng-click="getReportCount(x.id)">Summary</a><a ng-class="{disabled: x.jobStatus != 2}" class="md-btn md-btn-small" href="javascript:void(0)" ng-click="download(x.id,0)">Export</a></td>               
+                            </tr>    
+                        </tbody>
+                    </table>
+                </div>
+                <!-- pager -->
+                <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
+                    <li ng-class="{disabled:pagination.currentPage === 1}">
+                        <a ng-click="pagination.currentPage !== 1 && getData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+                    </li>
+                    <li ng-class="{disabled:pagination.currentPage === 1}">
+                        <a ng-click="pagination.currentPage !== 1 && getData(pagination.currentPage - 1)">Prev</i></span></a>
+                    </li>
+                    <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
+                        <a ng-click="pagination.currentPage !== page &&  getData(page)">{{page}}</a>
+                    </li>                
+                    <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                        <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.currentPage + 1)">Next</a>
+                    </li>
+                    <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                        <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="uk-modal" id="detail_report">
+    <div class="uk-modal-dialog">
+        <div class="uk-modal-header">
+            <h3 class="uk-modal-title">Status Report</h3>
+        </div>
+        <div class="md-card-content">
+            <div class="uk-overflow-container">
+                <table class="uk-table uk-table-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                            <th class="uk-width-2-10 uk-text-center">Status</th>
+                            <th class="uk-width-2-10 uk-text-center">Mobile Count</th>
+                            <th class="uk-width-2-10 uk-text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td class="uk-text-center">1</td>
+                            <td class="uk-text-center" ><a ui-sref="restricted.detailReport({ jobId: reportCount.jobId, status: 1})" data-uk-tooltip="{pos:'bottom'}" title="Summary"><u>DELIVERED</u></a></td>
+                            <td class="uk-text-center" >{{ reportCount.DELIVERED}}</td>
+                            <td class="uk-text-center" ><a href="javascript:void(0)" class="md-btn md-btn-small" ng-class="{disabled: reportCount.DELIVERED == 0}" ng-click="download(reportCount.jobId,1)">Export</a></td>
+                        </tr>
+                        <tr >
+                            <td class="uk-text-center">2</td>
+                            <td class="uk-text-center" ><a ui-sref="restricted.detailReport({ jobId: reportCount.jobId, status: 2})" data-uk-tooltip="{pos:'bottom'}" title="Summary"><u>SUBMITED</u></a></td>
+                            <td class="uk-text-center" >{{ reportCount.SUBMITED}}</td>
+                            <td class="uk-text-center" ><a href="javascript:void(0)" class="md-btn md-btn-small" ng-class="{disabled: reportCount.SUBMITED == 0}" ng-click="download(reportCount.jobId,2)">Export</a></td>
+                        </tr>
+                        <tr >
+                            <td class="uk-text-center">3</td>
+                            <td class="uk-text-center" ><a ui-sref="restricted.detailReport({ jobId: reportCount.jobId, status: 3})" data-uk-tooltip="{pos:'bottom'}" title="Summary"><u>FAILED</u></a></td>
+                            <td class="uk-text-center" >{{ reportCount.FAILED}}</td>
+                            <td class="uk-text-center" ><a href="javascript:void(0)" class="md-btn md-btn-small" ng-class="{disabled: reportCount.FAILED == 0}" ng-click="download(reportCount.jobId,3)">Export</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+        </div>
+    </div>
+</div>

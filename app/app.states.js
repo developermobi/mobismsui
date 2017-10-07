@@ -446,7 +446,7 @@ altairApp
                 })
 
                 .state("restricted.customReport", {
-                    url: "/report/monthly",
+                    url: "/report/custom",
                     templateUrl: 'app/components/report/customReport.html',
                     controller: 'customReportCtrl',
                     resolve: {
@@ -461,6 +461,26 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Custom Report'
+                    },
+                    authorize : true,
+                })
+
+                .state("restricted.detailReport", {
+                    url: "/report/custom/:jobId/:status",
+                    templateUrl: 'app/components/report/detailReport.html',
+                    controller: 'detailReportCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_ionRangeSlider',
+                                'lazy_masked_inputs',
+                                'lazy_character_counter',
+                                'app/components/report/detailReportCtrl.js'
+                            ], {serie:true} );
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Detail Report'
                     },
                     authorize : true,
                 })
@@ -480,11 +500,10 @@ altairApp
                         }]
                     },
                     data: {
-                        pageTitle: 'Custom Report'
+                        pageTitle: 'Schedule Report'
                     },
                     authorize : true,
                 })
-
                 .state("restricted.exportReport", {
                     url: "/report/export",
                     templateUrl: 'app/components/report/exportReport.html',
@@ -500,26 +519,26 @@ altairApp
                         }]
                     },
                     data: {
-                        pageTitle: 'Custom Report'
+                        pageTitle: 'Export Report'
                     },
                     authorize : true,
                 })
+                
         }
     ])
-    .run(['$rootScope', '$location', '$cookieStore', '$http',
-    function ($rootScope, $location, $cookieStore, $http) {
+    .run(['$rootScope', '$location', '$cookieStore', '$http','$state',
+    function ($rootScope, $location, $cookieStore, $http, $state) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = $rootScope.globals.currentUser.auth_key; // jshint ignore:line
         }
   
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-
-            //alert(toState.authorize);
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {          
             // redirect to login page if not logged in
             if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
                 $location.path('/login');
             }
         });
+
     }]);

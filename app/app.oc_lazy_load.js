@@ -338,6 +338,19 @@ altairApp
                         serie: true
                     },
 
+                    {
+                        name: 'lazy_panelbar',
+                        files: [
+                            'bower_components/kendo-ui/js/kendo.core.min.js',
+                            'bower_components/kendo-ui/js/kendo.color.min.js',
+                            'bower_components/kendo-ui/js/kendo.panelbar.min.js',
+                            'bower_components/kendo-ui/js/kendo.window.min.js',
+                            'bower_components/kendo-ui/js/kendo.angular.min.js'
+                        ],
+                        insertBefore: '#main_stylesheet',
+                        serie: true
+                    },
+
                     // ----------- UIKIT HTMLEDITOR -----------
                     {
                         name: 'lazy_htmleditor',

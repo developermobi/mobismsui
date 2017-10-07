@@ -1,140 +1,146 @@
 <div id="page_content">
     <div id="page_content_inner">
-        <form action="" class="uk-form-stacked" id="user_edit_form">
-            <div class="uk-grid" data-uk-grid-margin="">
-                <div class="uk-width-medium-1-2" ng-repeat="smsType in smsTypes">
-                    <div class="md-card">
-                        <div class="md-card-content">
-                            <a ng-click="select(smsType.id,smsType.title)" ng-class="selectedProductId == smsType.id ? 'activeSmsType' : 'deActiveSmsType'" class="md-btn md-btn-block md-btn-wave-light waves-effect waves-button waves-light" href="javascript:void(0)">{{ smsType.title }}</a>
-                        </div>
+        <div class="uk-grid" data-uk-grid-margin="">
+            <div class="uk-width-medium-1-2" ng-repeat="smsType in smsTypes">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <a ng-click="select(smsType.id,smsType.title)" ng-class="selectedProductId == smsType.id ? 'activeSmsType' : 'deActiveSmsType'" class="md-btn md-btn-block md-btn-wave-light waves-effect waves-button waves-light" href="javascript:void(0)">{{ smsType.title }}</a>
                     </div>
                 </div>
             </div>
-            <div class="uk-grid uk-flex-center" data-uk-grid-margin>
-                <div class="uk-width-large-9-1">
-                    <div class="md-card">                        
-                        <div class="user_content">
-                            <ul id="user_edit_tabs" class="uk-tab" data-uk-tab="{connect:'#user_edit_tabs_content'}">
-                                <li class="uk-active debit_li" ng-click="getDebitData(1)"><a href="#">Debit</a></li>
-                                <li class="credit_li" ng-click="getCreditData(1)"><a href="#">Credit</a></li>
-                            </ul>
-                            <ul id="user_edit_tabs_content" class="uk-switcher uk-margin">
-                                <li>
-                                    <div class="uk-margin-top">
-                                 
-                                        <h3 class="full_width_in_card heading_c">
-                                            Debit Details
-                                        </h3>
-                                            <div class="uk-overflow-container">
-                                                <table class="uk-table uk-table-nowrap">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="uk-width-1-10 uk-text-center">Sr No.</th>
-                                                        <th class="uk-width-2-10 uk-text-center">DebitType</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Debit</th>
-                                                        <th class="uk-width-2-10 uk-text-center">CurrentAmount</th>
-                                                        <th class="uk-width-2-10 uk-text-center">PreviousAmouunt</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Remark</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Debit BY</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Created</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr ng-repeat="data in userTransactionData" >                                
-                                                        <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                                        <td class="uk-text-center" ><span ng-if="data.debitType == 1">Create User</span><span ng-if="data.debitType == 2">Credit To User</span><span ng-if="data.debitType == 3">Sent Message</span></td>
-                                                        <td class="uk-text-center" >{{ data.debit}}</td>
-                                                        <td class="uk-text-center" >{{ data.currentAmount}}</td>
-                                                        <td class="uk-text-center" >{{ data.previousAmouunt}}</td>
-                                                        <td class="uk-text-center" >{{ data.remark}}</td>
-                                                        <td class="uk-text-center" >{{ data.debitTo == u_id ? 'Self' : ''}}</td>
-                                                         <td class="uk-text-center" >{{ data.created}}</td>
-                                                        
-                                                    </tr>                           
-
-                                                    </tbody>
-                                                </table>
-                                            </div> 
-                                            <!-- pager -->
-                                            <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
-                                                <li ng-class="{disabled:pagination.currentPage === 1}">
-                                                    <a ng-click="pagination.currentPage !== 1 && getDebitData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
-                                                </li>
-                                                <li ng-class="{disabled:pagination.currentPage === 1}">
-                                                    <a ng-click="pagination.currentPage !== 1 && getDebitData(pagination.currentPage - 1)">Prev</i></span></a>
-                                                </li>
-                                                <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
-                                                    <a ng-click="pagination.currentPage !== page &&  getDebitData(page)">{{page}}</a>
-                                                </li>                
-                                                <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
-                                                    <a ng-click="pagination.currentPage !== pagination.totalPages && getDebitData(pagination.currentPage + 1)">Next</a>
-                                                </li>
-                                                <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
-                                                    <a ng-click="pagination.currentPage !== pagination.totalPages && getDebitData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
-                                                </li>
-                                            </ul>                      
-                                    </div>
-                                </li>
-                                <li>
+        </div>
+        <div class="uk-grid">
+            <div class="uk-width-medium-1-2 uk-text-left">  
+                <div class="uk-width-medium-1-6 uk-text-center">        
+                    <input type="text" size="5" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
+                </div>     
+            </div>
+        </div> 
+        <div class="uk-grid uk-flex-center" data-uk-grid-margin>
+            <div class="uk-width-large-9-1">
+                <div class="md-card">                        
+                    <div class="user_content">
+                        <ul id="user_edit_tabs" class="uk-tab" data-uk-tab="{connect:'#user_edit_tabs_content'}">
+                            <li class="uk-active debit_li" ng-click="getDebitData(1)"><a href="#">Debit</a></li>
+                            <li class="credit_li" ng-click="getCreditData(1)"><a href="#">Credit</a></li>
+                        </ul>
+                        <ul id="user_edit_tabs_content" class="uk-switcher uk-margin">
+                            <li>
+                                <div class="uk-margin-top">
+                             
                                     <h3 class="full_width_in_card heading_c">
-                                            Credit Details
-                                        </h3>
-                                            <div class="uk-overflow-container">
-                                                <table class="uk-table uk-table-nowrap">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="uk-width-1-10 uk-text-center">Sr No.</th>
-                                                        <th class="uk-width-2-10 uk-text-center">CreditType</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Create UserId</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Credit</th>                                          
-                                                        <th class="uk-width-2-10 uk-text-center">CreditBy</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Remark</th>
-                                                        <th class="uk-width-2-10 uk-text-center">Rreated</th>
+                                        Debit Details
+                                    </h3>
+                                        <div class="uk-overflow-container">
+                                            <table class="uk-table uk-table-nowrap">
+                                                <thead>
+                                                <tr>
+                                                    <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                                                    <th class="uk-width-2-10 uk-text-center">DebitType</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Debit</th>
+                                                    <th class="uk-width-2-10 uk-text-center">CurrentAmount</th>
+                                                    <th class="uk-width-2-10 uk-text-center">PreviousAmouunt</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Remark</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Debit BY</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Created</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="data in userTransactionData" >                                
+                                                    <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
+                                                    <td class="uk-text-center" ><span ng-if="data.debitType == 1">Create User</span><span ng-if="data.debitType == 2">Credit To User</span><span ng-if="data.debitType == 3">Sent Message</span></td>
+                                                    <td class="uk-text-center" >{{ data.debit}}</td>
+                                                    <td class="uk-text-center" >{{ data.currentAmount}}</td>
+                                                    <td class="uk-text-center" >{{ data.previousAmouunt}}</td>
+                                                    <td class="uk-text-center" >{{ data.remark}}</td>
+                                                    <td class="uk-text-center" >{{ data.debitTo == u_id ? 'Self' : ''}}</td>
+                                                     <td class="uk-text-center" >{{ data.created}}</td>
+                                                    
+                                                </tr>                           
 
-                                                        
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr ng-repeat="data in userTransactionData" >                                
-                                                        <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                                        <td class="uk-text-center" ><span ng-if=" data.creditType == 1">Create User</span><span ng-if=" data.creditType == 2">Credit User</span></td>
-                                                        <td class="uk-text-center" >{{ data.userId['userId']}}</td>
-                                                        <td class="uk-text-center" >{{ data.credit}}</td>
-                                                        
-                                                        <td class="uk-text-center" >{{ data.creditBy  == u_id ? 'Self' : ''}}</td>
-                                                        <td class="uk-text-center" >{{ data.remark}}</td>
-                                                        <td class="uk-text-center" >{{ data.created}}</td>
+                                                </tbody>
+                                            </table>
+                                        </div> 
+                                        <!-- pager -->
+                                        <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
+                                            <li ng-class="{disabled:pagination.currentPage === 1}">
+                                                <a ng-click="pagination.currentPage !== 1 && getDebitData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+                                            </li>
+                                            <li ng-class="{disabled:pagination.currentPage === 1}">
+                                                <a ng-click="pagination.currentPage !== 1 && getDebitData(pagination.currentPage - 1)">Prev</i></span></a>
+                                            </li>
+                                            <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
+                                                <a ng-click="pagination.currentPage !== page &&  getDebitData(page)">{{page}}</a>
+                                            </li>                
+                                            <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                                                <a ng-click="pagination.currentPage !== pagination.totalPages && getDebitData(pagination.currentPage + 1)">Next</a>
+                                            </li>
+                                            <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                                                <a ng-click="pagination.currentPage !== pagination.totalPages && getDebitData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+                                            </li>
+                                        </ul>                      
+                                </div>
+                            </li>
+                            <li>
+                                <h3 class="full_width_in_card heading_c">
+                                        Credit Details
+                                    </h3>
+                                        <div class="uk-overflow-container">
+                                            <table class="uk-table uk-table-nowrap">
+                                                <thead>
+                                                <tr>
+                                                    <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                                                    <th class="uk-width-2-10 uk-text-center">CreditType</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Create UserId</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Credit</th>                                          
+                                                    <th class="uk-width-2-10 uk-text-center">CreditBy</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Remark</th>
+                                                    <th class="uk-width-2-10 uk-text-center">Rreated</th>
 
-                                                        
-                                                    </tr>                           
+                                                    
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="data in userTransactionData" >                                
+                                                    <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
+                                                    <td class="uk-text-center" ><span ng-if=" data.creditType == 1">Create User</span><span ng-if=" data.creditType == 2">Credit User</span></td>
+                                                    <td class="uk-text-center" >{{ data.userId['userId']}}</td>
+                                                    <td class="uk-text-center" >{{ data.credit}}</td>
+                                                    
+                                                    <td class="uk-text-center" >{{ data.creditBy  == u_id ? 'Self' : ''}}</td>
+                                                    <td class="uk-text-center" >{{ data.remark}}</td>
+                                                    <td class="uk-text-center" >{{ data.created}}</td>
 
-                                                    </tbody>
-                                                </table>
-                                            </div> 
-                                            <!-- pager -->
-                                            <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
-                                                <li ng-class="{disabled:pagination.currentPage === 1}">
-                                                    <a ng-click="pagination.currentPage !== 1 && getCreditData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
-                                                </li>
-                                                <li ng-class="{disabled:pagination.currentPage === 1}">
-                                                    <a ng-click="pagination.currentPage !== 1 && getCreditData(pagination.currentPage - 1)">Prev</i></span></a>
-                                                </li>
-                                                <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
-                                                    <a ng-click="pagination.currentPage !== page &&  getCreditData(page)">{{page}}</a>
-                                                </li>                
-                                                <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
-                                                    <a ng-click="pagination.currentPage !== pagination.totalPages && getCreditData(pagination.currentPage + 1)">Next</a>
-                                                </li>
-                                                <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
-                                                    <a ng-click="pagination.currentPage !== pagination.totalPages && getCreditData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
-                                                </li>
-                                            </ul>      
-                                </li>
-                            </ul>
-                        </div>
+                                                    
+                                                </tr>                           
+
+                                                </tbody>
+                                            </table>
+                                        </div> 
+                                        <!-- pager -->
+                                        <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
+                                            <li ng-class="{disabled:pagination.currentPage === 1}">
+                                                <a ng-click="pagination.currentPage !== 1 && getCreditData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+                                            </li>
+                                            <li ng-class="{disabled:pagination.currentPage === 1}">
+                                                <a ng-click="pagination.currentPage !== 1 && getCreditData(pagination.currentPage - 1)">Prev</i></span></a>
+                                            </li>
+                                            <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
+                                                <a ng-click="pagination.currentPage !== page &&  getCreditData(page)">{{page}}</a>
+                                            </li>                
+                                            <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                                                <a ng-click="pagination.currentPage !== pagination.totalPages && getCreditData(pagination.currentPage + 1)">Next</a>
+                                            </li>
+                                            <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                                                <a ng-click="pagination.currentPage !== pagination.totalPages && getCreditData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+                                            </li>
+                                        </ul>      
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+       
     </div>
 </div>

@@ -46,7 +46,7 @@
 					<div class="uk-width-medium-1-2 uk-width-large-1-2">                        
 						<div class="parsley-row" ng-show="toShow==1">
 							<label>Mobile</label>
-							<textarea no-space only-digits ng-keyup="mobileCount()" ng-paste="keepNumericsAndCountMobile()" class="md-input teaxtarea-scroll" rows="4" required ng-model="sms_mobile" md-input></textarea>
+							<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" no-space only-digits ng-keyup="mobileCount()" ng-paste="keepNumericsAndCountMobile()" class="md-input teaxtarea-scroll" rows="4" ng-model="sms_mobile" md-input></textarea>
 						</div>
 						<div class="parsley-row" ng-show="toShow==2">
 							<label>Group</label>
@@ -56,16 +56,16 @@
 							<h4 class="heading_a uk-margin-bottom">Notepad file</h4>
 							<div class="uk-form-file md-btn md-btn-primary">
 								&nbsp;&nbsp;Select File&nbsp;&nbsp;
-								<input id="form-file" required file-model="smsFile" type="file">								
+								<input id="form-file" required file-model="smsFile" type="file" accept="text/plain">								
 							</div>
 							<br>
 							{{ fileName }}							
 						</div>
 						<div class="parsley-row" ng-show="toShow==4">
-							<h4 class="heading_a uk-margin-bottom">Excel file</h4>
+							<h4 class="heading_a uk-margin-bottom">CSV file</h4>
 							<div class="uk-form-file md-btn md-btn-primary">
 								&nbsp;&nbsp;Select File&nbsp;&nbsp;
-								<input id="form-file" required file-model="smsFile" type="file">
+								<input id="form-file" required file-model="smsFile" type="file" accept=".csv">
 							</div>
 							<br>
 							{{ fileName }}	

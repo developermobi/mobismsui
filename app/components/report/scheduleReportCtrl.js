@@ -95,6 +95,13 @@ angular
 
             $scope.getData($scope.page);   
 
+            $scope.$watch(function() {
+                return $scope.data_per_page;
+            }, function(n, o) {
+                if(n != o){
+                    $scope.getData(1);
+                }     
+            }, true)
             
         }
     ]);
