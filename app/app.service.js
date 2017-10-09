@@ -29,6 +29,7 @@ altairApp
             $rootScope.content_preloader_show = function(style,container) {
                 var $body = $('body');
                 if(!$body.find('.content-preloader').length) {
+                    $(".bodyLoaderWithOverlay").show();
                     var image_density = utils.isHighDensity() ? '@2x' : '' ;
 
                     var preloader_content = (typeof style !== 'undefined' && style == 'regular')
@@ -46,6 +47,7 @@ altairApp
             $rootScope.content_preloader_hide = function() {
                 var $body = $('body');
                 if($body.find('.content-preloader').length) {
+                    $(".bodyLoaderWithOverlay").hide();
                     // hide preloader
                     $('.content-preloader').removeClass('preloader-active');
                     // remove preloader
@@ -54,7 +56,6 @@ altairApp
                     }, 500);
                 }
             };
-
         }
     ])
 ;

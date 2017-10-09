@@ -19,13 +19,13 @@ var altairApp = angular.module('altairApp', [
     'underscore'
 ]);
 
-// altairApp.value('globalUrl', 'http://localhost:9090/sms/api/');
-// altairApp.value('appUrl', 'http://localhost/mobismsui/#/');
-// altairApp.value('downloadUrl', 'http://localhost:9090/sms/download/');
+altairApp.value('globalUrl', 'http://localhost:9090/sms/api/');
+altairApp.value('appUrl', 'http://localhost/mobismsui/#/');
+altairApp.value('downloadUrl', 'http://localhost:9090/sms/download/');
 
-altairApp.value('globalUrl', 'http://213.133.100.80:1234/sms/api/');
-altairApp.value('appUrl', 'http://213.133.100.80/mobismsui/#/');
-altairApp.value('downloadUrl', 'http://213.133.100.80:1234/sms/download/');
+// altairApp.value('globalUrl', 'http://213.133.100.80:1234/sms/api/');
+// altairApp.value('appUrl', 'http://213.133.100.80/mobismsui/#/');
+// altairApp.value('downloadUrl', 'http://213.133.100.80:1234/sms/download/');
 
 altairApp.constant('variables', {
     header__main_height: 48,
@@ -126,8 +126,8 @@ altairApp
                     $rootScope.hide_content_sidebar = false;
                 }
                 if(!toParams.hasOwnProperty('hidePreloader')) {
-                    $rootScope.pageLoading = true;
-                    $rootScope.pageLoaded = false;
+                    //$rootScope.pageLoading = true;
+                    //$rootScope.pageLoaded = false;
                 }
 
             });
@@ -182,6 +182,6 @@ function run($rootScope, $cookieStore) {
         $rootScope.u_id = $rootScope.globals.currentUser.u_id;
         $rootScope.u_role = $rootScope.globals.currentUser.role;
         $rootScope.auth_key = $rootScope.globals.currentUser.auth_key;
-        console.log($rootScope.u_role);
+        //console.log($rootScope.u_role);
     }
 }

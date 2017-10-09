@@ -22,19 +22,21 @@ altairApp.service('apiLogin', ['$http','$rootScope','$state','globalUrl', functi
 
     var apiLogin = {
         async: function(url,data) {
-            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
-            modal.show();   
+            // var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            // modal.show();   
+
+            $(".bodyLoaderWithOverlay").show();
 
             url = globalUrl+url;
             var promise = $http.post(url, data, config)        
             .success(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 // console.log(response);
                 // return false;
                 return response.data.data;
             })
             .error(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 // console.log(response);
                 // return false;
                 UIkit.modal.alert(response.message);
@@ -62,19 +64,20 @@ altairApp.service('apiResetPwd', ['$http','$rootScope','$state','globalUrl', fun
 
     var apiResetPwd = {
         async: function(url) {
-            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
-            modal.show();   
+            // var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            // modal.show();   
+            $(".bodyLoaderWithOverlay").show();
 
             url = globalUrl+url;
             var promise = $http.get(url, config)        
             .success(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 // console.log(response);
                 // return false;
                 return response.data;
             })
             .error(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 // console.log(response);
                 // return false;
                 UIkit.modal.alert(response.message);
@@ -92,8 +95,10 @@ altairApp.service('apiDownloadData', ['$http','$rootScope','$state','globalUrl',
 
     var apiDownloadData = {
         async: function(url) {   
-            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
-            modal.show();
+            // var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            // modal.show();
+
+            $(".bodyLoaderWithOverlay").show();
 
             var cookieData = $cookieStore.get('globals');
 
@@ -110,12 +115,12 @@ altairApp.service('apiDownloadData', ['$http','$rootScope','$state','globalUrl',
             url = globalUrl+url;
             var promise = $http.get(url,config)
             .success(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 //console.log(response);
                 return response.data;
             })
             .error(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 //console.log(response);
                 //UIkit.modal.alert(response.message);
                 return response.data;
@@ -134,8 +139,10 @@ altairApp.service('apiPostData', ['$http','$rootScope','$state','globalUrl','$co
 
     var apiPostData = {
         async: function(url,data) {
-            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
-            modal.show(); 
+            // var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            // modal.show(); 
+
+            $(".bodyLoaderWithOverlay").show();
 
             var cookieData = $cookieStore.get('globals');
 
@@ -153,12 +160,12 @@ altairApp.service('apiPostData', ['$http','$rootScope','$state','globalUrl','$co
             url = globalUrl+url;
             var promise = $http.post(url, data, config)        
             .success(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 //console.log(response);
                 return response.data;
             })
             .error(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 console.log(response);
                 UIkit.modal.alert(response.message);
                 return response;
@@ -171,12 +178,15 @@ altairApp.service('apiPostData', ['$http','$rootScope','$state','globalUrl','$co
 
 }]);
 
-altairApp.service('apiGetData', ['$http','$rootScope','$state','globalUrl','$cookieStore', function ($http,$rootScope,$state,globalUrl,$cookieStore) {
+altairApp.service('apiGetData', ['$http','$rootScope','$state','globalUrl','$cookieStore','$window', function ($http,$rootScope,$state,globalUrl,$cookieStore,$window) {
 
     var apiGetData = {
         async: function(url) {   
-            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
-            modal.show();
+            // var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            // modal.show();
+            
+            $(".bodyLoaderWithOverlay").show();
+            //return false;
 
             var cookieData = $cookieStore.get('globals');
 
@@ -193,12 +203,16 @@ altairApp.service('apiGetData', ['$http','$rootScope','$state','globalUrl','$coo
             url = globalUrl+url;
             var promise = $http.get(url,config)
             .success(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
+                
+                //modal.hide();
                 //console.log(response);
                 return response.data;
             })
             .error(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
+                
+                //modal.hide();
                 //console.log(response);
                 //UIkit.modal.alert(response.message);
                 return response.data;
@@ -216,8 +230,9 @@ altairApp.service('apiFileUpload', ['$http','$rootScope','$state','globalUrl','$
 
     var apiFileUpload = {
         async: function(url,data) {
-            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
-            modal.show(); 
+            // var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Please wait...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner.gif\' alt=\'\'>');
+            // modal.show(); 
+            $(".bodyLoaderWithOverlay").show();
 
             var cookieData = $cookieStore.get('globals');
 
@@ -236,12 +251,12 @@ altairApp.service('apiFileUpload', ['$http','$rootScope','$state','globalUrl','$
            
             var promise = $http.post(url, data, config)        
             .success(function(response){
-                modal.hide();
+                $(".bodyLoaderWithOverlay").hide();
                 console.log(response);
                 return response.data;
             })
             .error(function(response){
-                modal.hide();
+               $(".bodyLoaderWithOverlay").hide();
                 console.log(response);
                 UIkit.modal.alert(response.message);
                 return response;
@@ -372,7 +387,7 @@ altairApp.factory('AuthenticationService',
             $rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic ';
-            
+
         };
 
         service.logout = function () {            

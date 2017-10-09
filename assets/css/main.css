@@ -9921,7 +9921,7 @@ a.waves-effect .waves-ripple {
   transform: rotate(-180deg);
 }
 #sidebar_main .sidebar_main_header {
-  height: 89px;
+  height: 48px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   margin-bottom: 20px;
   background-image: url("../img/sidebar_head_bg.png");
@@ -9935,8 +9935,8 @@ a.waves-effect .waves-ripple {
   }
 }
 #sidebar_main .sidebar_main_header .sidebar_logo {
-  height: 89px;
-  line-height: 48px;
+  /*height: 89px;*/
+  /*line-height: 48px;*/
   overflow: hidden;
 }
 #sidebar_main .sidebar_main_header .sidebar_logo a {

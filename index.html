@@ -86,6 +86,12 @@
     'error_page': $state.includes('error'),
     'uk-height-1-1': page_full_height
 }" content-sidebar>
+    <div class="bodyLoaderWithOverlay">
+        <div class="loaderImage text-center">
+            <img src="assets/img/loading_sms.gif" width="100%" height="100%">
+        </div>
+    </div>
+
     <div id="page_preloader" ng-hide="hidePreloader"><img src="assets/img/page_preloader.gif" alt=""/></div>
 
     <div ui-view="main_header"></div>
@@ -94,6 +100,34 @@
 
 </body>
 
+<style type="text/css">
+    .bodyLoaderWithOverlay{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.87);
+        filter: alpha(Opacity=80);
+        opacity: .8;
+        display: none;
+    }
 
+    .loaderImage{
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto; 
+        width: 8%;
+        height: 16%;
+        z-index: 9999;
+        position: fixed;
+        color: #fff;        
+        background-color: #fff;
+        border-radius: 20%; 
+    }
+</style>
    
 </html>
