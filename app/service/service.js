@@ -363,6 +363,13 @@ altairApp.factory('AuthenticationService',
             $rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic ';
+
+            for (var prop in $rootScope) {
+                // Check is not $rootScope default properties, functions
+                if (typeof $rootScope[prop] !== 'function' && prop.indexOf('$') == -1 && prop.indexOf('$$') == -1) {
+                    delete $rootScope[prop];
+                }
+            } 
         };
 
         service.logout = function () {            
