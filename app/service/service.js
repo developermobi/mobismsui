@@ -360,9 +360,7 @@ altairApp.factory('AuthenticationService',
         };
         
         service.ClearCredentials = function () {
-            $rootScope.globals = {};
-            $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic ';
+            
 
             for (var prop in $rootScope) {
                 // Check is not $rootScope default properties, functions
@@ -370,6 +368,11 @@ altairApp.factory('AuthenticationService',
                     delete $rootScope[prop];
                 }
             } 
+
+            $rootScope.globals = {};
+            $cookieStore.remove('globals');
+            $http.defaults.headers.common.Authorization = 'Basic ';
+            
         };
 
         service.logout = function () {            
