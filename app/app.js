@@ -97,7 +97,7 @@ altairApp
                 
                 //alert($rootScope.u_role);
 
-                if(toState.authorize == false && $rootScope.u_role == 1){
+                if(toState.authorize == false && $rootScope.u_role == 2){
                     //alert(toState.authorize);
                     event.preventDefault();
                     $state.go('error.404');
