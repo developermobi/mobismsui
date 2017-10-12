@@ -1,6 +1,6 @@
 angular
     .module('altairApp')    
-    .controller('scheduleReportCtrl', [
+    .controller('detailReportCtrl', [
         '$scope',
         '$rootScope',
         'apiGetData',
@@ -8,8 +8,21 @@ angular
         '$cookieStore',
         '$stateParams',
         'pagerService',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService) {
+        '$state',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService,$state) {
 
+            $scope.summary_status = '';
+
+            if($stateParams.status == 1){
+                $scope.summary_status = 'DELIVERED';
+            }else if($stateParams.status == 2){
+                $scope.summary_status = 'SUBMITED';
+            }else if($stateParams.status == 3){
+                $scope.summary_status = 'FAILED';
+            }else{
+                $state.go('restricted.customReport');
+                return false;
+            }
            
             $scope.pagination = {};
             $scope.page = 1;
@@ -66,31 +79,47 @@ angular
             $scope.data_per_page = $scope.no_of_data.options[0].value;          
 
             $scope.getData = function(page){
+               
+                if(status == 1){
+                    $scope.summary_status = 'DELIVERED';
+                }else if(status == 2){
+                    $scope.summary_status = 'SUBMITED';
+                }else if(status == 3){
+                    $scope.summary_status = 'FAILED';
+                }
 
                 $scope.page = page;
 
                 $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
 
-                var getScheduleReport = "scheduleReportByUserId/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
+                $scope.requestData = {};
+                $scope.requestData.userId = $rootScope.u_id;
+                $scope.requestData.jobId = $stateParams.jobId;
+                $scope.requestData.status = $scope.summary_status;
+                $scope.requestData.start = $scope.start;
+                $scope.requestData.max = $scope.data_per_page;
 
-                $scope.scheduleReportData = {};
+                var rdata = JSON.stringify($scope.requestData);
 
-                apiGetData.async(getScheduleReport).then(function(d) {
-                    $scope.responseData = d;
-                    //alert("hello data");
-                    console.log('d data',d);
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 302){
-                        $scope.scheduleReportData = $scope.data.data;
-                        console.log('scheduleReportByUserId data',$scope.scheduleReportData);
+                console.log('Request data: ',rdata);
+
+                var statusReport = "dlrReportDetails";
+
+                apiPostData.async(statusReport,rdata).then(function(d) {
+                    $scope.responseData = d.data; 
+                    if($scope.responseData.code == 302){
+                        $scope.statusReportData = $scope.responseData.data;
+                        console.log('statusReportData data',$scope.statusReportData);
                         
-                        $scope.pagination = pagerService.GetPager($scope.data.total,$scope.page,$scope.data_per_page);
+                        $scope.pagination = pagerService.GetPager($scope.responseData.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
+                        
                     }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
                     }
-                });           
+                });
+
             }  
 
             $scope.getData($scope.page);   
@@ -102,6 +131,5 @@ angular
                     $scope.getData(1);
                 }     
             }, true)
-            
         }
     ]);

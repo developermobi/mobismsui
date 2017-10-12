@@ -2,7 +2,7 @@
     <div id="page_content_inner">
     	<div class="uk-grid">
     		<div class="uk-width-large-1-2 uk-text-left">
-    			<h3 class="heading_b uk-margin-bottom">Schedule Report</h3>
+    			<h3 class="heading_b uk-margin-bottom">{{ summary_status }} - Report Summary</h3>
     		</div>
     	</div>
         
@@ -22,22 +22,20 @@
                             <tr>
                                 <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                                 <th class="uk-width-2-10 uk-text-center">Message</th>
-                                <th class="uk-width-2-10 uk-text-center">Mobile Count</th>
+                                <th class="uk-width-2-10 uk-text-center">Mobile</th>
                                 <th class="uk-width-2-10 uk-text-center">Sender Id</th>
-                                <th class="uk-width-1-10 uk-text-center">Status</th>
-                                <th class="uk-width-1-10 uk-text-center">Date/Time</th>
-                                <th class="uk-width-2-10 uk-text-center">Method</th>
+                                <th class="uk-width-1-10 uk-text-center">Sent Date/Time</th>
+                                <th class="uk-width-1-10 uk-text-center">Delivered Date/Time</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="x in scheduleReportData">
+                            <tr ng-repeat="x in statusReportData">
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
                                 <td class="uk-text-center">{{ x.message }}</td>
-                                <td class="uk-text-center">{{ x.totalNumbers }}</td>
+                                <td class="uk-text-center">{{ x.mobile }}</td>
                                 <td class="uk-text-center">{{ x.sender }}</td>
-                                <td class="uk-text-center">{{ x.status == 0 ? 'Queued' : x.status == 1 ? 'Processed' : 'Completed' }}</td>
-                                <td class="uk-text-center">{{ x.scheduledAt }}</td> 
-                                <td class="uk-text-center">{{ x.jobType == 1 ? 'Quick' : x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }}</td>                               
+                                <td class="uk-text-center">{{ x.loggedAt | date : 'dd/MM/yyyy HH:MM:ss' }}</td>
+                                <td class="uk-text-center">{{ x.dlrTime != null ? x.dlrTime : '' }}</td>                            
                             </tr>                             
                         </tbody>
                     </table>

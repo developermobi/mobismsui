@@ -8,8 +8,10 @@ angular
         '$cookieStore',
         '$stateParams',
         'pagerService',
-        'apiDownloadData',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService,apiDownloadData) {
+        '$window',
+        '$timeout',
+        'downloadUrl',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService,$window,$timeout,downloadUrl) {
 
             var $dp_start = $('#uk_dp_start'),
                 $dp_end = $('#uk_dp_end');
@@ -48,22 +50,18 @@ angular
 
                 var downloadReport = "archiveRepotMessage/"+$rootScope.u_id+"/"+download.start_date+"/"+download.end_date;               
 
-                apiDownloadData.async(downloadReport).then(function(d) {
-                    $scope.responseData = d;                    
-                    /*alert("hello data");
-                    console.log('d data',d);*/
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 204){
-                        $scope.userSenderData = $scope.data.data;
-                        
-                        console.log($scope.sender_id_data);
+                apiGetData.async(downloadReport).then(function(d) {
+                    $scope.responseData = d.data; 
+                    if($scope.responseData.code == 302){
+                        $scope.fileName = $scope.responseData.fileName;
+                        var url = downloadUrl + $scope.fileName;                         
+                        $window.location.href = url;
                         
                     }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
                     }
                 });
             }
-
         }
     ]);

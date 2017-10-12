@@ -19,11 +19,17 @@ var altairApp = angular.module('altairApp', [
     'underscore'
 ]);
 
+
  altairApp.value('globalUrl', 'http://localhost:8080/sms/api/');
  altairApp.value('appUrl', 'http://localhost:81/mobismsui/#/');
+ altairApp.value('downloadUrl', 'http://localhost:8080/sms/download/');
 
-//altairApp.value('globalUrl', 'http://213.133.100.80:1234/sms/api/');
-//altairApp.value('appUrl', 'http://213.133.100.80/mobismsui/#/');
+
+
+/*altairApp.value('globalUrl', 'http://213.133.100.80:1234/sms/api/');
+altairApp.value('appUrl', 'http://213.133.100.80/mobismsui/#/');
+altairApp.value('downloadUrl', 'http://213.133.100.80:1234/sms/download/');*/
+
 
 altairApp.constant('variables', {
     header__main_height: 48,
@@ -61,7 +67,8 @@ altairApp
         'preloaders',
         'variables',
         '$cookieStore',
-        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables,$cookieStore) {
+        '$location',
+        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables,$cookieStore,$location) {
 
             
             $rootScope.$state = $state;
@@ -89,7 +96,16 @@ altairApp
 
             });
 
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, toStateParams) {
+
+                
+                //alert($rootScope.u_role);
+
+                if(toState.authorize == false && $rootScope.u_role == 2){
+                    //alert(toState.authorize);
+                    event.preventDefault();
+                    $state.go('error.404');
+                }
                 // main search
                 $rootScope.mainSearchActive = false;
                 // single card
@@ -114,8 +130,8 @@ altairApp
                     $rootScope.hide_content_sidebar = false;
                 }
                 if(!toParams.hasOwnProperty('hidePreloader')) {
-                    $rootScope.pageLoading = true;
-                    $rootScope.pageLoaded = false;
+                    //$rootScope.pageLoading = true;
+                    //$rootScope.pageLoaded = false;
                 }
 
             });
@@ -170,6 +186,6 @@ function run($rootScope, $cookieStore) {
         $rootScope.u_id = $rootScope.globals.currentUser.u_id;
         $rootScope.u_role = $rootScope.globals.currentUser.role;
         $rootScope.auth_key = $rootScope.globals.currentUser.auth_key;
-        console.log($rootScope.u_role);
+        //console.log($rootScope.u_role);
     }
 }

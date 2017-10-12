@@ -4,10 +4,17 @@
     		<div class="uk-width-large-1-2 uk-text-left">
     			<h3 class="heading_b uk-margin-bottom">Group Contacts</h3>
     		</div>
-    		<div class="uk-width-large-1-2 uk-text-right">
-    			<button type="button" class="md-btn md-btn-primary uk-margin-bottom">Send SMS</button>
-    		</div>
     	</div>
+        <div class="uk-grid">
+            <div class="uk-width-medium-1-2 uk-text-left">  
+                <div class="uk-width-medium-1-6 uk-text-center">        
+                        <input type="text" size="5" ng-change="getData(1)" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
+                </div>     
+            </div>
+            <div class="uk-width-medium-1-2 uk-text-right">        
+                    <button type="button" class="md-btn md-btn-primary uk-margin-bottom">Send SMS</button>   
+            </div>
+        </div> 
     	<div class="md-card uk-margin-medium-bottom">
             <div class="md-card-content">
                 <div class="uk-overflow-container">
@@ -29,32 +36,40 @@
                         <tbody>
                             <tr ng-repeat="x in groupContactData">
                                 <td class="uk-text-center"><input type="checkbox" name="{{ 'checkbox_demo_' + $index }}" id="{{ 'checkbox_demo_' + $index }}" icheck ng-model="checkbox_demo_12" /></td>
-                                <td class="uk-text-center">{{ $index +1 }}</td>
+                                <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
                                 <td class="uk-text-center">{{ x.mobile }}</td>
                                 <td class="uk-text-center">{{ x.name }}</td>
-                                <td class="uk-text-center">{{ x.email }}</td>
+                                <td class="uk-text-center">{{ x.emailId }}</td>
                                 <td class="uk-text-center">
-                                    <a ng-if="x.status == 0" ng-click="changeStatus(x.status,x.mobile,x.id)" data-uk-tooltip="{pos:'bottom'}" title="Click here to active" class="md-btn md-btn-small md-btn-warning md-btn-wave-light activeButton" href="javascript:void(0)">Inactive</a>
-                                    <a ng-if="x.status == 1" ng-click="changeStatus(x.status,x.mobile,x.id)" data-uk-tooltip="{pos:'bottom'}" title="Click here to inactive" class="md-btn md-btn-small md-btn-success md-btn-wave-light activeButton" href="javascript:void(0)">Active</a>                            
+                                    <a ng-if="x.status == 0" ng-click="changeStatus(1,x.contactId)" data-uk-tooltip="{pos:'bottom'}" title="Click here to active" class="md-btn md-btn-small md-btn-warning md-btn-wave-light activeButton" href="javascript:void(0)">Inactive</a>
+                                    <a ng-if="x.status == 1" ng-click="changeStatus(0,x.contactId)" data-uk-tooltip="{pos:'bottom'}" title="Click here to inactive" class="md-btn md-btn-small md-btn-success md-btn-wave-light activeButton" href="javascript:void(0)">Active</a>                            
                                 </td>
                                 <td class="uk-text-center">{{ x.created }}</td>
                                 <td class="uk-text-center">                                    
-                                    <a href="javascript:void(0);"><i class="md-icon material-icons" data-uk-modal="{target:'#edit_group'}" ng-click="getContactDetails(x.id)" data-uk-tooltip="{pos:'bottom'}" title="Edit">&#xE254;</i></a>
-                                    <a href="javascript:void(0);"><i class="md-icon material-icons" ng-click="deleteContact(x.id)" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
+                                    <a href="javascript:void(0);"><i class="md-icon material-icons" data-uk-modal="{target:'#edit_contact'}" ng-click="getContactDetails(x.contactId)" data-uk-tooltip="{pos:'bottom'}" title="Edit">&#xE254;</i></a>
+                                    <a href="javascript:void(0);"><i class="md-icon material-icons" ng-click="deleteContact(x.contactId)" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
                                 </td>
                             </tr>                                        
                         </tbody>
                     </table>
                 </div>
-                <ul class="uk-pagination uk-margin-medium-top">
-                    <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                    <li class="uk-active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><span>&hellip;</span></li>
-                    <li><a href="#">10</a></li>
-                    <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                <!-- pager -->
+                <ul ng-if="pagination.pages.length" class="uk-pagination uk-margin-medium-top">
+                    <li ng-class="{disabled:pagination.currentPage === 1}">
+                        <a ng-click="pagination.currentPage !== 1 && getData(1)"><span><i class="uk-icon-angle-double-left"></i></span></a>
+                    </li>
+                    <li ng-class="{disabled:pagination.currentPage === 1}">
+                        <a ng-click="pagination.currentPage !== 1 && getData(pagination.currentPage - 1)">Prev</i></span></a>
+                    </li>
+                    <li ng-repeat="page in pagination.pages" ng-class="{active:pagination.currentPage === page}">
+                        <a ng-click="pagination.currentPage !== page &&  getData(page)">{{page}}</a>
+                    </li>                
+                    <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                        <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.currentPage + 1)">Next</a>
+                    </li>
+                    <li ng-class="{disabled:pagination.currentPage === pagination.totalPages}">
+                        <a ng-click="pagination.currentPage !== pagination.totalPages && getData(pagination.totalPages)"><i class="uk-icon-angle-double-right"></i></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -62,7 +77,7 @@
     </div>
 </div>
 
-<div class="uk-modal" id="edit_group">
+<div class="uk-modal" id="edit_contact">
     <div class="uk-modal-dialog">
         <div class="uk-modal-header">
             <h3 class="uk-modal-title">Update Contact</h3>
@@ -74,40 +89,46 @@
                         <div class="uk-form-row">
                             <div class="md-input-wrapper">
                                 <label>Group Name</label>
-                                <input type="text" config="group_name_config" options="group_name_data" ng-model="contact.g_id" selectize />
+                                <selectize id="select_group" config="group_name_config" options="user_group_data" position="bottom" ng-model="contact.groupId"></selectize>
                             </div>                          
-                        </div>                            
-                    </div>
-                    <div class="uk-width-medium-1 uk-row-first">
+                        </div> 
                         <div class="uk-form-row">
                             <div class="md-input-wrapper">
                                 <label>Mobile</label>
                                 <input type="text" class="md-input" ng-model="contact.mobile" md-input />
                             </div>                          
-                        </div>                            
-                    </div>
-                    <div class="uk-width-medium-1 uk-row-first">
+                        </div> 
                         <div class="uk-form-row">
                             <div class="md-input-wrapper">
                                 <label>Name</label>
                                 <input type="text" class="md-input" ng-model="contact.name" md-input />
                             </div>                          
-                        </div>                            
-                    </div>
-                    <div class="uk-width-medium-1 uk-row-first">
+                        </div>
                         <div class="uk-form-row">
                             <div class="md-input-wrapper">
                                 <label>Email</label>
-                                <input type="text" class="md-input" ng-model="contact.email" md-input />
+                                <input type="text" class="md-input" ng-model="contact.emailId" md-input />
+                            </div>                          
+                        </div>
+                        <div class="uk-form-row">
+                            <div class="md-input-wrapper">
+                                <label>Designation</label>
+                                <input type="text" class="md-input" ng-model="contact.designation" md-input />
                             </div>                          
                         </div>                            
-                    </div>                   
+                        <div class="uk-form-row">
+                            <div class="">
+                                <label>Status</label>
+                                <input type="text" config="contact_status_config" options="contact_status.options" ng-model="contact.status" name="status" selectize />
+                            </div>                          
+                        </div>
+                    </div>                                      
                 </div>
             </form>
         </div>       
         <div class="uk-modal-footer uk-text-right">
             <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
-            <button type="button" class="md-btn md-btn-flat md-btn-flat-primary" ng-click="updateContact(contact,contact.id)">Update</button>
+            <button type="button" class="md-btn md-btn-flat md-btn-flat-primary" ng-click="updateContact(contact)">Update</button>
         </div>
     </div>
 </div>

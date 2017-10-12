@@ -2,98 +2,119 @@
         <div id="page_content_inner">
 
             <!-- circular charts -->
-            <div class="uk-grid uk-grid-width-small-1-2 uk-grid-width-large-1-3 uk-grid-width-xlarge-1-5 uk-text-center uk-sortable sortable-handler" id="dashboard_sortable_cards" data-uk-sortable data-uk-grid-margin>
-                <div>
+            <div class="uk-grid" data-uk-grid-margin="">                
+                <div class="uk-width-medium-1-4">
                     <div class="md-card md-card-hover md-card-overlay">
                         <div class="md-card-content">
-                            <div class="epc_chart" easypiechart options="epc_user_messages" percent="76">
-                                <span class="epc_chart_icon"><i class="material-icons">&#xE0BE;</i></span>
+                            <div class="epc_chart" options="epc_user_messages" percent="76">
+                                <span class="epc_chart_icon"><i class="material-icons uk-text-success">&#xE0BE;</i></span>
+                                <p>Total Message: {{dailyCount.TOTAL}}</p>
                             </div>
                         </div>
                         <div class="md-card-overlay-content">
                             <div class="uk-clearfix md-card-overlay-header">
                                 <card-overlay-toggle></card-overlay-toggle>
                                 <h3>
-                                    User Messages
+                                    Today's Count
                                 </h3>
                             </div>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias consectetur.
+                            <p><i class="sm-list-addon-icon material-icons uk-text-success">&#xE0BE;</i> Delivered: {{dailyCount.DELIVERED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-success">&#xE0BE;</i> Submited: {{dailyCount.SUBMITED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-success">&#xE0BE;</i> Failed: {{dailyCount.FAILED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-success">&#xE0BE;</i> Total: {{dailyCount.TOTAL}}</p>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="md-card md-card-hover md-card-overlay">
-                        <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
-                            <peity-bar-chart data="stat_conversions_data" options="stat_conversions_options"></peity-bar-chart>
-                        </div>
-                        <div class="md-card-overlay-content">
-                            <div class="uk-clearfix md-card-overlay-header">
-                                <card-overlay-toggle></card-overlay-toggle>
-                                <h3>
-                                    Conversions
-                                </h3>
-                            </div>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="md-card md-card-hover md-card-overlay md-card-overlay-active">
-                        <div class="md-card-content" id="canvas_1">
-                            <div class="epc_chart" easypiechart options="epc_tasks_list" percent="37">
-                                <span class="epc_chart_icon"><i class="material-icons">&#xE85D;</i></span>
-                            </div>
-                        </div>
-                        <div class="md-card-overlay-content">
-                            <div class="uk-clearfix md-card-overlay-header">
-                                <card-overlay-toggle></card-overlay-toggle>
-                                <h3>
-                                    Tasks List
-                                </h3>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <button class="md-btn md-btn-primary">More</button>
-                        </div>
-                    </div>
-                </div>
-                <div>
+                <div class="uk-width-medium-1-4">
                     <div class="md-card md-card-hover md-card-overlay">
                         <div class="md-card-content">
-                            <div class="epc_chart" easypiechart options="epc_orders" percent="53">
-                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
+                            <div class="epc_chart" options="epc_user_messages" percent="76">
+                                <span class="epc_chart_icon"><i class="material-icons uk-text-primary">&#xE0BE;</i></span>
+                                <p>Total Message: {{weeklyCount.TOTAL}}</p>
                             </div>
                         </div>
                         <div class="md-card-overlay-content">
                             <div class="uk-clearfix md-card-overlay-header">
                                 <card-overlay-toggle></card-overlay-toggle>
                                 <h3>
-                                    Orders
+                                    Weekly Count
                                 </h3>
                             </div>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            <p><i class="sm-list-addon-icon material-icons uk-text-primary">&#xE0BE;</i> Delivered: {{weeklyCount.DELIVERED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-primary">&#xE0BE;</i> Submited: {{weeklyCount.SUBMITED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-primary">&#xE0BE;</i> Failed: {{weeklyCount.FAILED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-primary">&#xE0BE;</i> Total: {{weeklyCount.TOTAL}}</p>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="uk-width-medium-1-4">
                     <div class="md-card md-card-hover md-card-overlay">
                         <div class="md-card-content">
-                            <div class="epc_chart" easypiechart options="epc_user_registrations" percent="37">
-                                <span class="epc_chart_icon"><i class="material-icons">&#xE7FE;</i></span>
+                            <div class="epc_chart" options="epc_user_messages" percent="76">
+                                <span class="epc_chart_icon"><i class="material-icons uk-text-warning">&#xE0BE;</i></span>
+                                <p>Total Message: {{monthlyCount.TOTAL}}</p>
                             </div>
                         </div>
                         <div class="md-card-overlay-content">
                             <div class="uk-clearfix md-card-overlay-header">
                                 <card-overlay-toggle></card-overlay-toggle>
                                 <h3>
-                                    User Registrations
+                                    Monthly Count
                                 </h3>
                             </div>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            <p><i class="sm-list-addon-icon material-icons uk-text-warning">&#xE0BE;</i> Delivered: {{monthlyCount.DELIVERED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-warning">&#xE0BE;</i> Submited: {{monthlyCount.SUBMITED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-warning">&#xE0BE;</i> Failed: {{monthlyCount.FAILED}}</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-warning">&#xE0BE;</i> Total: {{monthlyCount.TOTAL}}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-        </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="md-card md-card-hover md-card-overlay">
+                        <div class="md-card-content">
+                            <div class="epc_chart" options="epc_user_messages" percent="76">
+                                <span class="epc_chart_icon"><i class="material-icons uk-text-info">&#xE53E;</i></span>
+                                <p>Balance</p>
+                            </div>
+                        </div>
+                        <div class="md-card-overlay-content">
+                            <div class="uk-clearfix md-card-overlay-header">
+                                <card-overlay-toggle></card-overlay-toggle>
+                                <h3>
+                                    Balance Count
+                                </h3>
+                            </div>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-info">&#xE53E;</i> Transactional: 254000</p>
+                            <p><i class="sm-list-addon-icon material-icons uk-text-info">&#xE53E;</i> Promotional: 568000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="uk-grid" data-uk-grid-margin="">
+                <div class="uk-width-medium-1-3">
+                    <div class="md-card">
+                        <div class="md-card-content">
+                            <h4 class="heading_c uk-margin-bottom">Today's</h4>
+                            <div id="c3_chart_donut" class="c3chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-3">
+                    <div class="md-card">
+                        <div class="md-card-content">
+                            <h4 class="heading_c uk-margin-bottom">Weekly</h4>
+                            <div id="c3_chart_donut2" class="c3chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-3">
+                    <div class="md-card">
+                        <div class="md-card-content">
+                            <h4 class="heading_c uk-margin-bottom">Monthly</h4>
+                            <div id="c3_chart_donut3" class="c3chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>        
     </div>

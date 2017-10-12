@@ -126,7 +126,7 @@ angular
 
             $scope.deleteSenderId = function(id){   
                 //alert(id);
-                UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     
+                UIkit.modal.confirm('Are you sure want to delete this Sender Id?', function(){                     
                     var deleteSenderData = "deleteSenderId/"+id;
 
                     apiGetData.async(deleteSenderData).then(function(d) {
@@ -134,7 +134,7 @@ angular
                         $scope.data = $scope.responseData.data;
                         if($scope.data.code == 200){
                             $scope.getData($scope.page);  
-                            UIkit.modal.alert('Data Deleted Successfully');
+                            UIkit.modal.alert('Data Deleted Successfully.');
                         }else{
                             var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                             modal.show();
@@ -209,7 +209,13 @@ angular
                 });            
             }; 
 
-           
+            $scope.$watch(function() {
+                return $scope.data_per_page;
+            }, function(n, o) {
+                if(n != o){
+                    $scope.getData(1);
+                }     
+            }, true)           
 
 
         }

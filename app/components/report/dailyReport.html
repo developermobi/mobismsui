@@ -9,7 +9,7 @@
         <div class="uk-grid">
             <div class="uk-width-medium-1-2 uk-text-left">  
                 <div class="uk-width-medium-1-6 uk-text-center">        
-                    <input type="text" size="5" ng-change="getData(1)" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
+                    <input type="text" size="5" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
                 </div>     
             </div>
         </div> 
@@ -20,9 +20,6 @@
                     <table class="uk-table uk-table-nowrap">
                         <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox" name="checkbox_demo_1" id="checkbox_demo_1" icheck ng-model="checkbox_demo_1" />
-                                </th>
                                 <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                                 <th class="uk-width-2-10 uk-text-center">Message</th>
                                 <th class="uk-width-2-10 uk-text-center">Mobile</th>
@@ -35,7 +32,6 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in dailyReportData">
-                                <td class="uk-text-center"><input type="checkbox" name="{{ 'checkbox_demo_' + $index }}" id="{{ 'checkbox_demo_' + $index }}" icheck ng-model="checkbox_demo_12" /></td>
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
                                 <td class="uk-text-center">{{ x.message }}</td>
                                 <td class="uk-text-center">{{ x.mobile }}</td>
