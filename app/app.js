@@ -182,6 +182,11 @@ function run($rootScope, $cookieStore) {
         $rootScope.u_id = $rootScope.globals.currentUser.u_id;
         $rootScope.u_role = $rootScope.globals.currentUser.role;
         $rootScope.auth_key = $rootScope.globals.currentUser.auth_key;
+
+        $rootScope.userBalance = {
+            promotional : 0,
+            transactional: 0
+        };
         //console.log($rootScope.u_role);
     }
 }

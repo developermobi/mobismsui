@@ -33,7 +33,7 @@ angular
                 FAILED : 0,
                 TOTAL : 0
             };
-
+            
             $scope.defer = null;
 
             $scope.getDashBoardCount = function(){
@@ -117,6 +117,33 @@ angular
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
                     }
+
+                    var balance_url = 'getBalanceByUserId/'+$rootScope.u_id;
+
+                    apiGetData.async(balance_url).then(function(d) {
+                        $scope.responseBalanceData = d.data;
+                        console.log('responseBalanceData: ',$scope.responseBalanceData);
+
+                        if($scope.responseBalanceData.code == 302){
+                            var index = 0;
+                            $.each($scope.responseBalanceData,function(i){
+                                
+                                //alert(i);
+                                console.log('responseBalanceData[i]: ',$scope.responseBalanceData.data[index]);
+                                if($scope.responseBalanceData.data[index].productId.id == 1){
+                                    $rootScope.userBalance.transactional = $scope.responseBalanceData.data[index].balance;
+                                }else if($scope.responseBalanceData.data[index].productId.id == 2){
+                                    $rootScope.userBalance.promotional = $scope.responseBalanceData.data[index].balance;
+                                }
+
+                                index++;
+                            });
+                        }
+                        else{
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseBalanceData.message);
+                            modal.show();
+                        }
+                    });
 
                     $scope.defer.resolve();
                 });
