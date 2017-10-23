@@ -64,6 +64,21 @@ angular
                 hideSelected: false,
                 highlight: true
             };
+
+            var $dp_report = $('#uk_dp_1');
+
+            var dp_report = UIkit.datepicker($dp_report, {
+                format:'YYYY-MM-DD',
+                maxDate: new Date()
+            });
+
+            var date = new Date();
+
+            date.setMonth( date.getMonth() + 1 );
+
+            var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+
+            $scope.custom_report_date = defaultDate;
             
             $scope.data_per_page = $scope.no_of_data.options[0].value;          
 
@@ -73,7 +88,7 @@ angular
 
                 $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
 
-                var getDailyReport = "compaignReportByUserId/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
+                var getDailyReport = "compaignReportByUserId/"+$rootScope.u_id+"/"+$scope.custom_report_date+"/"+$scope.start+"/"+$scope.data_per_page; 
 
                 $scope.dailyReportData = {};
 
@@ -177,6 +192,11 @@ angular
                         modal.show();
                     }
                 });
+            }
+
+            $scope.searchData = function(){
+                console.log('custom_report_date',$scope.custom_report_date);
+                $scope.getData($scope.page);
             }
 
             function isEmpty(obj) {

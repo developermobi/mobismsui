@@ -125,18 +125,18 @@ angular
                         console.log('responseBalanceData: ',$scope.responseBalanceData);
 
                         if($scope.responseBalanceData.code == 302){
-                            var index = 0;
-                            $.each($scope.responseBalanceData,function(i){
+                            
+                            console.log('responseBalanceData length',$scope.responseBalanceData.data.length);
+                            $scope.balanceData = $scope.responseBalanceData.data;
+                            $.each($scope.balanceData,function(i){
                                 
-                                //alert(i);
-                                console.log('responseBalanceData[i]: ',$scope.responseBalanceData.data[index]);
-                                if($scope.responseBalanceData.data[index].productId.id == 1){
-                                    $rootScope.userBalance.transactional = $scope.responseBalanceData.data[index].balance;
-                                }else if($scope.responseBalanceData.data[index].productId.id == 2){
-                                    $rootScope.userBalance.promotional = $scope.responseBalanceData.data[index].balance;
+                                console.log('balanceData[i]: ',$scope.balanceData[i]);
+                                if($scope.balanceData[i].productId.id == 1){
+                                    $rootScope.userBalance.transactional = $scope.balanceData[i].balance;
+                                }else if($scope.balanceData[i].productId.id == 2){
+                                    $rootScope.userBalance.promotional = $scope.balanceData[i].balance;
                                 }
 
-                                index++;
                             });
                         }
                         else{

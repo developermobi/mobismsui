@@ -9,7 +9,7 @@
                         <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                         <th class="uk-width-2-10 uk-text-center">Title</th>
                         <th class="uk-width-2-10 uk-text-center">Message</th>
-                        <th class="uk-width-1-10 uk-text-center">Created</th>
+                        <!-- <th class="uk-width-1-10 uk-text-center">Created</th> -->
                         <th class="uk-width-2-10 uk-text-center">Actions</th>
                     </tr>
                 </thead>
@@ -19,7 +19,7 @@
                         <td class="uk-text-center">{{data_per_page *(pagination.currentPage - 1)+$index+1}}</td>
                         <td class="uk-text-center">{{data.name}}</td>
                         <td class="uk-text-center">{{data.description}}</td>
-                        <td class="uk-text-center">{{data.created}}</td>
+                        <!-- <td class="uk-text-center">{{data.created}}</td> -->
                         <td class="uk-text-center">
                            <a href="javascript:void(0);"><i class="md-icon material-icons" data-uk-modal="{target:'#edit_group'}" ng-click="getTemplateDetails(data.id)" data-uk-tooltip="{pos:'bottom'}" title="Edit">&#xE254;</i></a>
                            <a ><i class="md-icon material-icons" ng-click="deleteTemplate(data.id)" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
