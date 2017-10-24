@@ -99,7 +99,7 @@ angular
                 var addSender = "saveSenderId";  
                 var senderData = sender;
                 senderData.userId = $rootScope.u_id;
-                senderData.status = 1;
+                senderData.status = 0;
                 senderData = JSON.stringify(senderData);
 
                 //console.log(senderData);
@@ -208,6 +208,11 @@ angular
                     //console.log($scope.responseData);
                 });            
             }; 
+
+            $scope.reset = function(){
+                $scope.sender = {};
+                $scope.senderEdited = {};
+            }
 
             $scope.$watch(function() {
                 return $scope.data_per_page;

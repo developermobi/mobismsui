@@ -19,14 +19,14 @@ var altairApp = angular.module('altairApp', [
     'underscore'
 ]);
 
-altairApp.value('globalUrl', 'http://localhost:9090/sms/api/');
-altairApp.value('appUrl', 'http://localhost/mobismsui/#/');
-altairApp.value('downloadUrl', 'http://localhost:9090/sms/download/');
+// altairApp.value('globalUrl', 'http://localhost:9090/sms/api/');
+// altairApp.value('appUrl', 'http://localhost/mobismsui/#/');
+// altairApp.value('downloadUrl', 'http://localhost:9090/sms/download/');
 
-/*altairApp.value('globalUrl', 'http://213.133.100.80:1234/sms/api/');
+altairApp.value('globalUrl', 'http://213.133.100.80:1234/sms/api/');
 altairApp.value('appUrl', 'http://213.133.100.80/mobismsui/#/');
 altairApp.value('downloadUrl', 'http://213.133.100.80:1234/sms/download/');
-*/
+
 altairApp.constant('variables', {
     header__main_height: 48,
     easing_swiftOut: [ 0.4,0,0.2,1 ],

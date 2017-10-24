@@ -12,18 +12,18 @@
                 </div>     
             </div>
             <div class="uk-width-medium-1-2 uk-text-right">        
-                    <button type="button" class="md-btn md-btn-primary uk-margin-bottom">Send SMS</button>   
+                    <!-- <button type="button" class="md-btn md-btn-primary uk-margin-bottom">Send SMS</button>    -->
             </div>
         </div> 
-    	<div class="md-card uk-margin-medium-bottom">
+    	<div class="md-card">
             <div class="md-card-content">
                 <div class="uk-overflow-container">
                     <table class="uk-table uk-table-nowrap">
                         <thead>
                         <tr>
-                            <th>
+                            <!-- <th>
                             <input type="checkbox" name="checkbox_demo_1" id="checkbox_demo_1" icheck ng-model="checkbox_demo_1" />
-                            </th>
+                            </th> -->
                             <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                             <th class="uk-width-2-10 uk-text-center">Mobile</th>
                             <th class="uk-width-2-10 uk-text-center">Name</th>
@@ -35,7 +35,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in groupContactData">
-                                <td class="uk-text-center"><input type="checkbox" name="{{ 'checkbox_demo_' + $index }}" id="{{ 'checkbox_demo_' + $index }}" icheck ng-model="checkbox_demo_12" /></td>
+                                <!-- <td class="uk-text-center"><input type="checkbox" name="{{ 'checkbox_demo_' + $index }}" id="{{ 'checkbox_demo_' + $index }}" icheck ng-model="checkbox_demo_12" /></td> -->
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
                                 <td class="uk-text-center">{{ x.mobile }}</td>
                                 <td class="uk-text-center">{{ x.name }}</td>

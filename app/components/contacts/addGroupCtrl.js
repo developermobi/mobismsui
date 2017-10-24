@@ -38,6 +38,8 @@ angular
                 highlight: true
             };
 
+            $scope.group = {};
+
             $scope.saveGroup = function(group) {                
                 var groupData = group;
                 groupData.userId = $rootScope.u_id;
@@ -49,7 +51,7 @@ angular
                 apiPostData.async(addGroup, groupData).then(function(d) {
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Group successfully added ');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Group successfully added ');
                         modal.show();
                         $scope.group.name = '';
                         $scope.group.groupDescription = '';
@@ -63,6 +65,10 @@ angular
                     }
                 });              
             }; 
+
+            $scope.reset = function(){
+                $scope.group = {};
+            }
         }
 
     ]);
