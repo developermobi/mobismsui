@@ -14,7 +14,7 @@ angular
             $scope.fileName = '';
 
             $scope.clearFields = function(){
-                $scope.contact = '';
+                $scope.contact = {};
                 $scope.fileName = '';
                 $scope.contactFile = '';
             };
@@ -141,5 +141,9 @@ angular
                     }                 
                 });          
             }; 
+
+            $scope.reset = function(){
+               $scope.clearFields();
+            }
         }
     ]);

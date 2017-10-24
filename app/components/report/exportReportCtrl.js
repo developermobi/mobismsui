@@ -46,6 +46,14 @@ angular
                 start_date.options.maxDate = $dp_end.val();
             });
 
+            // var date1 = new Date();
+
+            // date1.setMonth( date1.getMonth() + 1 );
+
+            // var defaultDate = (date1.getFullYear()) + '-' + (date1.getMonth()) + '-' + (date1.getDate());
+
+            // $scope.start_date = defaultDate;
+
             $scope.download = function(download){
 
                 var downloadReport = "archiveRepotMessage/"+$rootScope.u_id+"/"+download.start_date+"/"+download.end_date;               

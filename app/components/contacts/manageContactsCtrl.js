@@ -109,14 +109,14 @@ angular
                 apiGetData.async(getContact).then(function(d) {
                     $scope.responseData = d;
                     //alert("hello data");
-                    console.log('d data',d);
+                    //console.log('d data',d);
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
                         $scope.contactData = $scope.data.data.contactData;
-                        console.log('getAllContact data',$scope.contactData);
+                        //console.log('getAllContact data',$scope.contactData);
                         
                         $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
-                        console.log($scope.pagination);
+                        //console.log($scope.pagination);
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
@@ -140,26 +140,26 @@ angular
                     if($scope.data.code == 302){
                         $scope.userGroupData = $scope.data.data;
                         
-                        console.log("userGroupData",$scope.userGroupData);
+                        //console.log("userGroupData",$scope.userGroupData);
 
                         var response_group = $scope.userGroupData;                         
 
                         var increment = 1;
                         $.each(response_group,function(i){
 
-                            console.log(response_group[i]['name']);
+                            //console.log(response_group[i]['name']);
 
                             var array_group = Array();
                             array_group['title'] = response_group[i]['name'];
                             array_group['id'] = response_group[i]['groupId'];
 
-                            console.log("array_group",Object.assign({}, array_group));
+                            //console.log("array_group",Object.assign({}, array_group));
 
                             $scope.user_group_data[i]= Object.assign({}, array_group);
 
                         });
 
-                        console.log("user_group_data",$scope.user_group_data);
+                        //console.log("user_group_data",$scope.user_group_data);
                         
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
@@ -202,7 +202,7 @@ angular
                 $scope.contactDetails = {};
                 apiGetData.async(getContactData).then(function(d) {                    
                     $scope.responseData = d.data;
-                    console.log('responseData',$scope.responseData);   
+                    //console.log('responseData',$scope.responseData);   
                     if($scope.responseData.code == 302){
                         $scope.contactDetails = $scope.responseData.data;
                         $scope.contact.groupId =  $scope.contactDetails[0].groupId.groupId;
@@ -212,7 +212,7 @@ angular
                         $scope.contact.designation =  $scope.contactDetails[0].designation;
                         $scope.contact.status =  $scope.contactDetails[0].status;
 
-                        console.log("resp: ",$scope.contact);                        
+                        //console.log("resp: ",$scope.contact);                        
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
@@ -224,11 +224,11 @@ angular
                 var contactData = JSON.stringify(contact);               
                 var updateContact = "updateContactById/"+id;
 
-                console.log('contactData',contactData);
+                //console.log('contactData',contactData);
 
                 apiPostData.async(updateContact, contactData).then(function(d) {
                     $scope.responseData = d.data;
-                    console.log('responseData',$scope.responseData);
+                    //console.log('responseData',$scope.responseData);
                     if($scope.responseData.code == 200){                       
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
                         $scope.getData($scope.page);  
@@ -245,10 +245,10 @@ angular
             $scope.changeStatus = function(status,id){
                 
                 var updateStatus = "updateContactStatus/"+id+"/"+status;
-                console.log(updateStatus);
+                //console.log(updateStatus);
                 apiGetData.async(updateStatus).then(function(d) {
                     $scope.responseData = d.data;
-                    console.log($scope.responseData);
+                    //console.log($scope.responseData);
 
                     if($scope.responseData.code == 200){
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data updated successfully');

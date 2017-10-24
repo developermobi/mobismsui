@@ -100,8 +100,8 @@ angular
 
 
             $scope.deleteTemplate = function(id){   
-                alert(id);
-                UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     
+                
+                UIkit.modal.confirm('Are you sure want to delete this template?', function(){                     
                     var deleteSenderData = "deleteTemplate/"+id;
 
                     apiGetData.async(deleteSenderData).then(function(d) {
@@ -110,11 +110,9 @@ angular
                         if($scope.data.code == 200){
                             var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Deleted Successfully');
                             modal.show();
-                           // getData();
+                            $scope.getData($scope.page);
                             setTimeout(function(){
-                                modal.hide();
-                               getData();
-                               
+                                modal.hide();  
                             },3000);
                         }else{
                             var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
@@ -176,12 +174,11 @@ angular
                     $scope.data = d.data;
                     if($scope.data.code == 200){
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
-                            modal.show();
-                           // getData();
-                            setTimeout(function(){
-                                modal.hide();
-                                getData();
-                               
+                        modal.show();
+                        $scope.getData($scope.page); 
+                       // getData();
+                        setTimeout(function(){
+                            modal.hide();                                                        
                         },3000);
                         
                     }else{

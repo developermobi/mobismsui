@@ -4,21 +4,21 @@
             <table class="uk-table uk-table-nowrap">
                 <thead>
                 <tr>
-                    <th>
+                   <!--  <th>
                     <input type="checkbox" name="checkbox_demo_1" id="checkbox_demo_1" icheck ng-model="checkbox_demo_1" />
-                    </th>
+                    </th> -->
                     <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                     <th class="uk-width-2-10 uk-text-center">Group Name</th>
                     <th class="uk-width-2-10 uk-text-center">Description</th>
                     <th class="uk-width-2-10 uk-text-center">Total Contacts</th>
                     <th class="uk-width-1-10 uk-text-center">Status</th>
-                    <th class="uk-width-1-10 uk-text-center">Created</th>
+                    <!-- <th class="uk-width-1-10 uk-text-center">Created</th> -->
                     <th class="uk-width-2-10 uk-text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in groupData">
-                        <td class="uk-text-center"><input type="checkbox" name="{{ 'checkbox_demo_' + $index }}" id="{{ 'checkbox_demo_' + $index }}" icheck ng-model="checkbox_demo_12" /></td>
+                        <!-- <td class="uk-text-center"><input type="checkbox" name="{{ 'checkbox_demo_' + $index }}" id="{{ 'checkbox_demo_' + $index }}" icheck ng-model="checkbox_demo_12" /></td> -->
                         <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
                         <td class="uk-text-center">{{ x.name }}</td>
                         <td class="uk-text-center">{{ x.groupDescription }}</td>
@@ -27,7 +27,7 @@
                             <a ng-if="x.status == 0" ng-click="changeStatus(x.status,x.name,x.groupDescription,x.groupId)" data-uk-tooltip="{pos:'bottom'}" title="Click here to active" class="md-btn md-btn-small md-btn-warning md-btn-wave-light activeButton" href="javascript:void(0)">Deactive</a>
                             <a ng-if="x.status == 1" ng-click="changeStatus(x.status,x.name,x.groupDescription,x.groupId)" data-uk-tooltip="{pos:'bottom'}" title="Click here to deactive" class="md-btn md-btn-small md-btn-success md-btn-wave-light activeButton" href="javascript:void(0)">Active</a>                            
                         </td>
-                        <td class="uk-text-center">{{ x.created }}</td>
+                        <!-- <td class="uk-text-center">{{ x.created }}</td> -->
                         <td class="uk-text-center">
                             <a href="javascript:void(0);"><i class="md-icon material-icons" data-uk-modal="{target:'#add_contact'}" ng-click="openAddContact(x.groupId,x.name)" data-uk-tooltip="{pos:'bottom'}" title="Add Contact">&#xE148;</i></a>
                             <a ui-sref="restricted.groupcontact({ groupId: x.groupId})"><i class="md-icon material-icons" data-uk-tooltip="{pos:'bottom'}" title="View Contact">&#xE8F4;</i></a>

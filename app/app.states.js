@@ -78,6 +78,7 @@ altairApp
                                 'lazy_autosize',
                                 'lazy_iCheck',
                                 'lazy_style_switcher'
+                                //'app/components/header/headerController.js'
                             ],{ serie: true });
                         }]
                     },

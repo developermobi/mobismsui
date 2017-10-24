@@ -24,7 +24,7 @@ angular
                    // console.log(d);
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Successfully Add Template');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Template Successfully Added');
                         modal.show();
                        // getData();
                         setTimeout(function(){
@@ -78,20 +78,12 @@ angular
                 }
                 $scope.totalCount = chars;
             }
-            /*$scope.deleteSenderId = function(id){   
-                alert(id);
-                UIkit.modal.confirm('Are you sure want to delete this group?', function(){                     
-                    var deleteSenderData = "deleteSenderId/"+id;
-
-                    apiGetData.async(deleteSenderData).then(function(d) {
-                        $scope.responseData = d;
-                        $scope.data = $scope.responseData.data;
-                        if($scope.data.code == 200){
-                            getData();
-                            UIkit.modal.alert('Data Deleted Successfully');
-                        }
-                    });
-                });                
-            };*/
+            
+            $scope.reset = function(){
+                $scope.template = {};
+                $scope.messagesCount = 0;
+                $scope.remainingCount = 0;
+                $scope.totalCount = 0;
+            }
         }
     ]);

@@ -75,23 +75,34 @@ angular
                 $scope.debit = {};
             }
 
-            getResellerData();
-            getResellerProdcutData();
-            function getResellerData(){
+            $scope.data_per_page = $scope.no_of_data.options[0].value;
+
+                       
+            $scope.getResellerData = function(page){
+
+                $scope.page = page;
+
+                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
                 
-                var getResellerData = "getUserByResellerId/"+$rootScope.u_id; 
+                var getResellerData = "getUserByResellerId/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page;  
                 apiGetData.async(getResellerData).then(function(d) {
                     $scope.responseData = d;
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
-                        $scope.resellerData = $scope.data.data;                        
-                        //console.log($scope.resellerData);
+                        $scope.resellerData = $scope.data.data;       
+
+                        $scope.pagination = pagerService.GetPager($scope.data.total,$scope.page,$scope.data_per_page);                 
+                        console.log($scope.data.total);
+                        getResellerProdcutData();
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
                 });
             }
+
+            $scope.getResellerData($scope.page);
+
             function getResellerProdcutData(){
                 var getUserProduct = "getUserById/"+$rootScope.u_id; 
                 apiGetData.async(getUserProduct).then(function(d) {

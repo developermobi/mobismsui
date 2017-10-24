@@ -319,15 +319,13 @@ angular
 
                         });
 
-                        //console.log("user_group_data",$scope.user_group_data);                        
+                        console.log("user_group_data",$scope.user_group_data);                        
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
                 });              
             }  
-
-            $scope.getGroupData();
 
             $scope.select_group_config = {
                 plugins: {
@@ -349,6 +347,7 @@ angular
                 }
             };
 
+      
             $scope.sms_type = $scope.sms_type_data.options[0].value;
             $scope.sms_method = $scope.sms_method_data.options[0].value;            
             $scope.mobile_count = 0;
@@ -363,7 +362,13 @@ angular
                     $scope.mobCount = true;
                 }else{
                     $scope.mobCount = false;
-                }    
+                }   
+
+                if ($scope.sms_method == 2) {
+
+                    $scope.getGroupData();                   
+                    
+                } 
 
             };
             
@@ -719,7 +724,7 @@ angular
                 
                 var returnArray = {};
                 for (var pair of fd.entries()) {
-                    //console.log("sendGroupSMS: ",pair[0]+ ', ' + pair[1]); 
+                    //console.log("sendQuickSMS: ",pair[0]+ ', ' + pair[1]); 
                     returnArray[pair[0]] = pair[1];
                 }
 
