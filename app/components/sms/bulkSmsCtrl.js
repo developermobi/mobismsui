@@ -680,11 +680,17 @@ angular
              $scope.sendSMS = function(fd){   
                 
                 fd.append('userId', $rootScope.u_id);
-                fd.append('message', $scope.message);
+                
                 fd.append('sender', $scope.sender_id);
                 fd.append('jobType', $scope.sms_method);
                 fd.append('messageType', $scope.sms_type);
                 fd.append('productId', $scope.selectedProductId);
+
+                if($scope.sms_type == 3){
+                    $scope.message = encodeURIComponent($scope.message);
+                }
+
+                fd.append('message', $scope.message);
 
                 if( $scope.sms_duplicate == false){
                     fd.append('duplicateStatus', 0);

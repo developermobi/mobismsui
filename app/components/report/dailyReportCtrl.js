@@ -104,4 +104,7 @@ angular
             }, true)
             
         }
-    ]);
+    ])
+    .filter('decodeURIComponent', function() {
+        return window.decodeURIComponent;
+    });

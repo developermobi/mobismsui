@@ -169,7 +169,7 @@ angular
                     console.log('d data',d);*/
                     $scope.dataTrans = $scope.responseTransData.data;
                     console.log('dataTrans: ',$scope.dataTrans);
-                    if($scope.dataTrans.code == 204){
+                    if($scope.dataTrans.code == 302){
                         $scope.userTransactionData = $scope.dataTrans.data;
                         
                         console.log('userTransactionData: ',$scope.userTransactionData);
@@ -177,6 +177,8 @@ angular
                         $scope.pagination = pagerService.GetPager($scope.dataTrans.total,$scope.page,$scope.data_per_page);
                         console.log("pagination length: ",$scope.pagination.totalPages);
                     }else{
+                        $scope.userTransactionData = {};
+                        $scope.pagination = {};
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.dataTrans.message);
                         modal.show();
                     }

@@ -48,14 +48,13 @@
                                                 <tbody>
                                                 <tr ng-repeat="data in userTransactionData" >                                
                                                     <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                                    <td class="uk-text-center" ><span ng-if="data.debitType == 1">Create User</span><span ng-if="data.debitType == 2">Credit To User</span><span ng-if="data.debitType == 3">Sent Message</span></td>
+                                                    <td class="uk-text-center" ><span ng-if="data.debitType == 1">Create User</span><span ng-if="data.debitType == 2">Credit To User</span><span ng-if="data.debitType == 4">Sent Message</span></td>
                                                     <td class="uk-text-center" >{{ data.debit}}</td>
                                                     <td class="uk-text-center" >{{ data.currentAmount}}</td>
                                                     <td class="uk-text-center" >{{ data.previousAmouunt}}</td>
                                                     <td class="uk-text-center" >{{ data.remark}}</td>
                                                     <td class="uk-text-center" >{{ data.debitTo == u_id ? 'Self' : ''}}</td>
-                                                     <td class="uk-text-center" >{{ data.created}}</td>
-                                                    
+                                                    <td class="uk-text-center" >{{ data.created}}</td>
                                                 </tr>                           
 
                                                 </tbody>
