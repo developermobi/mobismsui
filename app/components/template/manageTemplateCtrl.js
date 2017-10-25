@@ -7,7 +7,8 @@ angular
         'apiPostData',
         '$cookieStore',
         'pagerService',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService) {
+        '$timeout',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService,$timeout) {
             
             $scope.pagination = {};
             $scope.page = 1;
@@ -65,6 +66,10 @@ angular
 
             $scope.data_per_page = $scope.no_of_data.options[0].value;
            
+           $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            } 
                                   
             $scope.template = {};
             $scope.getData = function(page){   
@@ -90,6 +95,7 @@ angular
 
                         
                     }else{
+                        $scope.clearData();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
@@ -173,6 +179,7 @@ angular
                 apiPostData.async(updateTemplate, templateData).then(function(d) {
                     $scope.data = d.data;
                     if($scope.data.code == 200){
+                        $scope.triggerClick('#edit_template .uk-modal-close');
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
                         modal.show();
                         $scope.getData($scope.page); 
@@ -218,10 +225,10 @@ angular
                     $scope.remainingCount = $scope.part1Count + $scope.part2Count + (moreM * $scope.part3Count) - chars;
                     $scope.messagesCount = 2 + moreM;
 
-                    if($scope.messagesCount > 1000)
+                    if($scope.messagesCount > 10)
                     {
                        
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Only 1000 mobile numbers are allowed.');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Counts of message not more than 10.');
                         modal.show();                   
                         return false;                        
                     }
@@ -236,5 +243,11 @@ angular
                     $scope.getData(1);
                 }     
             }, true)
+
+            $scope.triggerClick = function (className) {
+                $timeout(function() {
+                    angular.element(className).trigger('click');
+                }, 100);
+            };
         }
     ]);

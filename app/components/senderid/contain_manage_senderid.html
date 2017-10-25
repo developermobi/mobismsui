@@ -13,7 +13,9 @@
         <tbody>
             <tr ng-repeat="data in userSenderData" >                                
                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                <td class="uk-text-center" ><span ng-dblclick=editSender(data.id); class="senderIdtd{{data.id}} editSender" data-uk-tooltip="{pos:'left'}" title="Double Click to Edit">{{ data.sender_id}}</span></td>
+                <!-- <td class="uk-text-center" ><span ng-dblclick=editSender(data.id); class="senderIdtd{{data.id}} editSender" data-uk-tooltip="{pos:'left'}" title="Double Click to Edit">{{ data.sender_id}}</span></td> -->
+                <td class="uk-text-center" >{{ data.sender_id }}</td>
+
                 <td class="uk-text-center">{{ data.status ==1 ? 'Active' : 'Inactive'}}</td>
                 <td class="uk-text-center">{{ data.created}}</td>
                 <td class="uk-text-center">

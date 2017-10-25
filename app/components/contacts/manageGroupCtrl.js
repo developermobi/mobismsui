@@ -7,7 +7,8 @@ angular
         'apiPostData',
         '$cookieStore',
         'pagerService',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService) {
+        '$timeout',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService,$timeout) {
            
             $scope.pagination = {};
             $scope.page = 1;
@@ -63,6 +64,11 @@ angular
 
             $scope.data_per_page = $scope.no_of_data.options[0].value;
 
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            }
+
             $scope.group = {};
             
             $scope.getData = function(page){
@@ -85,6 +91,7 @@ angular
                         $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
                     }else{
+                        $scope.clearData();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
@@ -125,11 +132,11 @@ angular
                     console.log($scope.responseData);
 
                     if($scope.responseData.code == 200){
+                        $scope.triggerClick('#edit_group .uk-modal-close');
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data updated successfully');
                         modal.show();
                         $scope.getData($scope.page);
                         setTimeout(function(){
-                            $('.uk-modal-close').trigger('click');
                             modal.hide();
                         },3000);
 
@@ -166,11 +173,10 @@ angular
                     apiGetData.async(deleteGroupData).then(function(d) {
                         $scope.responseData = d.data;
                         if($scope.responseData.code == 200){
-                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Deleted successfully');
-                            modal.show();
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Deleted successfully');                            
+                            modal.show();                           
                             $scope.getData($scope.page);
                             setTimeout(function(){
-                                $('.uk-modal-close').trigger('click');
                                 modal.hide();
                             },3000);
 
@@ -203,10 +209,11 @@ angular
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){                       
                         $scope.contact = null;
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Inserted Successfully');
+                        $scope.triggerClick('#add_contact .uk-modal-close');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Inserted Successfully');                        
+                        modal.show();
                         $scope.getData($scope.page);
                         setTimeout(function(){
-                            $('.uk-modal-close').trigger('click');
                             modal.hide();
                         },3000);
                     }else{
@@ -223,5 +230,11 @@ angular
                     $scope.getData(1);
                 }     
             }, true)
+
+            $scope.triggerClick = function (className) {
+                $timeout(function() {
+                    angular.element(className).trigger('click');
+                }, 100);
+            };
         }
     ]);

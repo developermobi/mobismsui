@@ -67,6 +67,11 @@ angular
             };
 
             $scope.data_per_page = $scope.no_of_data.options[0].value;
+
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            } 
                       
             $scope.getData = function(page){   
 
@@ -87,6 +92,7 @@ angular
                         $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
                     }else{
+                        $scope.clearData();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }

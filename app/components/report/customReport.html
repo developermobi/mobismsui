@@ -3,11 +3,14 @@
         <div class="uk-grid">
             <div class="uk-width-large-1-2 uk-text-left">
                 <h3 class="heading_b uk-margin-bottom">Custom Report</h3>
+                <ul class="uk-breadcrumb">
+                    <li><a ui-sref="restricted.dashboard">Dashboard</a></li>
+                    <li class="uk-active"><span>Custom Report</span></li>
+                </ul>
             </div>
         </div>
         
-        <div class="uk-grid">
-           
+        <div class="uk-grid">           
             <div class="uk-width-medium-1">
                 <div class="md-card">
                     <div class="md-card-content">
@@ -18,8 +21,15 @@
                             <div class="uk-width-large-1-5 uk-width-medium-1-1">
                                 <div class="uk-input-group">
                                     <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
-                                    <label for="uk_dp_1">Select date</label>
-                                    <input class="md-input" type="text" id="uk_dp_1" md-input ng-model="custom_report_date">
+                                    <label for="uk_dp_1">Start date</label>
+                                    <input readonly class="md-input" type="text" id="uk_dp_start" md-input ng-model="start_date">
+                                </div>
+                            </div>
+                            <div class="uk-width-large-1-5 uk-width-medium-1-1">
+                                <div class="uk-input-group">
+                                    <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                    <label for="uk_dp_end">End Date</label>
+                                    <input readonly class="md-input" type="text" id="uk_dp_end" md-input ng-model="end_date">
                                 </div>
                             </div>
                             <div class="uk-width-large-1-3 uk-width-medium-1-1">
@@ -27,7 +37,7 @@
                                     <div class="md-input-wrapper" style="margin-top: 3%;">
                                         <!-- <input type="hidden" ng-model="sender.userId" name="userId" value="1"> -->
                                         <button type="button" class="md-btn md-btn-success md-input" ng-click="searchData()">Search</button>
-                                        <button type="button" class="md-btn md-btn-warning">Reset</button>
+                                        <button type="button" class="md-btn md-btn-warning" ng-click="resetDate()">Reset</button>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +69,7 @@
                         <tbody>                            
                             <tr ng-repeat="x in dailyReportData">
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                <td class="uk-text-center">{{ x.message }}</td>
+                                <td class="">{{ x.message | decodeComponents}}</td>
                                 <td class="uk-text-center">{{ x.totalNumbers }}</td>
                                 <td class="uk-text-center">{{ x.sender }}</td>
                                 <td class="uk-text-center">{{ x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }}</td>
@@ -119,9 +129,9 @@
                         </tr>
                         <tr >
                             <td class="uk-text-center">2</td>
-                            <td class="uk-text-center" ><a ui-sref="restricted.detailReport({ jobId: reportCount.jobId, status: 2})" data-uk-tooltip="{pos:'bottom'}" title="Summary"><u>SUBMITED</u></a></td>
-                            <td class="uk-text-center" >{{ reportCount.SUBMITED}}</td>
-                            <td class="uk-text-center" ><a href="javascript:void(0)" class="md-btn md-btn-small" ng-class="{disabled: reportCount.SUBMITED == 0}" ng-click="download(reportCount.jobId,2)">Export</a></td>
+                            <td class="uk-text-center" ><a ui-sref="restricted.detailReport({ jobId: reportCount.jobId, status: 2})" data-uk-tooltip="{pos:'bottom'}" title="Summary"><u>SUBMITTED</u></a></td>
+                            <td class="uk-text-center" >{{ reportCount.SUBMITTED}}</td>
+                            <td class="uk-text-center" ><a href="javascript:void(0)" class="md-btn md-btn-small" ng-class="{disabled: reportCount.SUBMITTED == 0}" ng-click="download(reportCount.jobId,2)">Export</a></td>
                         </tr>
                         <tr >
                             <td class="uk-text-center">3</td>

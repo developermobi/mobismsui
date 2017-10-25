@@ -1,5 +1,10 @@
 angular
-    .module('altairApp')    
+    .module('altairApp')   
+    .filter('decodeComponents', function() {
+        return function(x) {
+            return decodeURIComponent(x);
+        };
+    }) 
     .controller('detailReportCtrl', [
         '$scope',
         '$rootScope',
@@ -16,7 +21,7 @@ angular
             if($stateParams.status == 1){
                 $scope.summary_status = 'DELIVERED';
             }else if($stateParams.status == 2){
-                $scope.summary_status = 'SUBMITED';
+                $scope.summary_status = 'SUBMITTED';
             }else if($stateParams.status == 3){
                 $scope.summary_status = 'FAILED';
             }else{
@@ -83,7 +88,7 @@ angular
                 if(status == 1){
                     $scope.summary_status = 'DELIVERED';
                 }else if(status == 2){
-                    $scope.summary_status = 'SUBMITED';
+                    $scope.summary_status = 'SUBMITTED';
                 }else if(status == 3){
                     $scope.summary_status = 'FAILED';
                 }

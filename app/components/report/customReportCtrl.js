@@ -1,5 +1,10 @@
 angular
     .module('altairApp')    
+    .filter('decodeComponents', function() {
+        return function(x) {
+            return decodeURIComponent(x);
+        };
+    })
     .controller('customReportCtrl', [
         '$scope',
         '$rootScope',
@@ -63,24 +68,64 @@ angular
                 searchField: 'title',
                 hideSelected: false,
                 highlight: true
-            };
+            };           
 
-            var $dp_report = $('#uk_dp_1');
+            $scope.start_date = "";
+            $scope.end_date = "";            
 
-            var dp_report = UIkit.datepicker($dp_report, {
-                format:'YYYY-MM-DD',
-                maxDate: new Date()
-            });
+            $scope.setDate = function(){
 
-            var date = new Date();
+                var $dp_start = $('#uk_dp_start'),
+                $dp_end = $('#uk_dp_end');
 
-            date.setMonth( date.getMonth() + 1 );
+                var minDate1 = new Date();
+                minDate1.setMonth(minDate1.getMonth() - 3);
 
-            var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+                var date = new Date();
+                date.setMonth( date.getMonth() - 2 );
+                //alert((date.getMonth() ) + '/' + (date.getDate()) + '/' + (date.getFullYear()));
 
-            $scope.custom_report_date = defaultDate;
+                minDate1 = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+
+                console.log("minDate1: ",minDate1);
+
+                var start_date = UIkit.datepicker($dp_start, {
+                    format:'YYYY-MM-DD',
+                    maxDate: new Date(),
+                    minDate: minDate1
+                });
+
+                var end_date = UIkit.datepicker($dp_end, {
+                    format:'YYYY-MM-DD',
+                    maxDate: new Date()
+                });
+
+                $dp_start.on('change',function() {
+                    end_date.options.minDate = $dp_start.val();
+                });
+
+                $dp_end.on('change',function() {
+                    start_date.options.maxDate = $dp_end.val();
+                });
+
+                var date1 = new Date();
+
+                date1.setMonth( date1.getMonth() + 1 );
+
+                var defaultDate = (date1.getFullYear()) + '-' + (date1.getMonth()) + '-' + (date1.getDate());
+                
+                $scope.start_date = defaultDate;
+                $scope.end_date = defaultDate;
+            }
+
+            $scope.setDate();
             
-            $scope.data_per_page = $scope.no_of_data.options[0].value;          
+            $scope.data_per_page = $scope.no_of_data.options[0].value; 
+
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            }         
 
             $scope.getData = function(page){
 
@@ -88,7 +133,7 @@ angular
 
                 $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
 
-                var getDailyReport = "compaignReportByUserId/"+$rootScope.u_id+"/"+$scope.custom_report_date+"/"+$scope.start+"/"+$scope.data_per_page; 
+                var getDailyReport = "compaignReportByUserId/"+$rootScope.u_id+"/"+$scope.start_date+"/"+$scope.end_date+"/"+$scope.start+"/"+$scope.data_per_page; 
 
                 $scope.dailyReportData = {};
 
@@ -104,6 +149,7 @@ angular
                         $scope.pagination = pagerService.GetPager($scope.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
                     }else{
+                        $scope.clearData();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
@@ -132,7 +178,7 @@ angular
                     if($scope.responseData.code == 302){
                         if(isEmpty($scope.responseData.data) == false){
                             $scope.reportCount.DELIVERED = $scope.responseData.data.DELIVERED;
-                            $scope.reportCount.SUBMITED = $scope.responseData.data.SUBMITED;
+                            $scope.reportCount.SUBMITTED = $scope.responseData.data.SUBMITTED;
                             $scope.reportCount.FAILED = $scope.responseData.data.FAILED;
                             $scope.reportCount.jobId = id;
 
@@ -148,7 +194,7 @@ angular
                                 $scope.reportCount.FAILED = 0;
                             }
 
-                            $scope.reportCount.TOTAL = $scope.reportCount.DELIVERED + $scope.reportCount.SUBMITED + $scope.reportCount.FAILED;
+                            $scope.reportCount.TOTAL = $scope.reportCount.DELIVERED + $scope.reportCount.SUBMITTED + $scope.reportCount.FAILED;
                         }
 
                     }else{
@@ -166,7 +212,7 @@ angular
                 if(status == 1){
                     $scope.summary_status = 'DELIVERED';
                 }else if(status == 2){
-                    $scope.summary_status = 'SUBMITED';
+                    $scope.summary_status = 'SUBMITTED';
                 }else if(status == 3){
                     $scope.summary_status = 'FAILED';
                 }
@@ -195,9 +241,13 @@ angular
             }
 
             $scope.searchData = function(){
-                console.log('custom_report_date',$scope.custom_report_date);
                 $scope.getData($scope.page);
             }
+
+            $scope.resetDate = function(){
+                $scope.setDate();
+                $scope.getData($scope.page);
+            } 
 
             function isEmpty(obj) {
                 for(var prop in obj) {

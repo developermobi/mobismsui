@@ -8,7 +8,8 @@ angular
         '$cookieStore',
         '$stateParams',
         'pagerService',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService) {
+        '$timeout',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService,$timeout) {
 
            
             $scope.pagination = {};
@@ -94,38 +95,6 @@ angular
                 highlight: true
             };
 
-            $scope.data_per_page = $scope.no_of_data.options[0].value;          
-
-            $scope.getData = function(page){
-
-                $scope.page = page;
-
-                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
-
-                var getContact = "getAllContact/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
-
-                $scope.userContactData = {};
-
-                apiGetData.async(getContact).then(function(d) {
-                    $scope.responseData = d;
-                    //alert("hello data");
-                    //console.log('d data',d);
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 302){
-                        $scope.contactData = $scope.data.data.contactData;
-                        //console.log('getAllContact data',$scope.contactData);
-                        
-                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
-                        //console.log($scope.pagination);
-                    }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
-                    }
-                });           
-            }  
-
-            $scope.getData($scope.page);   
-
             var groups_data = $scope.user_group_data = [];
 
             $scope.getGroupData = function(){
@@ -168,7 +137,44 @@ angular
                 });              
             } 
 
-            $scope.getGroupData();
+            $scope.data_per_page = $scope.no_of_data.options[0].value;     
+
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            }     
+
+            $scope.getData = function(page){
+
+                $scope.page = page;
+
+                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
+
+                var getContact = "getAllContact/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
+
+                $scope.userContactData = {};
+
+                apiGetData.async(getContact).then(function(d) {
+                    $scope.responseData = d;
+                    //alert("hello data");
+                    //console.log('d data',d);
+                    $scope.data = $scope.responseData.data;
+                    if($scope.data.code == 302){
+                        $scope.contactData = $scope.data.data.contactData;
+                        //console.log('getAllContact data',$scope.contactData);
+                        
+                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
+                        //console.log($scope.pagination);
+                        $scope.getGroupData();
+                    }else{
+                        $scope.clearData();
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
+                    }
+                });           
+            }  
+
+            $scope.getData($scope.page);     
             
             $scope.group_name_config = {
                 plugins: {
@@ -224,14 +230,17 @@ angular
                 var contactData = JSON.stringify(contact);               
                 var updateContact = "updateContactById/"+id;
 
-                //console.log('contactData',contactData);
+                console.log('contactData',contactData);
 
                 apiPostData.async(updateContact, contactData).then(function(d) {
                     $scope.responseData = d.data;
                     //console.log('responseData',$scope.responseData);
-                    if($scope.responseData.code == 200){                       
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
+                    if($scope.responseData.code == 200){     
+                        $scope.triggerClick('#edit_contact .uk-modal-close');
                         $scope.getData($scope.page);  
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
+                        modal.show();
+                        
                         setTimeout(function(){
                             modal.hide();
                         },3000);
@@ -255,7 +264,6 @@ angular
                         modal.show();
                         $scope.getData($scope.page);
                         setTimeout(function(){
-                            $('.uk-modal-close').trigger('click');
                             modal.hide();
                         },3000);
 
@@ -279,7 +287,6 @@ angular
                             modal.show();
                             $scope.getData($scope.page);
                             setTimeout(function(){
-                                $('.uk-modal-close').trigger('click');
                                 modal.hide();
                             },3000);
 
@@ -298,5 +305,11 @@ angular
                     $scope.getData(1);
                 }     
             }, true)
+
+            $scope.triggerClick = function (className) {
+                $timeout(function() {
+                    angular.element(className).trigger('click');
+                }, 100);
+            };
         }
     ]);

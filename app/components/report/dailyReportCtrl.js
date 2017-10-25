@@ -1,5 +1,10 @@
 angular
-    .module('altairApp')    
+    .module('altairApp')  
+    .filter('decodeComponents', function() {
+        return function(x) {
+            return decodeURIComponent(x);
+        };
+    })
     .controller('dailyReportCtrl', [
         '$scope',
         '$rootScope',
@@ -13,6 +18,27 @@ angular
            
             $scope.pagination = {};
             $scope.page = 1;
+
+            var $dp_report = $('#uk_dp_1');
+
+            var dp_report = UIkit.datepicker($dp_report, {
+                format:'YYYY-MM-DD',
+                maxDate: new Date()
+            });
+
+            $scope.report_date = '';
+
+            $scope.setDate = function(){
+                var date = new Date();
+
+                date.setMonth( date.getMonth() + 1 );
+
+                var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+
+                $scope.report_date = defaultDate;
+            }
+
+            $scope.setDate();
             
             $scope.no_of_data = {
                 options: [
@@ -63,7 +89,12 @@ angular
                 highlight: true
             };
             
-            $scope.data_per_page = $scope.no_of_data.options[0].value;          
+            $scope.data_per_page = $scope.no_of_data.options[0].value;   
+
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            }        
 
             $scope.getData = function(page){
 
@@ -71,7 +102,7 @@ angular
 
                 $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
 
-                var getDailyReport = "dailyRepotMessage/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
+                var getDailyReport = "dailyRepotMessage/"+$rootScope.u_id+"/"+$scope.report_date+"/"+$scope.start+"/"+$scope.data_per_page; 
 
                 $scope.dailyReportData = {};
 
@@ -87,13 +118,23 @@ angular
                         $scope.pagination = pagerService.GetPager($scope.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
                     }else{
+                        $scope.clearData();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
                 });           
             }  
 
-            $scope.getData($scope.page);   
+            $scope.getData($scope.page); 
+
+            $scope.searchData = function(){
+                $scope.getData($scope.page);
+            }  
+
+            $scope.resetDate = function(){
+                $scope.setDate();
+                $scope.getData($scope.page);
+            } 
 
             $scope.$watch(function() {
                 return $scope.data_per_page;
