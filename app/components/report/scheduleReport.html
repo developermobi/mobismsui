@@ -3,14 +3,47 @@
     	<div class="uk-grid">
     		<div class="uk-width-large-1-2 uk-text-left">
     			<h3 class="heading_b uk-margin-bottom">Schedule Report</h3>
+                <ul class="uk-breadcrumb">
+                    <li><a ui-sref="restricted.dashboard">Dashboard</a></li>
+                    <li class="uk-active"><span>Schedule Report</span></li>
+                </ul>
     		</div>
     	</div>
         
-        <div class="uk-grid">
-            <div class="uk-width-medium-1-2 uk-text-left">  
-                <div class="uk-width-medium-1-6 uk-text-center">        
-                    <input type="text" size="5" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
-                </div>     
+        <div class="uk-grid">           
+            <div class="uk-width-medium-1">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <div class="uk-grid">
+                            <div class="uk-width-medium-1-6 uk-text-center">        
+                                <input type="text" size="5" config="no_of_data_config" options="no_of_data.options" ng-model="data_per_page" selectize />        
+                            </div>
+                            <div class="uk-width-large-1-5 uk-width-medium-1-1">
+                                <div class="uk-input-group">
+                                    <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                    <label for="uk_dp_1">Start date</label>
+                                    <input readonly class="md-input" type="text" id="uk_dp_start" md-input ng-model="start_date">
+                                </div>
+                            </div>
+                            <div class="uk-width-large-1-5 uk-width-medium-1-1">
+                                <div class="uk-input-group">
+                                    <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                    <label for="uk_dp_end">End Date</label>
+                                    <input readonly class="md-input" type="text" id="uk_dp_end" md-input ng-model="end_date">
+                                </div>
+                            </div>
+                            <div class="uk-width-large-1-3 uk-width-medium-1-1">
+                                <div class="uk-form-row">
+                                    <div class="md-input-wrapper" style="margin-top: 3%;">
+                                        <!-- <input type="hidden" ng-model="sender.userId" name="userId" value="1"> -->
+                                        <button type="button" class="md-btn md-btn-success md-input" ng-click="searchData()">Search</button>
+                                        <button type="button" class="md-btn md-btn-warning" ng-click="resetDate()">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div> 
          

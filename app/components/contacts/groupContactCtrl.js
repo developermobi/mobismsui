@@ -93,7 +93,13 @@ angular
                 highlight: true
             };
 
-            $scope.data_per_page = $scope.no_of_data.options[0].value;            
+            $scope.data_per_page = $scope.no_of_data.options[0].value;   
+
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            }
+
             $scope.getData = function(page){
 
                 $scope.page = page;
@@ -113,6 +119,7 @@ angular
                         //console.log('groupContactData: ',$scope.groupContactData);
                         $scope.getGroupData();
                     }else{
+                        $scope.clearData();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
                     }
@@ -274,6 +281,14 @@ angular
                     });
                 });                
             };
+
+            $scope.$watch(function() {
+                return $scope.data_per_page;
+            }, function(n, o) {
+                if(n != o){
+                    $scope.getData(1);
+                }     
+            }, true)
 
         }
     ]);

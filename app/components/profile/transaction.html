@@ -36,25 +36,27 @@
                                                 <thead>
                                                 <tr>
                                                     <th class="uk-width-1-10 uk-text-center">Sr No.</th>
-                                                    <th class="uk-width-2-10 uk-text-center">DebitType</th>
+                                                    <!-- <th class="uk-width-2-10 uk-text-center">DebitType</th> -->
                                                     <th class="uk-width-2-10 uk-text-center">Debit</th>
                                                     <th class="uk-width-2-10 uk-text-center">CurrentAmount</th>
                                                     <th class="uk-width-2-10 uk-text-center">PreviousAmouunt</th>
                                                     <th class="uk-width-2-10 uk-text-center">Remark</th>
-                                                    <th class="uk-width-2-10 uk-text-center">Debit BY</th>
+                                                    <!-- <th class="uk-width-2-10 uk-text-center">Debit BY</th> -->
                                                     <th class="uk-width-2-10 uk-text-center">Created</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr ng-repeat="data in userTransactionData" >                                
                                                     <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                                    <td class="uk-text-center" ><span ng-if="data.debitType == 1">Create User</span><span ng-if="data.debitType == 2">Credit To User</span><span ng-if="data.debitType == 4">Sent Message</span></td>
+
+
                                                     <td class="uk-text-center" >{{ data.debit}}</td>
                                                     <td class="uk-text-center" >{{ data.currentAmount}}</td>
                                                     <td class="uk-text-center" >{{ data.previousAmouunt}}</td>
                                                     <td class="uk-text-center" >{{ data.remark}}</td>
+
                                                     <td class="uk-text-center" >{{ data.debitTo == u_id ? 'Self' : ''}}</td>
-                                                    <td class="uk-text-center" >{{ data.created}}</td>
+
                                                 </tr>                           
 
                                                 </tbody>
@@ -89,10 +91,10 @@
                                                 <thead>
                                                 <tr>
                                                     <th class="uk-width-1-10 uk-text-center">Sr No.</th>
-                                                    <th class="uk-width-2-10 uk-text-center">CreditType</th>
-                                                    <th class="uk-width-2-10 uk-text-center">Create UserId</th>
+                                                    <!-- <th class="uk-width-2-10 uk-text-center">CreditType</th> -->
+                                                    <!-- <th class="uk-width-2-10 uk-text-center">Create UserId</th> -->
                                                     <th class="uk-width-2-10 uk-text-center">Credit</th>                                          
-                                                    <th class="uk-width-2-10 uk-text-center">CreditBy</th>
+                                                    <!-- <th class="uk-width-2-10 uk-text-center">CreditBy</th> -->
                                                     <th class="uk-width-2-10 uk-text-center">Remark</th>
                                                     <th class="uk-width-2-10 uk-text-center">Rreated</th>
 
@@ -102,11 +104,11 @@
                                                 <tbody>
                                                 <tr ng-repeat="data in userTransactionData" >                                
                                                     <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                                    <td class="uk-text-center" ><span ng-if=" data.creditType == 1">Create User</span><span ng-if=" data.creditType == 2">Credit User</span></td>
-                                                    <td class="uk-text-center" >{{ data.userId['userId']}}</td>
+                                                    <!-- <td class="uk-text-center" ><span ng-if=" data.creditType == 1">Create User</span><span ng-if=" data.creditType == 2">Credit User</span></td> -->
+                                                    <!-- <td class="uk-text-center" >{{ data.userId['userId']}}</td> -->
                                                     <td class="uk-text-center" >{{ data.credit}}</td>
                                                     
-                                                    <td class="uk-text-center" >{{ data.creditBy  == u_id ? 'Self' : ''}}</td>
+                                                    <!-- <td class="uk-text-center" >{{ data.creditBy  == u_id ? 'Self' : ''}}</td> -->
                                                     <td class="uk-text-center" >{{ data.remark}}</td>
                                                     <td class="uk-text-center" >{{ data.created}}</td>
 

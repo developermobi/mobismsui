@@ -21,7 +21,7 @@
                         <td class="uk-text-center">{{data.description}}</td>
                         <!-- <td class="uk-text-center">{{data.created}}</td> -->
                         <td class="uk-text-center">
-                           <a href="javascript:void(0);"><i class="md-icon material-icons" data-uk-modal="{target:'#edit_group'}" ng-click="getTemplateDetails(data.id)" data-uk-tooltip="{pos:'bottom'}" title="Edit">&#xE254;</i></a>
+                           <a href="javascript:void(0);"><i class="md-icon material-icons" data-uk-modal="{target:'#edit_template'}" ng-click="getTemplateDetails(data.id)" data-uk-tooltip="{pos:'bottom'}" title="Edit">&#xE254;</i></a>
                            <a ><i class="md-icon material-icons" ng-click="deleteTemplate(data.id)" data-uk-tooltip="{pos:'bottom'}" title="Delete">&#xE872;</i></a>
                        </td>
                    </tr>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<div class="uk-modal" id="edit_group">
+<div class="uk-modal" id="edit_template">
     <div class="uk-modal-dialog">
         <div class="uk-modal-header">
             <h3 class="uk-modal-title">Update Template</h3>

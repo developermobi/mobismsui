@@ -63,7 +63,62 @@ angular
                 highlight: true
             };
             
-            $scope.data_per_page = $scope.no_of_data.options[0].value;          
+            $scope.start_date = "";
+            $scope.end_date = "";            
+
+            $scope.setDate = function(){
+
+                var $dp_start = $('#uk_dp_start'),
+                $dp_end = $('#uk_dp_end');
+
+                var minDate1 = new Date();
+                minDate1.setMonth(minDate1.getMonth() - 3);
+
+                var date = new Date();
+                date.setMonth( date.getMonth() - 2 );
+                //alert((date.getMonth() ) + '/' + (date.getDate()) + '/' + (date.getFullYear()));
+
+                minDate1 = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+
+                console.log("minDate1: ",minDate1);
+
+                var start_date = UIkit.datepicker($dp_start, {
+                    format:'YYYY-MM-DD',
+                    maxDate: new Date(),
+                    minDate: minDate1
+                });
+
+                var end_date = UIkit.datepicker($dp_end, {
+                    format:'YYYY-MM-DD',
+                    maxDate: new Date()
+                });
+
+                $dp_start.on('change',function() {
+                    end_date.options.minDate = $dp_start.val();
+                });
+
+                $dp_end.on('change',function() {
+                    start_date.options.maxDate = $dp_end.val();
+                });
+
+                var date1 = new Date();
+
+                date1.setMonth( date1.getMonth() + 1 );
+
+                var defaultDate = (date1.getFullYear()) + '-' + (date1.getMonth()) + '-' + (date1.getDate());
+                
+                $scope.start_date = defaultDate;
+                $scope.end_date = defaultDate;
+            }
+
+            $scope.setDate();
+            
+            $scope.data_per_page = $scope.no_of_data.options[0].value; 
+
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            }         
 
             $scope.getData = function(page){
 
@@ -71,7 +126,7 @@ angular
 
                 $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
 
-                var getScheduleReport = "scheduleReportByUserId/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
+                var getScheduleReport = "scheduleReportByUserId/"+$rootScope.u_id+"/"+$scope.start_date+"/"+$scope.end_date+"/"+$scope.start+"/"+$scope.data_per_page; 
 
                 $scope.scheduleReportData = {};
 
@@ -87,6 +142,7 @@ angular
                         $scope.pagination = pagerService.GetPager($scope.data.total,$scope.page,$scope.data_per_page);
                         console.log($scope.pagination);
                     }else{
+                        $scope.clearData();
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
@@ -94,6 +150,15 @@ angular
             }  
 
             $scope.getData($scope.page);   
+
+            $scope.searchData = function(){
+                $scope.getData($scope.page);
+            }
+
+            $scope.resetDate = function(){
+                $scope.setDate();
+                $scope.getData($scope.page);
+            } 
 
             $scope.$watch(function() {
                 return $scope.data_per_page;

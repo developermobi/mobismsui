@@ -6289,6 +6289,7 @@ label.md-label {
 .md-user-image {
   width: 34px;
   border-radius: 50%;
+  background-color: #FFF;
 }
 .md-user-image-large {
   width: 82px;

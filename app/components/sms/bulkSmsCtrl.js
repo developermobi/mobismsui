@@ -14,11 +14,27 @@ angular
         'apiFileUpload',
         '$cookieStore',
         'pagerService',
-        function ($scope,$rootScope,$http,apiGetData,apiPostData,apiFileUpload,$cookieStore,pagerService) {
+        '$timeout',
+        function ($scope,$rootScope,$http,apiGetData,apiPostData,apiFileUpload,$cookieStore,pagerService,$timeout) {
 
             //console.log("login cookie: ",$rootScope.globals); 
             $scope.date = new Date();
-            $scope.schedule_time = '11:00 AM';
+
+            $scope.schedule_date = {};
+            $scope.schedule_time = {};
+
+            $scope.setTime = function(){
+                var date = new Date();
+
+                date.setMonth( date.getMonth() + 1 );
+
+                var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+
+                $scope.schedule_date = defaultDate;
+                $scope.schedule_time = formatAMPM(new Date());
+            }
+
+            $scope.setTime();
 
             $scope.fileName = '';
 
@@ -397,8 +413,13 @@ angular
                 $scope.totalCount = 0; 
 
                 if($scope.toShowUnicode == '3'){
+                    $("#message").hide();
+                    $("#unicode_message").show();
                     loadApi(str_lang);                    
-                }              
+                }else{
+                    $("#unicode_message").hide();
+                    $("#message").show();
+                }            
             }
 
             //Load Unicode Language
@@ -424,7 +445,7 @@ angular
                     var control = new google.elements.transliteration.TransliterationControl(options);
 
                     // Enable transliteration in the textfields with the given ids.
-                    var ids = [ "message" ];
+                    var ids = [ "unicode_message" ];
                     control.makeTransliteratable(ids);
 
                     // Show the transliteration control which can be used to toggle between
@@ -536,7 +557,8 @@ angular
 
                     if($scope.messagesCount > 10)
                     {
-                        alert("Counts of message not more than 10.");
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Counts of message not more than 10.');
+                        modal.show();  
                         return false;                        
                     }
                 }
@@ -569,7 +591,8 @@ angular
 
                     if($scope.messagesCount > 10)
                     {
-                        alert("Counts of message not more than 10."); 
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Counts of message not more than 10.');
+                        modal.show();  
                         return false;                       
                     }
                 }
@@ -685,7 +708,6 @@ angular
              $scope.sendSMS = function(fd){   
                 
                 fd.append('userId', $rootScope.u_id);
-                
                 fd.append('sender', $scope.sender_id);
                 fd.append('jobType', $scope.sms_method);
                 fd.append('messageType', $scope.sms_type);
@@ -724,7 +746,7 @@ angular
                 
                 var returnArray = {};
                 for (var pair of fd.entries()) {
-                    //console.log("sendQuickSMS: ",pair[0]+ ', ' + pair[1]); 
+                    console.log("sendQuickSMS: ",pair[0]+ ', ' + pair[1]); 
                     returnArray[pair[0]] = pair[1];
                 }
 
@@ -742,7 +764,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Message Successfully Sent');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
                         modal.show();  
                         $scope.clearFields();                      
                        // getData();
@@ -772,7 +794,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Message Successfully Sent');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
                         modal.show();  
                         $scope.clearFields();                      
                        // getData();
@@ -808,7 +830,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Message Successfully Sent');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
                         modal.show();  
                         $scope.clearFields();                      
                        // getData();
@@ -836,12 +858,36 @@ angular
 
                 var t = $(".timepicker").val();
                 $scope.schedule_time = t;
+
+                //alert($scope.schedule_date);
+
+                var flag = validateTime($scope.schedule_time,$scope.schedule_date);
+
+                if(flag == 0){
+                    var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please select time 20 Minutes greater than current time.');
+                    modal.show();
+                    return false;
+                }else if(flag == 2){
+                    var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Scheduling not allowed on previous date.');
+                    modal.show();
+                    return false;
+                }else{
+                    // alert(flag);
+                    // return false;
+                    //$('.uk-modal-close').trigger('click');
+                    $scope.triggerClick('.uk-modal-close');
+                    //return false;
+                }
+
                 var momentObj = moment($scope.schedule_time, ["h:mm A"]);
+                // alert(t);
+                // return false;
                 fd.append('scheduledAt', $scope.schedule_date +" "+ momentObj.format("HH:mm:ss"));
                 fd.append('scheduleStatus', 1);
 
                 $scope.sendSMS(fd);
             };
+
 
             function objectifyForm(formArray) {//serialize data function
 
@@ -852,14 +898,81 @@ angular
                 return returnArray;
             }
 
-             $scope.$watch(function() {
+            function formatAMPM(date) {
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                return strTime;
+            }
+
+            function validateTime(scheduleTime,scheduleDate) {
+                var date = new Date();
+                var hours = date.getHours();
+                var minutes = date.getMinutes() + 20;
+
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                var currentTime = hours + ':' + minutes + ' ' + ampm;
+                //return strTime;
+
+                //return currentTime;
+
+                date.setMonth( date.getMonth() + 1 );
+
+                var currentDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+
+                //return currentDate;
+
+                if(scheduleDate > currentDate){
+                    return 1;
+                }else if(scheduleDate == currentDate){
+                    if(scheduleTime >= currentTime){
+                        return 1;
+                    }else{
+                        return 0;
+                    }                    
+                }else if(scheduleDate < currentDate){
+                    return 2;
+                }
+
+
+            }
+
+            $scope.$watch(function() {
                 return $scope.sms_duplicate;
             }, function(n, o) {
                 if(n != o){
                     $scope.mobileCount();
                 }     
             }, true)
-            
+
+            var placeholderContent = 'Example-\n91XXXXXXXXXX\n91XXXXXXXXXX\n91<10 Digit Number>';
+
+            $scope.sms_mobile = placeholderContent;
+
+            $scope.placeholderOnFocusContent = function(){
+                if($scope.sms_mobile === placeholderContent){
+                    $scope.sms_mobile = '';
+                }
+            }
+
+            $scope.placeholderOnBlurContent = function(){
+                if($scope.sms_mobile ==='' || $scope.sms_mobile ===undefined){
+                    $scope.sms_mobile = placeholderContent;
+                }
+            }
+
+            $scope.triggerClick = function (className) {
+                $timeout(function() {
+                    angular.element(className).trigger('click');
+                }, 100);
+            };
 
         }
 

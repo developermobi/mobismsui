@@ -92,9 +92,11 @@ angular
                         $scope.resellerData = $scope.data.data;       
 
                         $scope.pagination = pagerService.GetPager($scope.data.total,$scope.page,$scope.data_per_page);                 
-                        console.log($scope.data.total);
+                        //console.log($scope.data.total);
                         getResellerProdcutData();
                     }else{
+                        $scope.pagination = {};
+                        $scope.page = 1;
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }

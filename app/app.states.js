@@ -77,14 +77,14 @@ altairApp
                                 'lazy_prismJS',
                                 'lazy_autosize',
                                 'lazy_iCheck',
-                                'lazy_style_switcher'
-                                //'app/components/header/headerController.js'
+                                'lazy_style_switcher',
+                                'app/shared/header/headerController.js'
                             ],{ serie: true });
                         }]
                     },
                     authorize : true,
                 })
-            // -- DASHBOARD --
+                // -- DASHBOARD --
                 .state("restricted.dashboard", {
                     url: "/dashboard",
                     templateUrl: 'app/components/dashboard/dashboardView.html',
@@ -119,8 +119,7 @@ altairApp
                                 'lazy_character_counter',
                                 'lazy_parsleyjs',
                                 'app/components/sms/bulkSmsCtrl.js',
-                                'app/components/sms/bulkSmsDirective.js',
-                                'app/components/sms/bulkSmsUnicodeCtrl.js'
+                                'app/components/sms/bulkSmsDirective.js'
                             ], {serie:true} );
                         }]
                     },
