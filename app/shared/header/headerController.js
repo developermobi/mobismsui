@@ -16,36 +16,34 @@ angular
                 return false;  
             }
 
-            $scope.userBalance = {
-                promotional : 0,
-                transactional: 0
-            };
-
             var balance_url = 'getBalanceByUserId/'+$rootScope.u_id;
 
             apiGetData.async(balance_url).then(function(d) {
                 $scope.responseBalanceData = d.data;
-                console.log('responseBalanceData: ',$scope.responseBalanceData);
+                //console.log('responseBalanceData: ',$scope.responseBalanceData);
 
                 if($scope.responseBalanceData.code == 302){
-                    var index = 0;
-                    $.each($scope.responseBalanceData,function(i){
+                    
+                    //console.log('responseBalanceData length',$scope.responseBalanceData.data.length);
+                    $scope.balanceData = $scope.responseBalanceData.data;
+                    $.each($scope.balanceData,function(i){
                         
-                        //alert(i);
-                        console.log('responseBalanceData[i]: ',$scope.responseBalanceData.data[index]);
-                        if($scope.responseBalanceData.data[index].productId.id == 1){
-                            $scope.userBalance.transactional = $scope.responseBalanceData.data[index].balance;
-                        }else if($scope.responseBalanceData.data[index].productId.id == 2){
-                            $scope.userBalance.promotional = $scope.responseBalanceData.data[index].balance;
+                        //console.log('balanceData[i]: ',$scope.balanceData[i]);
+                        if($scope.balanceData[i].productId.id == 1){
+                            $rootScope.userBalance.transactional = $scope.balanceData[i].balance;
+                        }else if($scope.balanceData[i].productId.id == 2){
+                            $rootScope.userBalance.promotional = $scope.balanceData[i].balance;
                         }
 
-                        index++;
                     });
                 }
                 else{
                     var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseBalanceData.message);
                     modal.show();
                 }
+
+                // console.log('transactional bal: ',$rootScope.userBalance.transactional);
+                // console.log('promotional bal: ',$rootScope.userBalance.transactional);
             });
 
             $scope.submitSignOut = function(){                
