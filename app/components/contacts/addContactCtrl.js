@@ -97,6 +97,7 @@ angular
 
                 apiPostData.async(addContact, contactData).then(function(d) {
                     $scope.responseData = d.data;
+                    console.log( $scope.responseData);
                     if($scope.responseData.code == 201){
                         //$scope.contact = null;
                         $scope.clearFields();
@@ -105,7 +106,7 @@ angular
                             modal.hide();
                         },3000);
                     }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
                     }               
                 });
