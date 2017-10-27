@@ -160,14 +160,28 @@ angular
 
             $scope.reportCount = {
                 DELIVERED : 0,
-                SUBMITED : 0,
+                SUBMITTED : 0,
                 FAILED : 0,
                 TOTAL : 0,
                 jobId : 0
             };
 
+            $scope.setReportCount = function(){
+               $scope.reportCount = {
+                    DELIVERED : 0,
+                    SUBMITTED : 0,
+                    FAILED : 0,
+                    TOTAL : 0,
+                    jobId : 0
+                }; 
+            }
+
+            $scope.setReportCount();
+
             
             $scope.getReportCount = function (id) {
+
+                $scope.setReportCount();
 
                 var url = 'dlrStatusGroupBy/'+$rootScope.u_id+'/'+id;
 
@@ -186,8 +200,8 @@ angular
                                 $scope.reportCount.DELIVERED = 0;
                             }
 
-                            if($scope.reportCount.SUBMITED == undefined){
-                                $scope.reportCount.SUBMITED = 0;
+                            if($scope.reportCount.SUBMITTED == undefined){
+                                $scope.reportCount.SUBMITTED = 0;
                             }
 
                             if($scope.reportCount.FAILED == undefined){

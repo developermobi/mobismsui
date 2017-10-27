@@ -15,7 +15,8 @@ angular
         '$cookieStore',
         'pagerService',
         '$timeout',
-        function ($scope,$rootScope,$http,apiGetData,apiPostData,apiFileUpload,$cookieStore,pagerService,$timeout) {
+        '$q',
+        function ($scope,$rootScope,$http,apiGetData,apiPostData,apiFileUpload,$cookieStore,pagerService,$timeout,$q) {
 
             //console.log("login cookie: ",$rootScope.globals); 
             $scope.date = new Date();
@@ -31,7 +32,10 @@ angular
                 var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
 
                 $scope.schedule_date = defaultDate;
-                $scope.schedule_time = formatAMPM(new Date());
+
+                var hours1 = date.getHours()+":"+date.getMinutes();
+
+                $scope.schedule_time = hours1;
             }
 
             $scope.setTime();
@@ -114,7 +118,11 @@ angular
             $rootScope.sms_quick_flag = false;
             $rootScope.sms_group_flag = true;
 
+            $scope.defer = null;
+
             $scope.getAllSenderId = function(){  
+
+                $scope.defer = $q.defer();
                 
                 var getSender = "getAllSenderId/"+$rootScope.u_id;               
 
@@ -152,6 +160,8 @@ angular
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
                     }
+
+                    $scope.defer.resolve();
                 });
             };
 
@@ -216,7 +226,11 @@ angular
                 });
             }
 
-             $scope.getUserData();
+            $scope.defer.promise.then(function(){
+                $scope.getUserData();
+            });
+
+             
 
             //SMS Type
             $scope.sms_type_data = {
@@ -715,10 +729,12 @@ angular
                 fd.append('productId', $scope.selectedProductId);
 
                 if($scope.sms_type == 3){
-                    $scope.message = encodeURIComponent($scope.message);
+                    var msg = encodeURIComponent($scope.message);
+                    fd.append('message', msg);
+                }else{
+                    fd.append('message', $scope.message);
                 }
 
-                fd.append('message', $scope.message);
 
                 if( $scope.sms_duplicate == false){
                     fd.append('duplicateStatus', 0);
@@ -750,6 +766,8 @@ angular
                     console.log("sendQuickSMS: ",pair[0]+ ', ' + pair[1]); 
                     returnArray[pair[0]] = pair[1];
                 }
+
+                return false;
 
                 var json_data = JSON.stringify(returnArray);
 
@@ -898,28 +916,14 @@ angular
                 }
                 return returnArray;
             }
-
-            function formatAMPM(date) {
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
-                minutes = minutes < 10 ? '0'+minutes : minutes;
-                var strTime = hours + ':' + minutes + ' ' + ampm;
-                return strTime;
-            }
+            
 
             function validateTime(scheduleTime,scheduleDate) {
                 var date = new Date();
                 var hours = date.getHours();
                 var minutes = date.getMinutes() + 20;
-
-                var ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
-                minutes = minutes < 10 ? '0'+minutes : minutes;
-                var currentTime = hours + ':' + minutes + ' ' + ampm;
+               
+                var currentTime = hours + ':' + minutes;
                 //return strTime;
 
                 //return currentTime;
@@ -927,9 +931,7 @@ angular
                 date.setMonth( date.getMonth() + 1 );
 
                 var currentDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
-
-                //return currentDate;
-
+               
                 if(scheduleDate > currentDate){
                     return 1;
                 }else if(scheduleDate == currentDate){

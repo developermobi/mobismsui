@@ -1,5 +1,10 @@
 angular
     .module('altairApp')    
+    .filter('decodeComponents', function() {
+        return function(x) {
+            return decodeURIComponent(x);
+        };
+    })
     .controller('scheduleReportCtrl', [
         '$scope',
         '$rootScope',

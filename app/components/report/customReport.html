@@ -54,25 +54,36 @@
                 <div class="uk-overflow-container">
                     <table class="uk-table uk-table-nowrap">
                         <thead>
-                            <tr>
+                            <!-- <tr>
                                 <th class="uk-width-1-10 uk-text-center">Sr No.</th>
-                                <th class="uk-width-2-10 uk-text-center">Message</th>
+                                <th class="uk-width-1-2 uk-text-center">Message</th>
                                 <th class="uk-width-2-10 uk-text-center">Mobile Count</th>
                                 <th class="uk-width-2-10 uk-text-center">Sender Id</th>
-                                <th class="uk-width-1-10 uk-text-center">Sent Method</th>
+                                <th class="uk-width-1-10 uk-text-center">Method</th>
                                 <th class="uk-width-1-10 uk-text-center">Status</th>
                                 <th class="uk-width-1-10 uk-text-center">Queued Date/Time</th>
                                 <th class="uk-width-1-10 uk-text-center">Completed Date/Time</th>
                                 <th class="uk-width-2-10 uk-text-center">Action</th>
+                            </tr> -->
+                            <tr>
+                                <th class="uk-text-center">Sr No.</th>
+                                <th class="uk-text-center">Message</th>
+                                <th class="uk-text-center">Mobile Count</th>
+                                <th class="uk-text-center">Sender Id</th>
+                                <th class="uk-text-center">Method</th>
+                                <th class="uk-text-center">Status</th>
+                                <th class="uk-text-center">Queued Date/Time</th>
+                                <th class="uk-text-center">Completed Date/Time</th>
+                                <th class="uk-text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>                            
                             <tr ng-repeat="x in dailyReportData">
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                <td class="">{{ x.message | decodeComponents}}</td>
+                                <td class="wrap_message">{{ x.message | decodeComponents}}</td>
                                 <td class="uk-text-center">{{ x.totalNumbers }}</td>
                                 <td class="uk-text-center">{{ x.sender }}</td>
-                                <td class="uk-text-center">{{ x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }}</td>
+                                <td class="uk-text-center">{{ x.jobType == 1 ? 'Quick' : x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }} {{ x.scheduleStatus == 1 ? ' - Scheduled' : '' }}</td>
                                 <td class="uk-text-center">{{ x.jobStatus == 0 ? 'Queued' : x.jobStatus == 1 ? 'Processed' : 'Completed' }}</td>
                                 <td class="uk-text-center">{{ x.queuedAt }}</td>
                                 <td class="uk-text-center">{{ x.completedAt }}</td>

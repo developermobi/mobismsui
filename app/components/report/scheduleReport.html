@@ -53,22 +53,30 @@
                     <table class="uk-table uk-table-nowrap">
                         <thead>
                             <tr>
-                                <th class="uk-width-1-10 uk-text-center">Sr No.</th>
+                                <!-- <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                                 <th class="uk-width-2-10 uk-text-center">Message</th>
                                 <th class="uk-width-2-10 uk-text-center">Mobile Count</th>
                                 <th class="uk-width-2-10 uk-text-center">Sender Id</th>
                                 <th class="uk-width-1-10 uk-text-center">Status</th>
                                 <th class="uk-width-1-10 uk-text-center">Date/Time</th>
-                                <th class="uk-width-2-10 uk-text-center">Method</th>
+                                <th class="uk-width-2-10 uk-text-center">Method</th> -->
+
+                                <th class="uk-text-center">Sr No.</th>
+                                <th class="uk-text-center">Message</th>
+                                <th class="uk-text-center">Mobile Count</th>
+                                <th class="uk-text-center">Sender Id</th>
+                                <th class="uk-text-center">Status</th>
+                                <th class="uk-text-center">Date/Time</th>
+                                <th class="uk-text-center">Method</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in scheduleReportData">
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                <td class="uk-text-center">{{ x.message }}</td>
+                                <td >{{ x.message | decodeComponents }}</td>
                                 <td class="uk-text-center">{{ x.totalNumbers }}</td>
                                 <td class="uk-text-center">{{ x.sender }}</td>
-                                <td class="uk-text-center">{{ x.status == 0 ? 'Queued' : x.status == 1 ? 'Processed' : 'Completed' }}</td>
+                                <td class="uk-text-center">{{ x.jobStatus == 0 ? 'Queued' : x.jobStatus == 1 ? 'Processed' : 'Completed' }}</td>
                                 <td class="uk-text-center">{{ x.scheduledAt }}</td> 
                                 <td class="uk-text-center">{{ x.jobType == 1 ? 'Quick' : x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }}</td>                               
                             </tr>                             

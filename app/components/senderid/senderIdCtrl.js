@@ -114,7 +114,7 @@ angular
                    // console.log(d);
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Sender Id successfully added ');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Sender ID added Succesfully.');
                         modal.show();
                         $scope.sender.senderId = '';
                         $scope.getData($scope.page);  

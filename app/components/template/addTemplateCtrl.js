@@ -24,7 +24,7 @@ angular
                    // console.log(d);
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Template Successfully Added');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Template added successfully');
                         modal.show();
                        // getData();
                         setTimeout(function(){
