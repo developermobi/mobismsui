@@ -63,12 +63,15 @@ angular
             $scope.getGroupData();
             
             $scope.group_name_config = {
-                plugins: {
-                    'remove_button': {
-                        label     : ''
-                    }
-                },
+                // plugins: {
+                //     'remove_button': {
+                //         label     : ''
+                //     }
+                // },
                 placeholder: 'Select Group',
+                optgroupField: 'parent_id',
+                optgroupLabelField: 'title',
+                optgroupValueField: 'ogid',
                 maxItems: 1,
                 valueField: 'id',
                 labelField: 'title',

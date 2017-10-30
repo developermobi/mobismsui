@@ -101,14 +101,39 @@ angular
 
             $scope.getData($scope.page);  
 
-            $scope.saveSenderId = function(sender) {   
+            $scope.saveSenderId = function(sender) {  
+                
                 var addSender = "saveSenderId";  
                 var senderData = sender;
+
+                // var validationData = {
+                //     "Sender Id": senderData.senderId == undefined ? "" : senderData.senderId
+                // };
+
+                // var validationResponse = requiredValidation(validationData);
+
+                // // console.log("validationResponse",validationResponse);
+                // // console.log("validationResponse data",validationResponse.data);
+
+                // // for(var responsePropt in validationResponse){
+                // //     console.log(responsePropt + ': ' + validationResponse[responsePropt]);
+                // // }
+
+                // if(validationResponse.status == 0){
+                //     var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.data);
+                //     modal.show();
+                //     return false;
+                // }
+
+                //console.log(senderData.senderId);
+                //return false;
+
                 senderData.userId = $rootScope.u_id;
                 senderData.status = 0;
                 senderData = JSON.stringify(senderData);
 
-                //console.log(senderData);
+                // console.log(senderData);
+                // return false;
                 
                 apiPostData.async(addSender, senderData).then(function(d) {
                    // console.log(d);

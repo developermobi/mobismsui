@@ -767,7 +767,7 @@ angular
                     returnArray[pair[0]] = pair[1];
                 }
 
-                return false;
+                //return false;
 
                 var json_data = JSON.stringify(returnArray);
 

@@ -20,7 +20,8 @@
                                         <div class="uk-form-row">
                                             <div class="md-input-wrapper">
                                                 <label>Group Name</label>
-                                                <selectize id="select_group" config="group_name_config" options="user_group_data" position="bottom" ng-model="contact.groupId"></selectize>
+                                                <!-- <selectize id="select_group" config="group_name_config" options="user_group_data" position="bottom" ng-model="contact.groupId"></selectize> -->
+                                                <input type="text" id="select_group" config="group_name_config" options="user_group_data" ng-model="contact.groupId" selectize />
                                             </div>                          
                                         </div>
                                         <div class="uk-form-row">
