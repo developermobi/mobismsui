@@ -9,9 +9,17 @@ angular
         '$stateParams',
         'pagerService',
         '$timeout',
-        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService,$timeout) {
+        '$q',
+        function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService,$timeout,$q) {
 
-           
+            $scope.contact = {
+                groupId:"",
+                name:"",
+                designation:"",
+                mobile:"",
+                emailId:""
+            };
+            
             $scope.pagination = {};
             $scope.page = 1;
             
@@ -95,6 +103,52 @@ angular
                 highlight: true
             };
 
+
+            $scope.data_per_page = $scope.no_of_data.options[0].value;     
+
+            $scope.clearData = function(){
+                $scope.pagination = {};
+                $scope.page = 1;
+            }     
+
+            $scope.defer = null;
+
+            $scope.getData = function(page){
+                $scope.defer = null;
+                $scope.defer = $q.defer();
+
+                $scope.page = page;
+
+                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
+
+                var getContact = "getAllContact/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
+
+                $scope.userContactData = {};
+
+                apiGetData.async(getContact).then(function(d) {
+                    $scope.responseData = d;
+                    //alert("hello data");
+                    //console.log('d data',d);
+                    $scope.data = $scope.responseData.data;
+                    if($scope.data.code == 302){
+                        $scope.contactData = $scope.data.data.contactData;
+                        //console.log('getAllContact data',$scope.contactData);
+                        
+                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
+                        //console.log($scope.pagination);
+                        
+                    }else{
+                        $scope.clearData();
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();
+                    }
+
+                    $scope.defer.resolve();
+                });           
+            }  
+
+            $scope.getData($scope.page); 
+
             var groups_data = $scope.user_group_data = [];
 
             $scope.getGroupData = function(){
@@ -137,44 +191,9 @@ angular
                 });              
             } 
 
-            $scope.data_per_page = $scope.no_of_data.options[0].value;     
-
-            $scope.clearData = function(){
-                $scope.pagination = {};
-                $scope.page = 1;
-            }     
-
-            $scope.getData = function(page){
-
-                $scope.page = page;
-
-                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
-
-                var getContact = "getAllContact/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
-
-                $scope.userContactData = {};
-
-                apiGetData.async(getContact).then(function(d) {
-                    $scope.responseData = d;
-                    //alert("hello data");
-                    //console.log('d data',d);
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 302){
-                        $scope.contactData = $scope.data.data.contactData;
-                        //console.log('getAllContact data',$scope.contactData);
-                        
-                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
-                        //console.log($scope.pagination);
-                        $scope.getGroupData();
-                    }else{
-                        $scope.clearData();
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
-                    }
-                });           
-            }  
-
-            $scope.getData($scope.page);     
+            $scope.defer.promise.then(function(){
+                $scope.getGroupData();
+            });   
             
             $scope.group_name_config = {
                 plugins: {
@@ -227,6 +246,18 @@ angular
             };
 
             $scope.updateContact = function(contact,id){
+
+                $scope.defer = null;
+
+                $scope.defer = $q.defer();
+
+                var validatedFlag = validateData(contact);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
+
                 var contactData = JSON.stringify(contact);               
                 var updateContact = "updateContactById/"+id;
 
@@ -237,7 +268,7 @@ angular
                     //console.log('responseData',$scope.responseData);
                     if($scope.responseData.code == 200){     
                         $scope.triggerClick('#edit_contact .uk-modal-close');
-                        $scope.getData($scope.page);  
+                          
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
                         modal.show();
                         
@@ -247,7 +278,17 @@ angular
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();
-                    }                  
+                    } 
+
+                    $scope.defer.resolve(); 
+
+                });
+
+                $scope.defer.promise.then(function(){
+                    setTimeout(function(){
+                        $scope.getData($scope.page);
+                    },3000);
+                    
                 });
             };
 
@@ -311,5 +352,70 @@ angular
                     angular.element(className).trigger('click');
                 }, 100);
             };
+
+            function validateData(requestData){
+                var data = [
+                    {
+                        title : "Group",
+                        value : requestData.groupId == undefined ? "" : requestData.groupId,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            mobile : false,
+                            email : false
+                        }           
+                    }, 
+                    {
+                        title : "Mobile",
+                        value : requestData.mobile == undefined ? "" : requestData.mobile,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : true,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Name",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Email Id",
+                        value : requestData.emailId == undefined ? "" : requestData.emailId,
+                        validation : {
+                            required : false,
+                            spl_char : false,
+                            mobile : false,
+                            email : true
+                        }           
+                    },                   
+                    {
+                        title : "Designation",
+                        value : requestData.designation == undefined ? "" : requestData.designation,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                ];
+
+                var validationResponse = customValidation(data);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }
         }
     ]);

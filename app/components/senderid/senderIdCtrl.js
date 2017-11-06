@@ -106,34 +106,16 @@ angular
                 var addSender = "saveSenderId";  
                 var senderData = sender;
 
-                // var validationData = {
-                //     "Sender Id": senderData.senderId == undefined ? "" : senderData.senderId
-                // };
+                var validatedFlag = validateData(senderData);  
 
-                // var validationResponse = requiredValidation(validationData);
-
-                // // console.log("validationResponse",validationResponse);
-                // // console.log("validationResponse data",validationResponse.data);
-
-                // // for(var responsePropt in validationResponse){
-                // //     console.log(responsePropt + ': ' + validationResponse[responsePropt]);
-                // // }
-
-                // if(validationResponse.status == 0){
-                //     var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.data);
-                //     modal.show();
-                //     return false;
-                // }
-
-                //console.log(senderData.senderId);
-                //return false;
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }              
 
                 senderData.userId = $rootScope.u_id;
                 senderData.status = 0;
                 senderData = JSON.stringify(senderData);
-
-                // console.log(senderData);
-                // return false;
                 
                 apiPostData.async(addSender, senderData).then(function(d) {
                    // console.log(d);
@@ -251,7 +233,34 @@ angular
                 if(n != o){
                     $scope.getData(1);
                 }     
-            }, true)           
+            }, true)    
+
+            function validateData(requestData){
+                var data = [
+                    {
+                        title : "Sender Id",
+                        value : requestData.senderId == undefined ? "" : requestData.senderId,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },                    
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }       
 
 
         }

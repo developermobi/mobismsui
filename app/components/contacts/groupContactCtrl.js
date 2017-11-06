@@ -10,6 +10,14 @@ angular
         'pagerService',
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,$stateParams,pagerService) {
 
+            $scope.contact = {
+                groupId:"",
+                name:"",
+                designation:"",
+                mobile:"",
+                emailId:""
+            };
+
             $scope.pagination = {};
             $scope.page = 1;
             
@@ -223,6 +231,12 @@ angular
             };
 
             $scope.updateContact = function(contact){
+                var validatedFlag = validateData(contact);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
                 var contactData = JSON.stringify(contact); 
                 console.log(contactData);              
                 // return false;
@@ -289,6 +303,72 @@ angular
                     $scope.getData(1);
                 }     
             }, true)
+
+            function validateData(requestData){
+                alert();
+                var data = [
+                    {
+                        title : "Group",
+                        value : requestData.groupId == undefined ? "" : requestData.groupId,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            mobile : false,
+                            email : false
+                        }           
+                    }, 
+                    {
+                        title : "Mobile",
+                        value : requestData.mobile == undefined ? "" : requestData.mobile,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : true,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Name",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Email Id",
+                        value : requestData.emailId == undefined ? "" : requestData.emailId,
+                        validation : {
+                            required : false,
+                            spl_char : false,
+                            mobile : false,
+                            email : true
+                        }           
+                    },                   
+                    {
+                        title : "Designation",
+                        value : requestData.designation == undefined ? "" : requestData.designation,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                ];
+
+                var validationResponse = customValidation(data);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }
 
         }
     ]);
