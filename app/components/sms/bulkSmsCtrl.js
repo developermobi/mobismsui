@@ -832,6 +832,7 @@ angular
                 var returnArray = {};
                 for (var pair of fd.entries()) {
                     returnArray[pair[0]] = pair[1];
+                     console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
                 }
 
                 var json_data = JSON.stringify(returnArray);
@@ -866,7 +867,7 @@ angular
 
             $scope.sendNonScheduledSMS = function(){
                 var fd = new FormData();
-                fd.append('scheduledAt', '2017-08-12 00:00:00');
+                fd.append('scheduledAt', '0000-00-00 00:00:00');
                 fd.append('scheduleStatus', 0);
                 $scope.sendSMS(fd);
             };

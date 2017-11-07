@@ -559,10 +559,10 @@ angular
             }
            
             $scope.sendFileSMS = function(fd){
-                // for (var pair of fd.entries()) {
-                //     console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
-                // }
-                //return false;
+                /*for (var pair of fd.entries()) {
+                    console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
+                }
+                return false;*/
                 var sendSMS = "savePersonalizedSms";               
 
                 apiFileUpload.async(sendSMS,fd).then(function(d) {
@@ -590,7 +590,7 @@ angular
 
             $scope.sendPersonalizedSMS = function(){
                 var fd = new FormData();
-                fd.append('scheduledAt', '2017-08-12 00:00:00');
+                fd.append('scheduledAt', '0000-00-00 00:00:00');
                 fd.append('scheduleStatus', 0);
                 $scope.sendSMS(fd);
             };

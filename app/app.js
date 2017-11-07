@@ -20,6 +20,7 @@ var altairApp = angular.module('altairApp', [
 ]);
 
 
+
  altairApp.value('globalUrl', 'http://localhost:8080/sms/api/');
  altairApp.value('appUrl', 'http://localhost:81/mobismsui/#/');
  altairApp.value('downloadUrl', 'http://localhost:8080/sms/download/');
@@ -29,6 +30,7 @@ var altairApp = angular.module('altairApp', [
 /*altairApp.value('globalUrl', 'http://213.133.100.80:1234/sms/api/');
 altairApp.value('appUrl', 'http://213.133.100.80/mobismsui/#/');
 altairApp.value('downloadUrl', 'http://213.133.100.80:1234/sms/download/');*/
+
 
 
 altairApp.constant('variables', {
