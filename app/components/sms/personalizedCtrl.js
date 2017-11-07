@@ -559,10 +559,10 @@ angular
             }
            
             $scope.sendFileSMS = function(fd){
-                // for (var pair of fd.entries()) {
-                //     console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
-                // }
-                //return false;
+                /*for (var pair of fd.entries()) {
+                    console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
+                }
+                return false;*/
                 var sendSMS = "savePersonalizedSms";               
 
                 apiFileUpload.async(sendSMS,fd).then(function(d) {

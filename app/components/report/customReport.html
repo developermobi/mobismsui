@@ -80,7 +80,7 @@
                         <tbody>                            
                             <tr ng-repeat="x in dailyReportData">
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                <td class="wrap_message">{{ x.message | decodeComponents}}</td>
+                                <td class="wrap_message">{{ x.jobType == 5 ? 'Personalized message will not show here' : x.message | decodeComponents}}</td>
                                 <td class="uk-text-center">{{ x.totalNumbers }}</td>
                                 <td class="uk-text-center">{{ x.sender }}</td>
                                 <td class="uk-text-center">{{ x.jobType == 1 ? 'Quick' : x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }} {{ x.scheduleStatus == 1 ? ' - Scheduled' : '' }}</td>
