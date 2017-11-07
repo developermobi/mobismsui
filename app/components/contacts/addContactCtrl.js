@@ -128,7 +128,7 @@ angular
 
                 apiFileUpload.async(uploadContact, formData).then(function(d) {
                     $scope.responseData = d.data;
-                    console.log('Upload Contact Response: ',$scope.data);
+                    console.log('Upload Contact Response: ',$scope.responseData);
                     if($scope.responseData.code == 200){
                         //$scope.contact = null;
                         $scope.clearFields();
@@ -137,7 +137,7 @@ angular
                             modal.hide();
                         },3000);
                     }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
                         modal.show();
                     }                 
                 });          
