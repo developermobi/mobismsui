@@ -590,7 +590,7 @@ angular
 
             $scope.sendPersonalizedSMS = function(){
                 var fd = new FormData();
-                fd.append('scheduledAt', '2017-08-12 00:00:00');
+                fd.append('scheduledAt', '0000-00-00 00:00:00');
                 fd.append('scheduleStatus', 0);
                 $scope.sendSMS(fd);
             };
