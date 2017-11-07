@@ -29,7 +29,7 @@ angular
 
                 date.setMonth( date.getMonth() + 1 );
 
-                var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+                var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate() < 10 ? "0"+date.getDate() : date.getDate());
 
                 $scope.schedule_date = defaultDate;
 
@@ -930,7 +930,13 @@ angular
 
                 date.setMonth( date.getMonth() + 1 );
 
-                var currentDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+                var currentDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate() < 10 ? "0"+date.getDate() : date.getDate());
+
+                // console.log("scheduleDate:",scheduleDate);
+                // console.log("scheduleTime:",scheduleTime);
+
+                // console.log("currentDate:",currentDate);
+                // console.log("currentTime:",currentTime);
                
                 if(scheduleDate > currentDate){
                     return 1;
