@@ -17,19 +17,19 @@ angular
 
             $scope.dailyCount = {
                 DELIVERED : 0,
-                SUBMITED : 0,
+                SUBMITTED : 0,
                 FAILED : 0,
                 TOTAL : 0
             };
             $scope.weeklyCount = {
                 DELIVERED : 0,
-                SUBMITED : 0,
+                SUBMITTED : 0,
                 FAILED : 0,
                 TOTAL : 0
             };
             $scope.monthlyCount = {
                 DELIVERED : 0,
-                SUBMITED : 0,
+                SUBMITTED : 0,
                 FAILED : 0,
                 TOTAL : 0
             };
@@ -49,64 +49,64 @@ angular
                     if($scope.responseData.code == 302){
                         if(isEmpty($scope.responseData.todayCount) == false){
                             $scope.dailyCount.DELIVERED = $scope.responseData.todayCount.DELIVERED;
-                            $scope.dailyCount.SUBMITED = $scope.responseData.todayCount.SUBMITED;
+                            $scope.dailyCount.SUBMITTED = $scope.responseData.todayCount.SUBMITTED;
                             $scope.dailyCount.FAILED = $scope.responseData.todayCount.FAILED;
 
                             if($scope.dailyCount.DELIVERED == undefined){
                                 $scope.dailyCount.DELIVERED = 0;
                             }
 
-                            if($scope.dailyCount.SUBMITED == undefined){
-                                $scope.dailyCount.SUBMITED = 0;
+                            if($scope.dailyCount.SUBMITTED == undefined){
+                                $scope.dailyCount.SUBMITTED = 0;
                             }
 
                             if($scope.dailyCount.FAILED == undefined){
                                 $scope.dailyCount.FAILED = 0;
                             }
 
-                            $scope.dailyCount.TOTAL = $scope.dailyCount.DELIVERED + $scope.dailyCount.SUBMITED + $scope.dailyCount.FAILED;
+                            $scope.dailyCount.TOTAL = $scope.dailyCount.DELIVERED + $scope.dailyCount.SUBMITTED + $scope.dailyCount.FAILED;
                         }
 
                         if(isEmpty($scope.responseData.weaklyCount) == false){
                             $scope.weeklyCount.DELIVERED = $scope.responseData.weaklyCount.DELIVERED;
-                            $scope.weeklyCount.SUBMITED = $scope.responseData.weaklyCount.SUBMITED;
+                            $scope.weeklyCount.SUBMITTED = $scope.responseData.weaklyCount.SUBMITTED;
                             $scope.weeklyCount.FAILED = $scope.responseData.weaklyCount.FAILED;
 
                             if($scope.weeklyCount.DELIVERED == undefined){
                                 $scope.weeklyCount.DELIVERED = 0;
                             }
 
-                            if($scope.weeklyCount.SUBMITED == undefined){
-                                $scope.weeklyCount.SUBMITED = 0;
+                            if($scope.weeklyCount.SUBMITTED == undefined){
+                                $scope.weeklyCount.SUBMITTED = 0;
                             }
 
                             if($scope.weeklyCount.FAILED == undefined){
                                 $scope.weeklyCount.FAILED = 0;
                             }
 
-                            $scope.weeklyCount.TOTAL = $scope.weeklyCount.DELIVERED + $scope.weeklyCount.SUBMITED + $scope.weeklyCount.FAILED;
+                            $scope.weeklyCount.TOTAL = $scope.weeklyCount.DELIVERED + $scope.weeklyCount.SUBMITTED + $scope.weeklyCount.FAILED;
                         }
 
                         //console.log('monthlyCount length: ',isEmpty($scope.responseData.monthlyCount));
 
                         if(isEmpty($scope.responseData.monthlyCount) == false){
                             $scope.monthlyCount.DELIVERED = $scope.responseData.monthlyCount.DELIVERED;
-                            $scope.monthlyCount.SUBMITED = $scope.responseData.monthlyCount.SUBMITED;
+                            $scope.monthlyCount.SUBMITTED = $scope.responseData.monthlyCount.SUBMITTED;
                             $scope.monthlyCount.FAILED = $scope.responseData.monthlyCount.FAILED;
 
                             if($scope.monthlyCount.DELIVERED == undefined){
                                 $scope.monthlyCount.DELIVERED = 0;
                             }
 
-                            if($scope.monthlyCount.SUBMITED == undefined){
-                                $scope.monthlyCount.SUBMITED = 0;
+                            if($scope.monthlyCount.SUBMITTED == undefined){
+                                $scope.monthlyCount.SUBMITTED = 0;
                             }
 
                             if($scope.monthlyCount.FAILED == undefined){
                                 $scope.monthlyCount.FAILED = 0;
                             }
 
-                            $scope.monthlyCount.TOTAL = $scope.monthlyCount.DELIVERED + $scope.monthlyCount.SUBMITED + $scope.monthlyCount.FAILED;
+                            $scope.monthlyCount.TOTAL = $scope.monthlyCount.DELIVERED + $scope.monthlyCount.SUBMITTED + $scope.monthlyCount.FAILED;
                         }
 
                         // console.log('dailyCount: ',$scope.dailyCount);
@@ -168,7 +168,7 @@ angular
                         data: {
                             columns: [
                                 ['Delivered', 0],
-                                ['Submited', 0]
+                                ['Submitted', 0]
                             ],
                             type : 'donut',
                             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -190,12 +190,12 @@ angular
                             setTimeout(function () {
                                 var del_percent = (parseInt($scope.dailyCount.DELIVERED) / parseInt($scope.dailyCount.TOTAL)) * 100;
                                 var fail_percent = (parseInt($scope.dailyCount.FAILED) / parseInt($scope.dailyCount.TOTAL)) * 100;
-                                var sub_percent = (parseInt($scope.dailyCount.SUBMITED) / parseInt($scope.dailyCount.TOTAL)) * 100;
+                                var sub_percent = (parseInt($scope.dailyCount.SUBMITTED) / parseInt($scope.dailyCount.TOTAL)) * 100;
                                 c3chart_donut.load({
                                     columns: [
                                         ["DELIVERED", del_percent],
                                         ["FAILED", fail_percent],
-                                        ["SUBMITED", sub_percent],
+                                        ["SUBMITTED", sub_percent],
                                     ]
                                 });
                             }, 1500);
@@ -205,7 +205,7 @@ angular
                                     ids: 'Delivered'
                                 });
                                 c3chart_donut.unload({
-                                    ids: 'Submited'
+                                    ids: 'Submitted'
                                 });
                             }, 1000);
                             this.destroy();
@@ -231,7 +231,7 @@ angular
                         data: {
                             columns: [
                                 ['Delivered', 0],
-                                ['Submited', 0]
+                                ['Submitted', 0]
                             ],
                             type : 'donut',
                             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -253,12 +253,12 @@ angular
                             setTimeout(function () {
                                 var del_percent = (parseInt($scope.weeklyCount.DELIVERED) / parseInt($scope.weeklyCount.TOTAL)) * 100;
                                 var fail_percent = (parseInt($scope.weeklyCount.FAILED) / parseInt($scope.weeklyCount.TOTAL)) * 100;
-                                var sub_percent = (parseInt($scope.weeklyCount.SUBMITED) / parseInt($scope.weeklyCount.TOTAL)) * 100;
+                                var sub_percent = (parseInt($scope.weeklyCount.SUBMITTED) / parseInt($scope.weeklyCount.TOTAL)) * 100;
                                 c3chart_donut2.load({
                                     columns: [
                                         ["DELIVERED", del_percent],
                                         ["FAILED", fail_percent],
-                                        ["SUBMITED", sub_percent],
+                                        ["SUBMITTED", sub_percent],
                                     ]
                                 });
                             }, 1500);
@@ -268,7 +268,7 @@ angular
                                     ids: 'Delivered'
                                 });
                                 c3chart_donut2.unload({
-                                    ids: 'Submited'
+                                    ids: 'Submitted'
                                 });
                             }, 1000);
                             this.destroy();
@@ -294,7 +294,7 @@ angular
                         data: {
                             columns: [
                                 ['Delivered', 0],
-                                ['Submited', 0]
+                                ['Submitted', 0]
                             ],
                             type : 'donut',
                             onclick: function (d, i) { console.log("onclick", d, i); },
@@ -316,7 +316,7 @@ angular
                             setTimeout(function () {
                                 var del_percent = (parseInt($scope.monthlyCount.DELIVERED) / parseInt($scope.monthlyCount.TOTAL)) * 100;
                                 var fail_percent = (parseInt($scope.monthlyCount.FAILED) / parseInt($scope.monthlyCount.TOTAL)) * 100;
-                                var sub_percent = (parseInt($scope.monthlyCount.SUBMITED) / parseInt($scope.monthlyCount.TOTAL)) * 100;
+                                var sub_percent = (parseInt($scope.monthlyCount.SUBMITTED) / parseInt($scope.monthlyCount.TOTAL)) * 100;
                                 console.log('del_percent:',del_percent);
                                 console.log('fail_percent:',fail_percent);
                                 console.log('sub_percent:',sub_percent);
@@ -324,7 +324,7 @@ angular
                                     columns: [
                                         ["DELIVERED", del_percent],
                                         ["FAILED", fail_percent],
-                                        ["SUBMITED", sub_percent],
+                                        ["SUBMITTED", sub_percent],
                                     ]
                                 });
                             }, 1500);
@@ -334,7 +334,7 @@ angular
                                     ids: 'Delivered'
                                 });
                                 c3chart_donut3.unload({
-                                    ids: 'Submited'
+                                    ids: 'Submitted'
                                 });
                             }, 1000);
                             this.destroy();

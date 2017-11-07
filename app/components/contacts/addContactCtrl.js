@@ -9,12 +9,24 @@ angular
         '$cookieStore',
         function ($scope,$rootScope,apiGetData,apiPostData,apiFileUpload,$cookieStore) {
         	
-            $scope.contact = {};
+            $scope.contact = {
+                groupId:"",
+                name:"",
+                designation:"",
+                mobile:"",
+                emailId:""
+            };
 
             $scope.fileName = '';
 
             $scope.clearFields = function(){
-                $scope.contact = {};
+                $scope.contact = {
+                    groupId:"",
+                    name:"",
+                    designation:"",
+                    mobile:"",
+                    emailId:""
+                };
                 $scope.fileName = '';
                 $scope.contactFile = '';
             };
@@ -63,12 +75,15 @@ angular
             $scope.getGroupData();
             
             $scope.group_name_config = {
-                plugins: {
-                    'remove_button': {
-                        label     : ''
-                    }
-                },
+                // plugins: {
+                //     'remove_button': {
+                //         label     : ''
+                //     }
+                // },
                 placeholder: 'Select Group',
+                optgroupField: 'parent_id',
+                optgroupLabelField: 'title',
+                optgroupValueField: 'ogid',
                 maxItems: 1,
                 valueField: 'id',
                 labelField: 'title',
@@ -90,6 +105,14 @@ angular
 
             $scope.addContact = function(contact){
                 var contactData = contact;
+
+                var validatedFlag = validateData(contactData);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
+
                 contactData.userId = $rootScope.u_id;
                 contactData = JSON.stringify(contactData);
 
@@ -116,6 +139,13 @@ angular
                 
                 var file = $scope.contactFile;
                 var uploadContact = "saveMultipleContact";
+
+                var validatedFlag = validateUploadData($scope.contact.groupId,file);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
 
                 var formData = new FormData();
                 formData.append('contactFile', file);
@@ -145,6 +175,111 @@ angular
 
             $scope.reset = function(){
                $scope.clearFields();
+            }
+
+            function validateData(requestData){
+                var data = [
+                    {
+                        title : "Group",
+                        value : requestData.groupId == undefined ? "" : requestData.groupId,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            mobile : false,
+                            email : false
+                        }           
+                    }, 
+                    {
+                        title : "Name",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },                   
+                    {
+                        title : "Designation",
+                        value : requestData.designation == undefined ? "" : requestData.designation,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Mobile",
+                        value : requestData.mobile == undefined ? "" : requestData.mobile,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : true,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Email Id",
+                        value : requestData.emailId == undefined ? "" : requestData.emailId,
+                        validation : {
+                            required : false,
+                            spl_char : false,
+                            mobile : false,
+                            email : true
+                        }           
+                    },
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+            function validateUploadData(groupId,file){
+                var data = [
+                    {
+                        title : "Group",
+                        value : groupId == undefined ? "" : groupId,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "File",
+                        value : file == undefined ? "" : file,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            mobile : false,
+                            email : false
+                        }           
+                    }, 
+                    
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
             }
         }
     ]);

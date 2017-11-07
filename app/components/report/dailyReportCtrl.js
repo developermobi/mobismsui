@@ -33,7 +33,7 @@ angular
 
                 date.setMonth( date.getMonth() + 1 );
 
-                var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+                var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate() < 10 ? "0"+date.getDate() : date.getDate());
 
                 $scope.report_date = defaultDate;
             }

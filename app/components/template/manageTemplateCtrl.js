@@ -9,6 +9,11 @@ angular
         'pagerService',
         '$timeout',
         function ($scope,$rootScope,apiGetData,apiPostData,$cookieStore,pagerService,$timeout) {
+
+            $scope.template = {
+                name: "",
+                description: ""
+            };
             
             $scope.pagination = {};
             $scope.page = 1;
@@ -66,12 +71,11 @@ angular
 
             $scope.data_per_page = $scope.no_of_data.options[0].value;
            
-           $scope.clearData = function(){
+            $scope.clearData = function(){
                 $scope.pagination = {};
                 $scope.page = 1;
-            } 
-                                  
-            $scope.template = {};
+            }                                   
+           
             $scope.getData = function(page){   
                 //alert(page);             
                 $scope.page = page;
@@ -173,6 +177,14 @@ angular
                 });
             };
             $scope.updateTemplate = function(template,id){
+
+                var validatedFlag = validateData(template);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
+
                 var templateData = JSON.stringify(template);               
                 var updateTemplate = "updateTemplateById/"+id;
 
@@ -249,5 +261,43 @@ angular
                     angular.element(className).trigger('click');
                 }, 100);
             };
+
+            function validateData(requestData){
+                var data = [
+                    {
+                        title : "Template Name",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Template Description",
+                        value : requestData.description == undefined ? "" : requestData.description,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            mobile : false,
+                            email : false
+                        }           
+                    }, 
+                    
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }
         }
     ]);

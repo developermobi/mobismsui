@@ -1,0 +1,128 @@
+<div id="page_content">
+    <div id="page_content_inner">
+   		<div class="uk-grid" data-uk-grid-margin="">
+            <div class="uk-width-medium-1-2" ng-repeat="smsType in smsTypes">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <a ng-click="select(smsType.id,smsType.title)" ng-class="selectedProductId == smsType.id ? 'activeSmsType' : 'deActiveSmsType'" class="md-btn md-btn-block md-btn-wave-light waves-effect waves-button waves-light" href="javascript:void(0)">{{ smsType.title }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <br> -->
+        <h4 class="heading_b">You have selected {{ selectedProductName }}</h4>
+        <div class="uk-grid" data-uk-grid-margin="">
+            <div class="uk-width-medium-1-2">
+                <div class="md-card" style="height: 100%;">
+                    <div class="md-card-content">
+                        <div class="uk-grid" data-uk-grid-margin>
+                            <div class="uk-width-medium-1 uk-width-large-1">
+                                <div class="parsley-row">
+                                    <label>Sender Id</label>
+                                    <input type="text" config="sender_id_config" options="sender_id_data.options" ng-model="sender_id" name="sender_id" selectize />
+                                </div>                                                        
+                            </div>                 
+                        </div>
+                        <div class="uk-grid" data-uk-grid-margin>
+                            <div ng-show="toShowUnicode != '3'" class="uk-width-medium-1 uk-width-large-1">
+                                <div class="parsley-row">
+                                    <label>SMS Type</label>
+                                    <input type="text" ng-change="changeSMSType()" config="sms_type_config" options="sms_type_data.options" ng-model="sms_type" name="sms_type" selectize />
+                                </div>                                                        
+                            </div>
+                            <div ng-show="toShowUnicode == '3'" class="uk-width-medium-1-2 uk-width-large-1-2">
+                                <div class="parsley-row">
+                                    <label>SMS Type</label>
+                                    <input type="text" ng-change="changeSMSType()" config="sms_type_config" options="sms_type_data.options" ng-model="sms_type" name="sms_type" selectize />                            
+                                </div>                                                        
+                            </div>
+                            <div ng-show="toShowUnicode == '3'" class="uk-width-medium-1-2 uk-width-large-1-2">
+                                <sms-unicode></sms-unicode>                                               
+                            </div>                     
+                        </div>
+                        <div class="uk-grid" data-uk-grid-margin>
+                            <div class="uk-width-medium-1 uk-width-large-1">
+                                <div class="parsley-row">
+                                    <label>Mobile No Column</label>
+                                    <input type="text" config="mobile_column_config" options="mobile_column_data.options" ng-model="mobile_column" name="mobile_column" selectize />                            
+                                </div>                                                                                
+                            </div>
+                        </div>                                                      
+                    </div>
+                </div>
+            </div>
+            
+            <div class="uk-width-medium-1-2">
+                <div class="md-card" style="height: 100%;">
+                    <div class="md-card-content">      
+                        <div class="uk-grid" data-uk-grid-margin>
+                            <div class="uk-width-medium-3-10 uk-width-large-3-10"> 
+                                <div class="parsley-row">
+                                    <h4 class="heading_a uk-margin-bottom">CSV file</h4>
+                                    <div class="uk-form-file md-btn md-btn-primary">
+                                        &nbsp;&nbsp;Select File&nbsp;&nbsp;
+                                        <input id="form-file" required file-model="smsFile" type="file" accept=".csv">
+                                    </div>
+                                    <br>
+                                    {{ fileName }}  
+                                </div> 
+                            </div>
+                            <div class="uk-width-medium-7-10 uk-width-large-7-10 uk-text-right" >
+                                <div class="parsley-row">    
+                                    <ul class="pers-ul">
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="A"><span class="fa fa-a round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="B"><span class="fa fa-b round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="C"><span class="fa fa-c round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="D"><span class="fa fa-d round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="E"><span class="fa fa-e round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="F"><span class="fa fa-f round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="G"><span class="fa fa-g round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="H"><span class="fa fa-h round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="I"><span class="fa fa-i round-fa"></span></a></li>
+                                        <li><a href="javascript:void(0);" class="my_button" data-value="J"><span class="fa fa-j round-fa"></span></a></li>
+                                    </ul>
+                                    <br>
+                                    <label style="color:red;"><b>Insert Fields :</b> Use fields to be replaced under personalized sms.</label>
+                                </div>
+                            </div>
+                        </div>          
+                        <div class="uk-grid" data-uk-grid-margin>                    
+                            <div class="uk-width-medium">
+                                <div class="parsley-row">
+                                    <label>Message</label>
+                                    <textarea  ng-paste="autoDetectLanguage()" class="md-input teaxtarea-scroll" rows="4" id="message" required ng-model="message" md-input></textarea>                       
+                                    <textarea  ng-paste="autoDetectLanguage()" class="md-input teaxtarea-scroll" rows="4" id="unicode_message" required ng-model="message" md-input></textarea>  
+
+                                    <div class="uk-grid" data-uk-grid-margin>
+                                        <div class="uk-text-left uk-width-medium-1-2">
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading">{{ messagesCount }} / {{ remainingCount }} remaining</span>
+                                            </div>
+                                        </div>
+                                        <div class="uk-text-right uk-width-medium-1-2">
+                                            <div class="md-list-content">
+                                                <span class="md-list-heading">{{ totalCount }} Character Count</span>
+                                            </div>
+                                        </div> 
+                                    </div>                            
+
+                                </div>
+                            </div>
+                        </div>                                                      
+                    </div>
+                </div>
+            </div>  
+            <div class="uk-width-medium-1">
+                <div class="md-card">
+                    <div class="md-card-content">
+                        <div class="uk-grid">
+                            <div class="uk-width-large-1 uk-text-center">
+                                <button type="button" ng-click="sendPersonalizedSMS()" class="md-btn md-btn-success" style="width: 120px;">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>

@@ -9,11 +9,22 @@ angular
             
            
             /*alert($rootScope.u_id);*/
-            $scope.template = {};
-           // $scope.senderEdited = {};
-           $scope.saveTemplate = function(template) {   
+            $scope.template = {
+                name: "",
+                description: ""
+            };
+            // $scope.senderEdited = {};
+            $scope.saveTemplate = function(template) {   
                 var addTemplate = "saveTemplate";  
                 var templateData = template;
+
+                var validatedFlag = validateData(templateData);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
+
                 templateData.userId = $rootScope.u_id;
                 
                 templateData = JSON.stringify(templateData);
@@ -24,7 +35,7 @@ angular
                    // console.log(d);
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Template Successfully Added');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Template added successfully');
                         modal.show();
                        // getData();
                         setTimeout(function(){
@@ -85,5 +96,45 @@ angular
                 $scope.remainingCount = 0;
                 $scope.totalCount = 0;
             }
+
+            function validateData(requestData){
+                var data = [
+                    {
+                        title : "Template Name",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Template Description",
+                        value : requestData.description == undefined ? "" : requestData.description,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            mobile : false,
+                            email : false
+                        }           
+                    }, 
+                    
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+
         }
     ]);

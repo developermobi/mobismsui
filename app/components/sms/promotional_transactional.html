@@ -238,7 +238,7 @@
 	                                <div class="uk-input-group">
 	                                    <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
 	                                    <label for="uk_dp_1">Select date</label>
-	                                    <input class="md-input" type="text" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD', minDate:'{{date | date:'yyyy-MM-dd'}}'}" md-input ng-model="schedule_date">
+	                                    <input readonly class="md-input" type="text" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD', minDate:'{{date | date:'yyyy-MM-dd'}}'}" md-input ng-model="schedule_date">
 	                                </div>
 	                            </div>
 	                        </div>
@@ -285,13 +285,18 @@
 
 <script type="text/javascript">
 	$(function(){
+		var now = new Date();
+
+		var hours = now.getHours()+":"+now.getMinutes();
+        //var minutes = date.getMinutes();
+
 		$('.timepicker').timepicker({
-		    timeFormat: 'h:mm p',
+		    timeFormat: 'HH:mm',
 		    interval: 1,
-		    minTime: '00:00am',
-		    maxTime: '11:59pm',
-		    defaultTime: '11:00am',
-		    startTime: '00:00am',
+		    minTime: '24',
+		    maxTime: '23:59',
+		    defaultTime: hours,
+		    startTime: hours,
 		    dynamic: false,
 		    dropdown: true,
 		    scrollbar: true

@@ -54,6 +54,14 @@
   color: #5f8a27 !important;
 }
 
+.wrap_message{
+    white-space:pre-wrap !important;
+    white-space:-moz-pre-wrap !important;
+    white-space:-pre-wrap !important;
+    white-space:-o-pre-wrap !important;
+    word-wrap:break-word !important;
+}
+
 @media only screen and (max-width: 768px) {
     .loaderImage{
            width: 22% !important;

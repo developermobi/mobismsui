@@ -85,7 +85,7 @@ angular
                 date.setMonth( date.getMonth() - 2 );
                 //alert((date.getMonth() ) + '/' + (date.getDate()) + '/' + (date.getFullYear()));
 
-                minDate1 = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+                minDate1 = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate() < 10 ? "0"+date.getDate() : date.getDate());
 
                 console.log("minDate1: ",minDate1);
 
@@ -112,7 +112,7 @@ angular
 
                 date1.setMonth( date1.getMonth() + 1 );
 
-                var defaultDate = (date1.getFullYear()) + '-' + (date1.getMonth()) + '-' + (date1.getDate());
+                var defaultDate = (date1.getFullYear()) + '-' + (date1.getMonth()) + '-' + (date1.getDate() < 10 ? "0"+date1.getDate() : date1.getDate());
                 
                 $scope.start_date = defaultDate;
                 $scope.end_date = defaultDate;
@@ -160,14 +160,28 @@ angular
 
             $scope.reportCount = {
                 DELIVERED : 0,
-                SUBMITED : 0,
+                SUBMITTED : 0,
                 FAILED : 0,
                 TOTAL : 0,
                 jobId : 0
             };
 
+            $scope.setReportCount = function(){
+               $scope.reportCount = {
+                    DELIVERED : 0,
+                    SUBMITTED : 0,
+                    FAILED : 0,
+                    TOTAL : 0,
+                    jobId : 0
+                }; 
+            }
+
+            $scope.setReportCount();
+
             
             $scope.getReportCount = function (id) {
+
+                $scope.setReportCount();
 
                 var url = 'dlrStatusGroupBy/'+$rootScope.u_id+'/'+id;
 
@@ -186,8 +200,8 @@ angular
                                 $scope.reportCount.DELIVERED = 0;
                             }
 
-                            if($scope.reportCount.SUBMITED == undefined){
-                                $scope.reportCount.SUBMITED = 0;
+                            if($scope.reportCount.SUBMITTED == undefined){
+                                $scope.reportCount.SUBMITTED = 0;
                             }
 
                             if($scope.reportCount.FAILED == undefined){

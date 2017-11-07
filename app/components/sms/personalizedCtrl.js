@@ -5,7 +5,7 @@ angular
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
     }])
-    .controller('bulkSmsCtrl', [
+    .controller('personalizedCtrl', [
         '$scope',
         '$rootScope',
         '$http',
@@ -21,71 +21,84 @@ angular
             //console.log("login cookie: ",$rootScope.globals); 
             $scope.date = new Date();
 
-            $scope.schedule_date = {};
-            $scope.schedule_time = {};
-
-            $scope.setTime = function(){
-                var date = new Date();
-
-                date.setMonth( date.getMonth() + 1 );
-
-                var defaultDate = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
-
-                $scope.schedule_date = defaultDate;
-
-                var hours1 = date.getHours()+":"+date.getMinutes();
-
-                $scope.schedule_time = hours1;
-            }
-
-            $scope.setTime();
-
             $scope.fileName = '';
 
-            $scope.pagination = {};
-            $scope.page = 1;
-            //$scope.no_of_data = 5;
-            $scope.sr_no = 0;
+        	$scope.smsTypes = [];
 
-            $scope.no_of_data = {
+            //Sender Id
+            $scope.sender_id_data = {
+                options: [ ]
+            };
+
+            $scope.mobile_column_data = {
                 options: [
                     {
                         id: 1,
-                        title: "5",
-                        value: "5",
+                        title: "A",
+                        value: "A",
                         parent_id: 1
                     },
                     {
                         id: 2,
-                        title: "10",
-                        value: "10",
+                        title: "B",
+                        value: "B",
                         parent_id: 1
                     },
                     {
                         id: 3,
-                        title: "25",
-                        value: "25",
+                        title: "C",
+                        value: "C",
                         parent_id: 1
                     },
                     {
                         id: 4,
-                        title: "50",
-                        value: "50",
+                        title: "D",
+                        value: "D",
                         parent_id: 1
                     },
                     {
                         id: 5,
-                        title: "100",
-                        value: "100",
+                        title: "E",
+                        value: "E",
+                        parent_id: 1
+                    },
+                    {
+                        id: 6,
+                        title: "F",
+                        value: "F",
+                        parent_id: 1
+                    },
+                    {
+                        id: 7,
+                        title: "G",
+                        value: "G",
+                        parent_id: 1
+                    },
+                    {
+                        id: 8,
+                        title: "H",
+                        value: "H",
+                        parent_id: 1
+                    },
+                    {
+                        id: 9,
+                        title: "I",
+                        value: "I",
+                        parent_id: 1
+                    },
+                    {
+                        id: 10,
+                        title: "J",
+                        value: "J",
                         parent_id: 1
                     }
                 ]
             };
 
-            $scope.no_of_data_config = {
+            $scope.mobile_column_config = {
                 create: false,
                 maxItems: 1,
-                placeholder: 'No of data per page',
+                placeholder: 'Select',
                 optgroupField: 'parent_id',
                 optgroupLabelField: 'title',
                 optgroupValueField: 'ogid',
@@ -94,15 +107,6 @@ angular
                 searchField: 'title',
                 hideSelected: false,
                 highlight: true
-            };
-
-            $scope.data_per_page = $scope.no_of_data.options[0].value;
-           
-        	$scope.smsTypes = [];
-
-            //Sender Id
-            $scope.sender_id_data = {
-                options: [ ]
             };
         	
 
@@ -247,12 +251,12 @@ angular
                     //     value: 2,
                     //     parent_id: 1
                     // },
-                    {
-                        id: 3,
-                        title: "UNICODE",
-                        value: 3,
-                        parent_id: 1
-                    }
+                    // {
+                    //     id: 3,
+                    //     title: "UNICODE",
+                    //     value: 3,
+                    //     parent_id: 1
+                    // }
                 ]
             };
 
@@ -270,138 +274,14 @@ angular
                 highlight: true
             };
 
-            //SMS Method
-            $scope.sms_method_data = {
-                options: [
-                    {
-                        id: 1,
-                        title: "Quick SMS",
-                        value: "1",
-                        parent_id: 1
-                    },
-                    {
-                        id: 2,
-                        title: "Group SMS",
-                        value: "2",
-                        parent_id: 1
-                    },
-                    {
-                        id: 3,
-                        title: "Bulk Push Notepad",
-                        value: "3",
-                        parent_id: 1
-                    },
-                    {
-                        id: 4,
-                        title: "Bulk Push CSV",
-                        value: "4",
-                        parent_id: 1
-                    }
-                ]
-            };
-
-
-            $scope.sms_method_config = {
-                create: false,
-                maxItems: 1,
-                placeholder: 'Select SMS Method',
-                optgroupField: 'parent_id',
-                optgroupLabelField: 'title',
-                optgroupValueField: 'ogid',
-                valueField: 'value',
-                labelField: 'title',
-                searchField: 'title',
-                hideSelected: false,
-                highlight: true
-            };
-
-            //Group
-            var groups_data = $scope.user_group_data = [];
-
-            $scope.getGroupData = function(){
-               
-                var getGroupName = "getActiveGroupByUserId/"+$rootScope.u_id;
-                $scope.groupNameData = {};
-
-                apiGetData.async(getGroupName).then(function(d) {
-                    $scope.responseData = d;
-                    $scope.data = $scope.responseData.data;
-
-                    if($scope.data.code == 302){
-                        $scope.userGroupData = $scope.data.data;
-                        
-                        //console.log("userGroupData",$scope.userGroupData);
-
-                        var response_group = $scope.userGroupData;                         
-
-                        var increment = 1;
-                        $.each(response_group,function(i){
-
-                            //console.log(response_group[i]['name']);
-
-                            var array_group = Array();
-                            array_group['title'] = response_group[i]['name'];
-                            array_group['id'] = response_group[i]['groupId'];
-
-                            //console.log("array_group",Object.assign({}, array_group));
-
-                            $scope.user_group_data[i]= Object.assign({}, array_group);
-
-                        });
-
-                        console.log("user_group_data",$scope.user_group_data);                        
-                    }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
-                    }
-                });              
-            }  
-
-            $scope.select_group_config = {
-                plugins: {
-                    'remove_button': {
-                        label     : ''
-                    }
-                },
-                maxItems: null,
-                valueField: 'id',
-                labelField: 'title',
-                searchField: 'title',
-                create: false,
-                render: {
-                    option: function(groups_data, escape) {
-                        return  '<div class="option">' +
-                            '<span class="title">' + escape(groups_data.title) + '</span>' +
-                            '</div>';
-                    }
-                }
-            };
-
-      
+        
             $scope.sms_type = $scope.sms_type_data.options[0].value;
-            $scope.sms_method = $scope.sms_method_data.options[0].value;            
+            $scope.sms_method = 4;            
             $scope.mobile_count = 0;
 
             $scope.toShow = 1;            
             $scope.mobCount = false;
-            
-            $scope.changeMethod = function() {
-                $scope.fileName = '';
-                $scope.toShow = $scope.sms_method;  
-                if($scope.sms_method != 1){
-                    $scope.mobCount = true;
-                }else{
-                    $scope.mobCount = false;
-                }   
-
-                if ($scope.sms_method == 2) {
-
-                    $scope.getGroupData();                   
-                    
-                } 
-
-            };
-            
+                        
             $scope.sms_duplicate = false;
             $scope.mobileCount = function(){                
                 $scope.mobile_count = 0;
@@ -634,98 +514,18 @@ angular
                 $scope.groupId = '';
                 $scope.sms_mobile = '';
                 $scope.mobile_count = 0;
+                $scope.mobile_column = '';
             }
 
-            $scope.getTemplateData = function(page){   
-                //alert(page);             
-                $scope.page = page;
-
-                $scope.start = pagerService.setPage($scope.page,$scope.data_per_page);
-                
-                var getSender = "getAllTemplate/"+$rootScope.u_id+"/"+$scope.start+"/"+$scope.data_per_page; 
-
-                //console.log(getSender);               
-
-                apiGetData.async(getSender).then(function(d) {
-                    $scope.responseData = d;
-                    /*alert("hello data");
-                    console.log('d data',d);*/
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 302){
-                        $scope.userTemplateData = $scope.data.data.template_data;
-                        //console.log($scope.data.data);
-                        $scope.pagination = pagerService.GetPager($scope.data.data.total,$scope.page,$scope.data_per_page);
-                        //console.log($scope.pagination);
-
-                        
-                    }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
-                    }
-                });
-            }
-
-            
-            $scope.getTemplateDetails = function(id){ 
-                //$scope.clearFields(); 
-                $scope.message = '';
-                $scope.part1Count = 160
-                var getTemplateData = "getTemplateById/"+id;
-                $scope.templateData = {};
-                apiGetData.async(getTemplateData).then(function(d) {                    
-                    $scope.responseData = d;
-                    $scope.data = $scope.responseData.data;
-                    if($scope.data.code == 302){
-                        $scope.templateData = $scope.data.data;
-                        $scope.message =  $scope.templateData[0].description;
-
-                        $scope.part1Count = 160;
-                        $scope.part2Count = 146;
-                        $scope.part3Count = 153;
-                        var chars = $scope.message.length;
-
-                        if (chars <= $scope.part1Count) {
-                            $scope.messagesCount = 1;
-                            $scope.remainingCount = $scope.part1Count - chars;
-                        } else if (chars <= ($scope.part1Count + $scope.part2Count)) { 
-                            $scope.messagesCount = 2;
-                            $scope.remainingCount = $scope.part1Count + $scope.part2Count - chars;
-                        } else if (chars > ($scope.part1Count + $scope.part2Count)) { 
-                            moreM = Math.ceil((chars - $scope.part1Count - $scope.part2Count) / $scope.part3Count) ;
-                            $scope.remainingCount = $scope.part1Count + $scope.part2Count + (moreM * $scope.part3Count) - chars;
-                            $scope.messagesCount = 2 + moreM;
-
-                            if($scope.messagesCount > 10)
-                            {
-                                var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Counts of message not more than 10.');
-                                modal.show();
-                                setTimeout(function(){
-                                    modal.hide();
-                                },3000);
-
-                                //alert("Counts of message not more than 10.");
-                                return false;                        
-                            }
-                        }
-                        $scope.totalCount = chars;
-
-                        //$("#view_template").hide();
-
-                        //console.log($scope.templateData);                        
-                    }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
-                    }
-                });
-            };
-
-             $scope.sendSMS = function(fd){   
+            $scope.sendSMS = function(fd){   
                 
                 fd.append('userId', $rootScope.u_id);
+                //fd.append('message', $scope.message);
                 fd.append('sender', $scope.sender_id);
                 fd.append('jobType', $scope.sms_method);
                 fd.append('messageType', $scope.sms_type);
                 fd.append('productId', $scope.selectedProductId);
+                fd.append('mobileIndex',$scope.mobile_column)
 
                 if($scope.sms_type == 3){
                     var msg = encodeURIComponent($scope.message);
@@ -757,53 +557,13 @@ angular
                 }
                 
             }
-
-            $scope.sendQuickSMS = function(fd){
-                
-                var returnArray = {};
-                for (var pair of fd.entries()) {
-                    console.log("sendQuickSMS: ",pair[0]+ ', ' + pair[1]); 
-                    returnArray[pair[0]] = pair[1];
-                }
-
-                //return false;
-
-                var json_data = JSON.stringify(returnArray);
-
-                //console.log("json_data: ",json_data);
-                //return false;
-
-                var sendSMS = "sendQuickMessage";               
-
-                apiPostData.async(sendSMS,json_data).then(function(d) {
-                    $scope.responseData = d;
-                    /*alert("hello data");
-                    console.log('d data',d);*/
-                    $scope.data = $scope.responseData.data;
-                    
-                    if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
-                        modal.show();  
-                        $scope.clearFields();                      
-                       // getData();
-                        setTimeout(function(){
-                            modal.hide();
-                            //window.location.href="/mobismsui/#/template/manage";
-                        },3000);
-
-                    }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
-                    }
-                });
-            }
-
+           
             $scope.sendFileSMS = function(fd){
                 // for (var pair of fd.entries()) {
                 //     console.log("sendFileSMS: ",pair[0]+ ', ' + pair[1]); 
                 // }
                 //return false;
-                var sendSMS = "saveUserJobs";               
+                var sendSMS = "savePersonalizedSms";               
 
                 apiFileUpload.async(sendSMS,fd).then(function(d) {
                     $scope.responseData = d;
@@ -828,84 +588,13 @@ angular
                 });
             }
 
-            $scope.sendGroupSMS = function(fd){
-                var returnArray = {};
-                for (var pair of fd.entries()) {
-                    returnArray[pair[0]] = pair[1];
-                }
-
-                var json_data = JSON.stringify(returnArray);
-
-                //console.log("json_data: ",json_data);
-                
-                //return false;
-                var sendSMS = "saveUserGroupJobs";               
-
-                apiPostData.async(sendSMS,json_data).then(function(d) {
-                    $scope.responseData = d;
-                    /*alert("hello data");
-                    console.log('d data',d);*/
-                    $scope.data = $scope.responseData.data;
-                    
-                    if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
-                        modal.show();  
-                        $scope.clearFields();                      
-                       // getData();
-                        setTimeout(function(){
-                            modal.hide();
-                            //window.location.href="/mobismsui/#/template/manage";
-                        },3000);
-
-                    }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
-                    }
-                });
-            }
-
-            $scope.sendNonScheduledSMS = function(){
+            $scope.sendPersonalizedSMS = function(){
                 var fd = new FormData();
                 fd.append('scheduledAt', '2017-08-12 00:00:00');
                 fd.append('scheduleStatus', 0);
                 $scope.sendSMS(fd);
             };
-
-            $scope.sendScheduledSMS = function(){
-                var fd = new FormData();
-
-                var t = $(".timepicker").val();
-                $scope.schedule_time = t;
-
-                //alert($scope.schedule_date);
-
-                var flag = validateTime($scope.schedule_time,$scope.schedule_date);
-
-                if(flag == 0){
-                    var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Please select time 20 Minutes greater than current time.');
-                    modal.show();
-                    return false;
-                }else if(flag == 2){
-                    var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Scheduling not allowed on previous date.');
-                    modal.show();
-                    return false;
-                }else{
-                    // alert(flag);
-                    // return false;
-                    //$('.uk-modal-close').trigger('click');
-                    $scope.triggerClick('.uk-modal-close');
-                    //return false;
-                }
-
-                var momentObj = moment($scope.schedule_time, ["h:mm A"]);
-                // alert(t);
-                // return false;
-                fd.append('scheduledAt', $scope.schedule_date +" "+ momentObj.format("HH:mm:ss"));
-                fd.append('scheduleStatus', 1);
-
-                $scope.sendSMS(fd);
-            };
-
+          
 
             function objectifyForm(formArray) {//serialize data function
 
@@ -946,35 +635,19 @@ angular
 
             }
 
-            $scope.$watch(function() {
-                return $scope.sms_duplicate;
-            }, function(n, o) {
-                if(n != o){
-                    $scope.mobileCount();
-                }     
-            }, true)
-
-            var placeholderContent = 'Example-\n91XXXXXXXXXX\n91XXXXXXXXXX\n91<10 Digit Number>';
-
-            $scope.sms_mobile = placeholderContent;
-
-            $scope.placeholderOnFocusContent = function(){
-                if($scope.sms_mobile === placeholderContent){
-                    $scope.sms_mobile = '';
-                }
-            }
-
-            $scope.placeholderOnBlurContent = function(){
-                if($scope.sms_mobile ==='' || $scope.sms_mobile ===undefined){
-                    $scope.sms_mobile = placeholderContent;
-                }
-            }
-
             $scope.triggerClick = function (className) {
                 $timeout(function() {
                     angular.element(className).trigger('click');
                 }, 100);
             };
+
+            $('.my_button').click(function() {    
+
+                var data =" #"+$(this).attr("data-value")+"#";    
+
+                $scope.message =  $scope.message + data;    
+
+            });
 
         }
 

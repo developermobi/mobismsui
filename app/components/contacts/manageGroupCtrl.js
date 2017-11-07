@@ -12,6 +12,18 @@ angular
            
             $scope.pagination = {};
             $scope.page = 1;
+
+            $scope.group = {
+                name:"",
+                groupDescription:""
+            };
+
+            $scope.contact = {
+                name:"",
+                designation:"",
+                mobile:"",
+                emailId:""
+            };
             
             $scope.no_of_data = {
                 options: [
@@ -123,6 +135,12 @@ angular
             };
 
             $scope.updateGroup = function(group,id){
+                var validatedFlag = validateData(group);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
                 var groupData = JSON.stringify(group);
                
                 var updateGroup = "updateGroupById/"+id;
@@ -199,6 +217,14 @@ angular
             $scope.addGroupContact = function(contact,id){
                 
                 var contactData = contact;
+
+                var validatedFlag = validateAddContactData(contactData);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
+
                 contactData.groupId = id;
                 contactData.userId = $rootScope.u_id;
                 contactData = JSON.stringify(contactData);
@@ -236,5 +262,89 @@ angular
                     angular.element(className).trigger('click');
                 }, 100);
             };
+
+            function validateData(requestData){
+                var data = [
+                    {
+                        title : "Group",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },                     
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+            function validateAddContactData(requestData){
+                var data = [                     
+                    {
+                        title : "Name",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                    {
+                        title : "Mobile",
+                        value : requestData.mobile == undefined ? "" : requestData.mobile,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : true,
+                            email : false
+                        }           
+                    },                   
+                    {
+                        title : "Email Id",
+                        value : requestData.emailId == undefined ? "" : requestData.emailId,
+                        validation : {
+                            required : false,
+                            spl_char : false,
+                            mobile : false,
+                            email : true
+                        }           
+                    },
+                    {
+                        title : "Designation",
+                        value : requestData.designation == undefined ? "" : requestData.designation,
+                        validation : {
+                            required : false,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }
         }
     ]);

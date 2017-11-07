@@ -130,20 +130,21 @@ altairApp
                 })
                 .state("restricted.personalised", {
                     url: "/personalised_sms",
-                    templateUrl: 'app/components/forms/advancedView.html',
-                    controller: 'advancedCtrl',
+                    templateUrl: 'app/components/sms/personalized_sms.html',
+                    controller: 'personalizedCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
                                 'lazy_ionRangeSlider',
                                 'lazy_masked_inputs',
                                 'lazy_character_counter',
-                                'app/components/forms/advancedController.js'
+                                'lazy_parsleyjs',
+                                'app/components/sms/personalizedCtrl.js'
                             ], {serie:true} );
                         }]
                     },
                     data: {
-                        pageTitle: 'Advanced Elements'
+                        pageTitle: 'Personalised SMS'
                     },
                     authorize : true,
                 })

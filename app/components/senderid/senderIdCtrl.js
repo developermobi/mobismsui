@@ -101,20 +101,27 @@ angular
 
             $scope.getData($scope.page);  
 
-            $scope.saveSenderId = function(sender) {   
+            $scope.saveSenderId = function(sender) {  
+                
                 var addSender = "saveSenderId";  
                 var senderData = sender;
+
+                var validatedFlag = validateData(senderData);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }              
+
                 senderData.userId = $rootScope.u_id;
                 senderData.status = 0;
                 senderData = JSON.stringify(senderData);
-
-                //console.log(senderData);
                 
                 apiPostData.async(addSender, senderData).then(function(d) {
                    // console.log(d);
                     $scope.responseData = d.data;
                     if($scope.responseData.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Sender Id successfully added ');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Sender ID added Succesfully.');
                         modal.show();
                         $scope.sender.senderId = '';
                         $scope.getData($scope.page);  
@@ -226,7 +233,34 @@ angular
                 if(n != o){
                     $scope.getData(1);
                 }     
-            }, true)           
+            }, true)    
+
+            function validateData(requestData){
+                var data = [
+                    {
+                        title : "Sender Id",
+                        value : requestData.senderId == undefined ? "" : requestData.senderId,
+                        validation : {
+                            required : true,
+                            spl_char : true,
+                            mobile : false,
+                            email : false
+                        }           
+                    },                    
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }       
 
 
         }

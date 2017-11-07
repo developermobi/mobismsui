@@ -1,5 +1,10 @@
 angular
     .module('altairApp')    
+    .filter('decodeComponents', function() {
+        return function(x) {
+            return decodeURIComponent(x);
+        };
+    })
     .controller('scheduleReportCtrl', [
         '$scope',
         '$rootScope',
@@ -78,7 +83,7 @@ angular
                 date.setMonth( date.getMonth() - 2 );
                 //alert((date.getMonth() ) + '/' + (date.getDate()) + '/' + (date.getFullYear()));
 
-                minDate1 = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate());
+                minDate1 = (date.getFullYear()) + '-' + (date.getMonth()) + '-' + (date.getDate() < 10 ? "0"+date.getDate() : date.getDate());
 
                 console.log("minDate1: ",minDate1);
 
@@ -105,7 +110,7 @@ angular
 
                 date1.setMonth( date1.getMonth() + 1 );
 
-                var defaultDate = (date1.getFullYear()) + '-' + (date1.getMonth()) + '-' + (date1.getDate());
+                var defaultDate = (date1.getFullYear()) + '-' + (date1.getMonth()) + '-' + (date1.getDate() < 10 ? "0"+date1.getDate() : date1.getDate());
                 
                 $scope.start_date = defaultDate;
                 $scope.end_date = defaultDate;
