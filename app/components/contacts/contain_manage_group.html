@@ -10,7 +10,7 @@
                     <th class="uk-width-1-10 uk-text-center">Sr No.</th>
                     <th class="uk-width-2-10 uk-text-center">Group Name</th>
                     <th class="uk-width-2-10 uk-text-center">Description</th>
-                    <th class="uk-width-2-10 uk-text-center">Total Contacts</th>
+                  <!--   <th class="uk-width-2-10 uk-text-center">Total Contacts</th> -->
                     <th class="uk-width-1-10 uk-text-center">Status</th>
                     <!-- <th class="uk-width-1-10 uk-text-center">Created</th> -->
                     <th class="uk-width-2-10 uk-text-center">Actions</th>
@@ -22,7 +22,7 @@
                         <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
                         <td class="uk-text-center">{{ x.name }}</td>
                         <td class="uk-text-center">{{ x.groupDescription }}</td>
-                        <td class="uk-text-center">{{ x.total_contacts }}</td>
+                     <!--    <td class="uk-text-center">{{ x.total_contacts }}</td> -->
                         <td class="uk-text-center">
                             <a ng-if="x.status == 0" ng-click="changeStatus(x.status,x.name,x.groupDescription,x.groupId)" data-uk-tooltip="{pos:'bottom'}" title="Click here to active" class="md-btn md-btn-small md-btn-warning md-btn-wave-light activeButton" href="javascript:void(0)">Deactive</a>
                             <a ng-if="x.status == 1" ng-click="changeStatus(x.status,x.name,x.groupDescription,x.groupId)" data-uk-tooltip="{pos:'bottom'}" title="Click here to deactive" class="md-btn md-btn-small md-btn-success md-btn-wave-light activeButton" href="javascript:void(0)">Active</a>                            
