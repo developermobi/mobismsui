@@ -45,9 +45,11 @@ angular
                 apiGetData.async(url).then(function(d) {
                     $scope.responseData = d.data;
                     console.log('responseData: ',$scope.responseData);
-
+                   
                     if($scope.responseData.code == 302){
+
                         if(isEmpty($scope.responseData.todayCount) == false){
+
                             $scope.dailyCount.DELIVERED = $scope.responseData.todayCount.DELIVERED;
                             $scope.dailyCount.SUBMITTED = $scope.responseData.todayCount.SUBMITTED;
                             $scope.dailyCount.FAILED = $scope.responseData.todayCount.FAILED;
@@ -65,6 +67,7 @@ angular
                             }
 
                             $scope.dailyCount.TOTAL = $scope.dailyCount.DELIVERED + $scope.dailyCount.SUBMITTED + $scope.dailyCount.FAILED;
+
                         }
 
                         if(isEmpty($scope.responseData.weaklyCount) == false){

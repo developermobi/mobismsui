@@ -104,12 +104,10 @@ angular
             $scope.sender_id_data = {
                 options: [ ]
             };
-        	
 
             $scope.selectedProductId = {};
             $scope.selectedProductName = {};
         	//$scope.smsTypeTitle
-
         	$scope.select= function(id,title) {
 				$scope.selectedProductId = id;
                 $scope.selectedProductName = title; 
@@ -782,7 +780,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();  
                         $scope.clearFields();                      
                        // getData();
@@ -812,7 +810,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();  
                         $scope.clearFields();                      
                        // getData();
@@ -849,7 +847,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS sent successfully.');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
                         modal.show();  
                         $scope.clearFields();                      
                        // getData();
