@@ -49,12 +49,13 @@ angular
                     $scope.data = d.data;
                     console.log("updateUserDetails: ",$scope.data);
                     if($scope.data.code == 200){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>User Data Updated Successfully');
                         modal.show();
                         $scope.getUserData();
+
                         setTimeout(function(){
                             modal.hide();
-                            
+                            history.back();                            
                         },3000);
                     }else{
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);

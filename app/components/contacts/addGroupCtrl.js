@@ -39,12 +39,24 @@ angular
             };
 
             $scope.group = {};
-
+            $scope.clearGroupFields = function(){
+                $scope.group = {
+                    name:"",
+                    status:"",
+                    groupDescription:"",
+                };
+            };
             $scope.saveGroup = function(group) {                
                 var groupData = group;
+                var validatedFlag = validateData(groupData);  
+
+                if(!validatedFlag){
+                    //console.log("validatedFlag: ",validatedFlag);
+                    return false;
+                }
                 groupData.userId = $rootScope.u_id;
                 groupData = JSON.stringify(groupData);
-
+                 
                 console.log(groupData);
 
                 var addGroup = "saveGroupDetails";
@@ -65,10 +77,53 @@ angular
                     }
                 });              
             }; 
-
             $scope.reset = function(){
-                $scope.group = {};
+               $scope.clearGroupFields();
             }
+
         }
 
     ]);
+
+    function validateData(requestData){
+                var data = [
+                    {
+                        title : "Name",
+                        value : requestData.name == undefined ? "" : requestData.name,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                        }
+                    }, 
+                    {
+                        title : "Status",
+                        value : requestData.status == undefined ? "" : requestData.status,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                        }           
+                    },                   
+                    {
+                        title : "GroupDescription",
+                        value : requestData.groupDescription == undefined ? "" : requestData.groupDescription,
+                        validation : {
+                            required : true,
+                            spl_char : false,
+                            
+                        }           
+                    },
+                    
+                ];
+
+                var validationResponse = customValidation(data);
+
+                console.log("validationResponse",validationResponse);
+
+                if(validationResponse.status == 0){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>'+validationResponse.message);
+                    modal.show();
+                    return false;
+                }else{
+                    return true;
+                }
+            }

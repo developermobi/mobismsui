@@ -719,6 +719,30 @@ angular
 
              $scope.sendSMS = function(fd){   
                 
+                if($scope.sender_id == undefined || $scope.sender_id == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Sender Id Required');
+                    modal.show();
+                    return false;
+                }
+               /* if($scope.sms_method == undefined || $scope.sms_method == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>SMS Method Required ');
+                    modal.show();
+                    return false;
+                }
+                if($scope.jobType == undefined || $scope.jobType == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required SMS Type');
+                    modal.show();
+                    return false;
+                }*/
+                if($scope.message == undefined || $scope.message == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required Message');
+                    modal.show();
+                    return false;
+                }
+
+                
+
+
                 fd.append('userId', $rootScope.u_id);
                 fd.append('sender', $scope.sender_id);
                 fd.append('jobType', $scope.sms_method);
@@ -739,16 +763,41 @@ angular
                     fd.append('duplicateStatus', 1);
                 }             
                
-                if($scope.sms_method == 1 ){                    
+                if($scope.sms_method == 1 ){     
+                    if($scope.sms_mobile == undefined || $scope.sms_mobile == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required Mobile Number');
+                    modal.show();
+                    return false;
+                    }
+                    if($scope.sms_mobile != ""){
+                        var str = $scope.sms_mobile;
+                        var n = str.includes("Example");
+                        if(n > 0)
+                        { 
+                            var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required Mobile Number');
+                            modal.show();
+                            return false;
+                        }
+                    }               
                     fd.append('mobileNumber', $scope.sms_mobile.replace(/\r?\n/g, ','));
                     $scope.sendQuickSMS(fd);  
 
                 }else if($scope.sms_method == 2 ){
+                  
+                    if($scope.groupId == undefined || $scope.groupId == ""){
+                        var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required Group');
+                        modal.show();
+                        return false;
+                    }
                     fd.append('groupId', $scope.groupId);
                     $scope.sendGroupSMS(fd);
 
                 }else if($scope.sms_method == 3 || $scope.sms_method == 4){
-
+                    if($scope.smsFile == undefined || $scope.smsFile == ""){
+                        var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required File');
+                        modal.show();
+                        return false;
+                    }
                     fd.append('file', $scope.smsFile);
                     $scope.sendFileSMS(fd);
 
@@ -771,7 +820,7 @@ angular
                 //console.log("json_data: ",json_data);
                 //return false;
 
-                var sendSMS = "sendQuickMessage";               
+                var sendSMS = "sendQuickMessage";
 
                 apiPostData.async(sendSMS,json_data).then(function(d) {
                     $scope.responseData = d;
@@ -781,8 +830,8 @@ angular
                     
                     if($scope.data.code == 201){
                         var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();  
-                        $scope.clearFields();                      
+                        modal.show();
+                        $scope.clearFields();
                        // getData();
                         setTimeout(function(){
                             modal.hide();

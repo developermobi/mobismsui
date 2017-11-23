@@ -67,25 +67,25 @@
                                         <h3 class="full_width_in_card heading_c">
                                             Product info
                                         </h3> 
-                                        <div class="uk-grid" data-uk-grid-margin>
-                                            <div class="uk-width-medium-1-3">
-                                                <label for="user_edit_uname_control">User Role</label>
-                                                <select class="md-input" ng-model="userData.role" class="uk-form-width-medium" md-input>
-                                                    <option selected="selected">Select Role</option>
-                                                    <option value="1">Reseller</option>
-                                                    <option value="2">User</option>
-                                                </select>
-                                            </div>
-                                            <div class="uk-width-medium-1-3">
-                                                <label for="user_edit_uname_control">Product</label>
-                                                <select class="md-input" ng-model="userData.productId" class="uk-form-width-medium" md-input>
-                                                    <option  ng-repeat="data in prodcutArray" value="{{data['id']}}">{{data['name']}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="uk-width-medium-1-3">
+                                        <div class="uk-grid" data-uk-grid-margin>                                            
+                                            <div class="uk-width-medium-1-2">
                                                 <label for="user_edit_position_control">Credit</label>
                                                 <input class="md-input" type="text" id="user_edit_position_control"  ng-model="userData.creditBalnce" md-input />
                                             </div>
+                                            <div class="uk-width-medium-1-2">
+                                                <label for="user_edit_uname_control">Product</label>
+                                                <select class="md-input" config="addUser_config" ng-model="userData.productId" class="uk-form-width-medium" md-input>
+                                                    <option  ng-repeat="data in prodcutArray" value="{{data['id']}}">{{data['name']}}</option>
+                                                </select>
+                                            </div>
+                                        <div class="uk-width-medium-1-2">
+                                            <div ng-show="toShowUnicode != '3'" class="uk-width-medium-1 uk-width-large-1">
+                                                <div class="parsley-row">
+                                                    <label for="user_edit_uname_control">Role</label>
+                                                    <input type="text"  config="role_config" options="sms_type_data.options" ng-model="userData.role" name="role" selectize />
+                                                </div>    
+                                            </div>
+                                        </div>
                                         </div> 
                                         <h3 class="full_width_in_card heading_c">
                                             Additional info
@@ -116,7 +116,7 @@
                                 <div class="uk-grid">
                                     <div class="uk-width-large-1 uk-text-center">
                                         <button type="button" class="md-btn md-btn-success" ng-click="saveUserDetails(userData)" >Add User</button>
-                                        <button type="button" class="md-btn md-btn-warning" >Reset</button>
+                                        <button type="button" ng-click="reset()" class="md-btn md-btn-warning" >Reset</button>
                                     </div>
                                 </div>
                             </div>

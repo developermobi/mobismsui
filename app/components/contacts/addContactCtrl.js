@@ -187,7 +187,7 @@ angular
                             spl_char : false,
                             mobile : false,
                             email : false
-                        }           
+                        }
                     }, 
                     {
                         title : "Name",

@@ -119,8 +119,8 @@ angular
                         }
                         
                     }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
-                        modal.show();
+                        /*var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.data.message);
+                        modal.show();*/
                     }
                 });
             }
@@ -193,7 +193,7 @@ angular
                         $scope.responseData = d;
                         $scope.data = $scope.responseData.data;
                         if($scope.data.code == 200){
-                            var modal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Data Deleted Successfully');
+                            var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>User Deleted Successfully');
                             modal.show();
                             getResellerData();
                             setTimeout(function(){
@@ -217,7 +217,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     console.log("updateCredit response:",$scope.data);
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Credit added successfully');
                         modal.show();
                         $scope.getUserProduct($scope.userId);
                         setTimeout(function(){
@@ -239,7 +239,7 @@ angular
                     $scope.data = $scope.responseData.data;
                     console.log("updateDebit response:",$scope.data);
                     if($scope.data.code == 201){
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>Data Updated Successfully');
+                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>SMS Debited successfully');
                         modal.show();
                         $scope.getUserProduct($scope.userId);
                         setTimeout(function(){

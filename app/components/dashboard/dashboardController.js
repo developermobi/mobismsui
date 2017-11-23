@@ -117,8 +117,8 @@ angular
                         // console.log('monthlyCount: ',$scope.monthlyCount);
 
                     }else{
-                        var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
-                        modal.show();
+                        /*var modal = UIkit.modal.alert('<div class=\'uk-text-center\'>'+$scope.responseData.message);
+                        modal.show();*/
                     }
 
                     // var balance_url = 'getBalanceByUserId/'+$rootScope.u_id;

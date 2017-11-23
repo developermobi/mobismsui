@@ -518,7 +518,26 @@ angular
             }
 
             $scope.sendSMS = function(fd){   
-                
+                if($scope.sender_id == undefined || $scope.sender_id == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Sender Id Required');
+                    modal.show();
+                    return false;
+                }
+                if($scope.message == undefined || $scope.message == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required Message');
+                    modal.show();
+                    return false;
+                }
+                if($scope.mobile_column == undefined || $scope.mobile_column == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required Mobile Number Column');
+                    modal.show();
+                    return false;
+                }
+                if($scope.smsFile == undefined || $scope.smsFile == ""){
+                    var modal = UIkit.modal.alert('<div class=\'parsley-errors-list\'>Required File');
+                    modal.show();
+                    return false;
+                }
                 fd.append('userId', $rootScope.u_id);
                 //fd.append('message', $scope.message);
                 fd.append('sender', $scope.sender_id);
@@ -578,6 +597,8 @@ angular
                        // getData();
                         setTimeout(function(){
                             modal.hide();
+                          //  history.reload();
+                            history.reload();  
                             //window.location.href="/mobismsui/#/template/manage";
                         },3000);
 
