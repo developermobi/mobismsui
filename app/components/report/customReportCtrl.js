@@ -126,7 +126,7 @@ angular
                 $scope.pagination = {};
                 $scope.page = 1;
             }         
-
+           
             $scope.getData = function(page){
 
                 $scope.page = page;
@@ -140,10 +140,23 @@ angular
                 apiGetData.async(getDailyReport).then(function(d) {
                     $scope.responseData = d;
                     //alert("hello data");
-                    console.log('d data',d);
+                    console.log('d data',d.data);
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
+                        angular.forEach(d.data.data, function(value, key) {
+                            
+                            if(d.data.data[key].messageType == 3){                                
+                                var newString = decodeURIComponent(d.data.data[key].message);
+                                d.data.data[key].message = newString;
+                                console.log("neww message"+d.data.data[key].message);
+                            }
+                             if(d.data.data[key].jobType == 5){
+                                 d.data.data[key].message = "Personalized message will be not show here.";
+                             }
+
+                        });
                         $scope.dailyReportData = $scope.data.data;
+
                         console.log('compaignReportByUserId data',$scope.dailyReportData);
                         
                         $scope.pagination = pagerService.GetPager($scope.data.total,$scope.page,$scope.data_per_page);

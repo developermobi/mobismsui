@@ -597,8 +597,8 @@ angular
                        // getData();
                         setTimeout(function(){
                             modal.hide();
-                          //  history.reload();
-                            history.reload();  
+                        
+                            /*history.reload();  */
                             //window.location.href="/mobismsui/#/template/manage";
                         },3000);
 

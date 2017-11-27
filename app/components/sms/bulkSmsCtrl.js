@@ -390,7 +390,7 @@ angular
                     $scope.mobCount = true;
                 }else{
                     $scope.mobCount = false;
-                }   
+                }
 
                 if ($scope.sms_method == 2) {
 
@@ -597,7 +597,7 @@ angular
                     $scope.messagesCount = 2;
                     $scope.remainingCount = $scope.part1Count + $scope.part2Count - chars;
                 } else if (chars > ($scope.part1Count + $scope.part2Count)) { 
-                    moreM = Math.ceil((chars - upart1Count - $scope.part2Count) / $scope.part3Count) ;
+                    moreM = Math.ceil((chars - $scope.part1Count - $scope.part2Count) / $scope.part3Count) ;
                     $scope.remainingCount = $scope.part1Count + $scope.part2Count + (moreM * $scope.part3Count) - chars;
                     $scope.messagesCount = 2 + moreM;
 
@@ -739,24 +739,18 @@ angular
                     modal.show();
                     return false;
                 }
-
-                
-
-
                 fd.append('userId', $rootScope.u_id);
                 fd.append('sender', $scope.sender_id);
                 fd.append('jobType', $scope.sms_method);
                 fd.append('messageType', $scope.sms_type);
                 fd.append('productId', $scope.selectedProductId);
-
+                fd.append('messageCount', $scope.messagesCount);
                 if($scope.sms_type == 3){
                     var msg = encodeURIComponent($scope.message);
                     fd.append('message', msg);
                 }else{
                     fd.append('message', $scope.message);
                 }
-
-
                 if( $scope.sms_duplicate == false){
                     fd.append('duplicateStatus', 0);
                 }else{

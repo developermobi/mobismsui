@@ -113,6 +113,16 @@ angular
                 apiPostData.async(statusReport,rdata).then(function(d) {
                     $scope.responseData = d.data; 
                     if($scope.responseData.code == 302){
+                        console.log('status',$scope.responseData.data);
+                        angular.forEach(d.data.data, function(value, key) {
+                        if(d.data.data[key].coding == 2){
+                               // alert(d.data.data[key].message);
+                                var newString = decodeURIComponent(d.data.data[key].message);
+
+                                d.data.data[key].message = newString;
+                                console.log("neww message"+d.data.data[key].message);
+                            }
+                        });
                         $scope.statusReportData = $scope.responseData.data;
                         console.log('statusReportData data',$scope.statusReportData);
                         

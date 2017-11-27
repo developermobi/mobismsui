@@ -30,6 +30,7 @@
                                 <th class="uk-width-2-10 uk-text-center">Mobile</th>
                                 <th class="uk-width-2-10 uk-text-center">Sender Id</th>
                                 <th class="uk-width-1-10 uk-text-center">Sent Date/Time</th>
+                                <th class="uk-width-1-10 uk-text-center">Message Credit</th>
                                 <!-- <th class="uk-width-1-10 uk-text-center">Delivered Date/Time</th> -->
                             </tr>
                         </thead>
@@ -40,6 +41,7 @@
                                 <td class="uk-text-center">{{ x.mobile }}</td>
                                 <td class="uk-text-center">{{ x.sender }}</td>
                                 <td class="uk-text-center">{{ x.loggedAt | date : 'dd/MM/yyyy HH:MM:ss' }}</td>
+                                 <td class="uk-text-center">{{ x.count }}</td>
                                 <!-- <td class="uk-text-center">{{ x.dlrTime != null ? x.dlrTime : '' }}</td>       -->                      
                             </tr>                             
                         </tbody>

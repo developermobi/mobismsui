@@ -68,7 +68,7 @@
                         <tbody>
                             <tr ng-repeat="x in dailyReportData">
                                 <td class="uk-text-center">{{ data_per_page *(pagination.currentPage - 1)+$index+1 }}</td>
-                                <td class="uk-text-center">{{ x.message | decodeURIComponent }}</td>
+                                <td class="uk-text-center">{{ x.message | decodeComponents}}</td>
 
                                 <td class="uk-text-center">{{ x.mobile }}</td>
                                 <td class="uk-text-center">{{ x.sender }}</td>

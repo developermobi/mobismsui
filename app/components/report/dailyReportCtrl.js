@@ -110,6 +110,15 @@ angular
                     $scope.responseData = d;
                     //alert("hello data");
                     console.log('d data',d);
+                    angular.forEach(d.data.data, function(value, key) {
+
+                            if(d.data.data[key].coding == 2){
+                                var newString = decodeURIComponent(d.data.data[key].message);
+                                d.data.data[key].message = newString;
+                                console.log("neww message"+d.data.data[key].message);
+                            }
+                        });
+
                     $scope.data = $scope.responseData.data;
                     if($scope.data.code == 302){
                         $scope.dailyReportData = $scope.data.data;
