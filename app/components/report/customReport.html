@@ -72,8 +72,8 @@
                                 <th class="uk-text-center">Sender Id</th>
                                 <th class="uk-text-center">Method</th>
                                 <th class="uk-text-center">Status</th>
-                                <!-- <th class="uk-text-center">Queued Date/Time</th>
-                                <th class="uk-text-center">Completed Date/Time</th> -->
+                                <th class="uk-text-center">Queued Date/Time</th>
+                               <!--  <th class="uk-text-center">Completed Date/Time</th> -->
                                 <th class="uk-text-center">Action</th>
                             </tr>
                         </thead>
@@ -87,8 +87,8 @@
 
                                 <td class="uk-text-center">{{ x.jobType == 1 ? 'Quick' : x.jobType == 2 ? 'Group' : x.jobType == 3 ? 'Notepad' : 'CSV' }} {{ x.scheduleStatus == 1 ? ' - Scheduled' : '' }}</td>
                                 <td class="uk-text-center">{{ x.jobStatus == 0 ? 'Queued' : x.jobStatus == 1 ? 'Processed' : 'Completed' }}</td>
-                               <!--  <td class="uk-text-center">{{ x.queuedAt }}</td>
-                                <td class="uk-text-center">{{ x.completedAt }}</td> -->
+                                <td class="uk-text-center">{{ x.queuedAt }}</td>
+                                <!-- <td class="uk-text-center">{{ x.completedAt }}</td> -->
                                 <td class="uk-text-center"><a ng-class="{disabled: x.jobStatus != 2}" class="md-btn md-btn-primary md-btn-small" data-uk-modal="{target:'#detail_report'}" href="javascript:void(0)" ng-click="getReportCount(x.id)">Summary</a><a ng-class="{disabled: x.jobStatus != 2}" class="md-btn md-btn-small" href="javascript:void(0)" ng-click="download(x.id,0)">Export</a></td>               
                             </tr>    
                         </tbody>
